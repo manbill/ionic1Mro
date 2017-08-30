@@ -1,0 +1,12 @@
+<ion-view hide-nav-bar="true">
+  <ion-content>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" ng-repeat="image in imgList">
+          <img ng-src="{{image.filePath.indexOf('file://')>=0?image.filePath:'img/uploadimg.png'}}" alt="{{image.filePath}}">
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </ion-content>
+</ion-view>

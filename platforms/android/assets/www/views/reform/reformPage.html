@@ -1,0 +1,215 @@
+
+<ion-view title="技术改造">
+  <ion-nav-buttons side="right">
+    <div class="query" ng-click="filterData();">
+      <i class="ion-funnel" ></i>筛选
+    </div>
+  </ion-nav-buttons>
+  <!--<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">-->
+    <!--<div class="tabs">-->
+      <!--<a class="tab-item" ng-class="{true:'active'}[selectStatus==0]"  ng-if="auth['auth_47']" ng-click="selectTitleTab(0)" href="#">-->
+        <!--<span class="tabs-text">分派任务</span>-->
+      <!--</a>-->
+      <!--<a class="tab-item" ng-if="auth['auth_46']" class="tab-item" ng-click="selectTitleTab(1)"  href="#">-->
+       <!--<span class="tabs-text">技改任务</span>-->
+      <!--</a>-->
+    <!--</div>-->
+  <!--</div>-->
+
+
+  <div class="tabs tabs-top bar-subheader tabs-color-light eamblue-bg">
+    <a class="tab-item" ng-if="auth['auth_47']" ng-click="selectTitleTab(0)">
+      <span class="tabs-text" ng-class="{true:'active',false:''}[selectStatus==0]">分派任务</span>
+    </a>
+    <a ng-if="auth['auth_46']" class="tab-item" ng-click="selectTitleTab(1)">
+      <span class="tabs-text" ng-class="{true:'active',false:''}[selectStatus==1]">技改任务</span>
+    </a>
+  </div>
+  <ion-content class="has-tabs has-tabs-top" ng-switch on="selectStatus" overflow-scroll="false">
+    <!--<ion-refresher pulling-text="下拉刷新" on-refresh="refreshData()"></ion-refresher>-->
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()">
+    </ion-refresher>
+    <ion-list ng-if='selectStatus==0' class="data-list">
+      <div ng-if="isManage&&auth['auth_47']" class="item item-icon-right " ng-repeat="assignTask in assignTaskList"> <!--<p>{{assignTask|json}}</p>-->
+        <div class="icon-father">
+        <div class="orderItem">
+          <div class="orderTitle">
+            <div class="row">
+              <div class="col col-70">
+               {{assignTask.notiseNo}}
+              </div>
+              <div class="col col-20">
+                <span class="flagDW">{{assignTask.statusName}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="orderElement">
+            <div class="row">
+              <div class="col">
+                <span class="label-name">计划时间:</span>
+                <span class="label-value">{{assignTask.planStartTime|Infydate}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="orderElement" ng-if="assignTask.assignStatus != 136">
+            <div class="row">
+              <div class="col">
+                <span class="label-name">机位号:</span>
+                <span class="label-value">{{assignTask.assignDevieNo}}#</span>
+              </div>
+              <div class="col">
+                <span class="label-name">负责人:</span>
+                <span class="label-value">{{assignTask.assignOwner}}</span>
+              </div>
+            </div>
+          </div>
+        <i class="icon ion-ios-arrow-right" ng-if="assignTask.assignStatus == 136 && auth['auth_470101']" ng-click="taskAssign(assignTask)"></i>
+        <i class="icon ion-ios-arrow-right" ng-if="assignTask.assignStatus == 137 && auth['auth_470102']" ng-click="taskAssign(assignTask)"></i>
+        </div>
+        </div>
+
+
+
+        <!--<div class="row">-->
+          <!--<div class="title col-90" style="float:left"> 编号：{{assignTask.notiseNo}}</div>-->
+          <!--<div class="col-10" ng-if="auth['auth_470101']&&!auth['auth_470102']&&assignTask.assignStatus == 136 " style="float:right;position: relative;z-index: 100"-->
+               <!--ng-click="taskAssign(assignTask)">-->
+            <!--<a class="button-eambule-small" >{{assignTask.assignStatus|formatOperateAssignStatus}}</a>-->
+          <!--</div>-->
+          <!--<div class="col-10" ng-if="auth['auth_470102']&&!auth['auth_470101']&&assignTask.assignStatus == 137 " style="float:right;position: relative;z-index: 100"-->
+               <!--ng-click="taskAssign(assignTask)">-->
+            <!--<a class="button-eambule-small" >{{assignTask.assignStatus|formatOperateAssignStatus}}</a>-->
+          <!--</div>-->
+          <!--<div class="col-10" ng-if="auth['auth_470102']&&auth['auth_470101']&&(assignTask.assignStatus == 137||assignTask.assignStatus == 136)" style="float:right;position: relative;z-index: 100"-->
+               <!--ng-click="taskAssign(assignTask)">-->
+            <!--<a class="button-eambule-small" >{{assignTask.assignStatus|formatOperateAssignStatus}}</a>-->
+          <!--</div>-->
+        <!--</div>-->
+
+
+        <!--<div style="clear:both">-->
+          <!--<span class="name">项目：<span class="content">{{assignTask.projectName}}</span></span>-->
+          <!--&lt;!&ndash;<span class="divide">|</span>&ndash;&gt;-->
+        <!--</div>-->
+        <!--<div>-->
+          <!--<span class="name">通知单编号：<span class="content">{{assignTask.transNoticeNo}}</span></span>-->
+        <!--</div>-->
+        <!--<div>-->
+          <!--<span class="name">计划开始时间：<span class="content">{{assignTask.planStartTime|Infydate}}</span></span>-->
+        <!--</div>-->
+        <!--<div ng-if="assignTask.assignStatus != 136">-->
+          <!--<span class="name">分派时间：<span class="content">{{assignTask.assignTime}}</span></span>-->
+        <!--</div>-->
+        <!--<div ng-if="assignTask.assignStatus != 136">-->
+          <!--<span class="name">分派人：<span class="content">{{assignTask.assignOwner}}</span></span>-->
+          <!--<span class="divide"></span>-->
+          <!--<span class="name">机位号：<span class="content">{{assignTask.assignDevieNo}}#</span></span>-->
+        <!--</div>-->
+        <!--<div>-->
+          <!--<span ng-if="false" class="name">任务号：<span class="content">{{assignTask.assignStatus}}</span></span>-->
+        <!--</div>-->
+        <!--<span class="flag">{{assignTask.statusName}}</span>-->
+      </div>
+    </ion-list>
+    <ion-list class="data-list" ng-if="selectStatus==1" ng-if="auth['auth_46']" >
+      <div class="item item-icon-right " ng-repeat="reformTask in reformTaskList">
+        <div class="icon-father">
+        <div class="orderItem " >
+          <div class="orderTitle">
+            <div class="row">
+              <div class="title col-70">
+                {{reformTask.workorderCode}}<span ng-if="reformTask.uploadStatus==2" style="color: red;font-size: 14px">(同步失败)</span>
+              </div>
+              <div class="col-20">
+                <span class="flagDW">{{reformTask.workorderStatusName}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="orderElement">
+            <div class="row">
+              <div class="col">
+                <span class="label-name">机位号:</span>
+                <span class="label-value">{{reformTask.positionCode}}#</span>
+              </div>
+              <div class="col">
+                <span class="label-name">负责人:</span>
+                <span class="label-value">{{reformTask.assignPersonName}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="orderElement">
+            <div class="row">
+              <div class="col">
+                <span class="label-name">开始时间:</span>
+                <span class="label-value">{{reformTask.planBegindate|Infydate}}</span>
+              </div>
+              <div class="col">
+                <span class="label-name">通知单号:</span>
+                <span class="label-value">{{reformTask.transNoticeNo}}</span>
+              </div>
+            </div>
+          </div>
+        <!--<p> {{auth['auth_460101']}} &#45;&#45; {{reformTask.workorderStatus}} &#45;&#45; {{currentUserId}} &#45;&#45; {{reformTask.assignPerson}}</p>-->
+        </div>
+        <!-- 有权限接受任务 && 状态为未接收  &&  当前登录用户就是任务单负责人 -->
+        <i class="icon ion-ios-arrow-right" ng-if="auth['auth_460101'] && reformTask.workorderStatus == 139 && (currentUserId == reformTask.assignPerson)"
+           ng-click="processTask(reformTask)"></i>
+
+        <!-- 有权限接受任务 && 状态为已接受  &&  当前登录用户就是任务单负责人 -->
+        <i class="icon ion-ios-arrow-right" ng-if="auth['auth_460102'] && reformTask.workorderStatus == 140 && (currentUserId == reformTask.assignPerson)"
+         ng-click="processTask(reformTask)"></i>
+
+        <!-- 有状态不是 未接收 和 已接受   -->
+        <i class="icon ion-ios-arrow-right" ng-if="!(reformTask.workorderStatus == 139 || reformTask.workorderStatus == 140)"
+           ng-click="goReformTaskDetail(reformTask)"></i>
+
+        </div>
+
+
+
+
+        <!--<div  ng-click="goReformTaskDetail(reformTask)">-->
+          <!--<div class="row">-->
+            <!--<div class="title col-90" style="float:left" > 编号：{{reformTask.workorderCode}}</div>-->
+            <!--<div class="col-10" ng-if="(currentUserId == reformTask.assignPerson) && ( reformTask.workorderStatus == 139&&auth['auth_460101']&&!auth['auth_460102'])" style="float:right;position: relative;z-index: 100">-->
+              <!--<a class="button-eambule-small" ng-click="processTask(reformTask)">-->
+                <!--{{reformTask.workorderStatus|formatOperateTaskStatus}}-->
+              <!--</a>-->
+            <!--</div>-->
+            <!--<div class="col-10" ng-if="(currentUserId == reformTask.assignPerson) && (reformTask.workorderStatus == 140&&auth['auth_460102']&&!auth['auth_460101'])" style="float:right;position: relative;z-index: 100">-->
+              <!--<a class="button-eambule-small" ng-click="processTask(reformTask)">-->
+                <!--{{reformTask.workorderStatus|formatOperateTaskStatus}}-->
+              <!--</a>-->
+            <!--</div>-->
+            <!--<div class="col-10" ng-if="(currentUserId == reformTask.assignPerson) && ((reformTask.workorderStatus == 140||reformTask.workorderStatus == 139)&&auth['auth_460102']&&auth['auth_460101'])" style="float:right;position: relative;z-index: 100">-->
+              <!--<a class="button-eambule-small" ng-click="processTask(reformTask)">-->
+                <!--{{reformTask.workorderStatus|formatOperateTaskStatus}}-->
+              <!--</a>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div style="clear:both"></div>-->
+          <!--<div class="name"> 项目：{{reformTask.projectName}}</div>-->
+          <!--<div class="name"> 通知单编号：<span class="content">{{reformTask.transNoticeNo}}</span></div>-->
+          <!--<div>-->
+            <!--<span class="name">机位号：<span class="content">{{reformTask.positionCode}}#</span></span>-->
+            <!--<span class="name">作业人编号：<span class="content">{{reformTask.assignPerson}}</span></span>-->
+          <!--</div>-->
+          <!--<div>-->
+            <!--<span class="name">计划：<span class="content">{{reformTask.planBegindate|Infydate}}</span></span>-->
+            <!--<span class="divide">~</span>-->
+            <!--<span class="name"><span class="content">{{reformTask.planEnddate |Infydate }}</span></span>-->
+          <!--</div>-->
+          <!--<span class="flag" >{{reformTask.workorderStatusName}}</span>-->
+          <!--<i class="icon ion-ios-arrow-right" ng-hide="!auth['auth_460106']||(reformTask.workorderStatus==139)||(reformTask.workorderStatus==140)" ></i>-->
+        <!--</div>-->
+      </div>
+    </ion-list>
+    <ion-infinite-scroll
+      ng-if=" selectStatus==0 ? isMoreAssignTaskData : isMoreReformTaskData"
+      distance="1%"
+      immediate-check="false"
+      on-infinite="loadMoreData()">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

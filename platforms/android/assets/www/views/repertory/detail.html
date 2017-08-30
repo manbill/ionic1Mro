@@ -1,0 +1,109 @@
+<ion-view class="sparepart-detail" view-title="备件详情">
+  <ion-nav-buttons side="right">
+    <div class="query" ng-click="goStoreList();">
+      <i class="ion-funnel" style="margin-right: 5px;"></i>查看库存
+    </div>
+  </ion-nav-buttons>
+    <ion-content>
+        <ion-list class="detail-data-list">
+            <ion-item>
+                <div class="row">
+                    <div class="col-30 "><span class="label-name">物料编号：</span></div>
+                    <div class="col-70 "><span class="label-value">{{detail.materialSno}}</span></div>
+                </div>
+            </ion-item>
+            <ion-item>
+                <div class="row">
+                    <div class="col-30 "><span class="label-name">物料描述：</span></div>
+                    <p class="col-70"><span class="label-value">{{detail.materialName}}</span></p>
+                </div>
+            </ion-item>
+            <ion-item>
+                <div class="row">
+                    <div class="col-30 "><span class="label-name">单位：</span></div>
+                    <div class="col-70 "><span class="label-value">{{detail.unit}}</span></div>
+                </div>
+            </ion-item>
+            <ion-item>
+                <div class="row">
+                    <div class="col-30 "><span class="label-name">部套厂商：</span></div>
+                    <div class="col-70 "><span class="label-value">{{detail.materialVendor}}</span></div>
+                </div>
+            </ion-item>
+            <ion-item>
+                <div class="row">
+                    <div class="col-30 "><span class="label-name">适用机型：</span></div>
+                    <div class="col-70 "><span class="label-value">{{detail.machineModel}}</span></div>
+                </div>
+            </ion-item>
+            <ion-item>
+                <div class="row">
+                    <div class="col-30 "><span class="label-name">适用部套：</span></div>
+                    <div class="col-70 "><span class="label-value">{{detail.materialSuite}}</span></div>
+                </div>
+            </ion-item>
+            <ion-item>
+                <div class="row">
+                    <div class="col-30 "><span class="label-name">分类：</span></div>
+                    <div class="col-70 "><span class="label-value">{{detail.materialTypeText}}</span></div>
+                </div>
+            </ion-item>
+            <ion-item>
+                <div class="row">
+                    <div class="col-30 "><span class="label-name">是否停用：</span></div>
+                    <div class="col-70 "><span class="label-value">{{detail.activeFlag==1?"是":'否'}}</span></div>
+                </div>
+            </ion-item>
+            <ion-item>
+                <div class="row">
+                    <div class="col-30 "><span class="label-name">替换物料：</span></div>
+                    <div class="col-70 "><span class="label-value">{{detail.material_replace}}</span></div>
+                </div>
+            </ion-item>
+            <ion-item>
+                <div class="row">
+                    <div class="col-30 "><span class="label-name">备注：</span></div>
+                    <p class="col-70"><span class="label-value">{{detail.comment}}</span></p>
+                </div>
+            </ion-item>
+            <ion-item>
+                <div class="row">
+                    <div class="col "><span class="label-name">图片：</span></div>
+                </div>
+                <div class="row row-wrap">
+                    <i class="col-25" ng-repeat="image in imgFiles track by $index">
+                        <img style="height: 70px;width: 70px;position: relative;margin: auto" id="{{image.fileId}}"
+                             ng-src="{{image.filePath.indexOf('file://')>=0?image.filePath:'img/uploadimg.png'}}"
+                             ng-click="downloadImage(image,$index)" alt="{{image.fileOriginalName}}"/>
+                    </i>
+                </div>
+            </ion-item>
+        </ion-list>
+
+
+
+
+
+
+
+
+
+                <!--<div class="row">-->
+                    <!--<div class="col" ng-click="showRepertory()">-->
+                        <!--<button class="button button-positive button-full">获取库存信息&nbsp;<i-->
+                                <!--class="ion-ios-arrow-forward"></i></button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+            <div class="row row-wrap">
+                <div class="col col-25" ng-repeat="attachment in detail.materialPicList">
+                    <div class="card">
+                        <img src="{{attachment.filePath}}" ng-click="openFile(attachment)" width="100%">
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        <!--</div>-->
+    </ion-content>
+</ion-view>

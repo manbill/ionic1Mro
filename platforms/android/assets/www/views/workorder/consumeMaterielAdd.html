@@ -1,0 +1,53 @@
+<ion-view view-title="消耗物料选择">
+  <ion-nav-buttons side="right">
+    <div class="query" ng-click="openQuery()">
+      <i class="ion-funnel"></i>筛选
+    </div>
+  </ion-nav-buttons>
+  <ion-content overflow-scroll="false">
+    <ion-refresher
+      pulling-text="下拉刷新"
+      on-refresh="doRefresh()">
+    </ion-refresher>
+    <ion-list class="data-list">
+      <ion-item
+        ng-repeat="materiel in materielList" class="item-icon-right">
+        <div class="material-add">
+          <div class="row" style="padding:0.4em 0 0.8em 0.4em">
+            <label class="col-12 label-name">物料:</label>
+            <div class="text-ellipsis label-value" style="white-space: nowrap">
+              {{materiel.materialSno}} - {{materiel.materialName}}
+            </div>
+          </div>
+          <div class="row" style="padding-left:0.4em">
+            <label class="col label-name">单位：</label>
+            <span class="col label-value">{{materiel["unitText"]}}</span>
+            <span class="col label-name">数量：</span>
+            <input class="col label-value" style="position: relative; top: -0.5em; background-color: whitesmoke" type="number" min="0"
+                   placeholder="请输入" ng-model="materiel.amount">
+            <div class="col label-name" style="text-align: center">帐内:</div>
+            <div class="col" ng-click="isAccount($event)">
+              <label class="toggle toggle-balanced" style="position: relative; top: -0.4em;">
+                <input type="checkbox"
+                       ng-model="materiel.sapInventoryFlag">
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+        <i class="icon ion-ios-arrow-right"  ng-click="materialDetail(materiel)"></i>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll
+      ng-if="isMoreData"
+      distance="1%"
+      immediate-check="false"
+      on-infinite="loadMore()">
+    </ion-infinite-scroll>
+  </ion-content>
+  <ion-footer-bar>
+    <button class=" button button-eambule-block" ng-click="save()"><b>保存</b></button>
+  </ion-footer-bar>
+</ion-view>

@@ -1,0 +1,78 @@
+<ion-view title="查看调拨单">
+  <ion-content>
+    <ion-list class="detail-data-list">
+      <ion-item style="margin-top: 1em; border-top: 0;">
+        <div class="row">
+          <div class="col projectNameStyle ">{{transferOrder.transferOrderNo}}</div>
+          <div class="col status-name text-right">{{transferOrder.statusName}}</div>
+        </div>
+      </ion-item>
+      <ion-item class="item-input item-icon-right"
+                style="margin-top: -0.8em; border-top: 0;"
+                ng-click="selectInventory('request')">
+        <label class="input-label">收货仓库:</label>
+        <input type="text" ng-disabled="true" ng-model="transferOrder.grWhName">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col">
+            <label class="label-value">期望到货时间:</label>
+          </div>
+          <div class="col text-right">
+            <label class="label-value">{{params.expectReceiveDateTime|date:'yyyy-MM-dd'}}</label>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item class="item-input">
+        <label class="input-label">调拨类型:</label>
+        <input type="text" ng-disabled="true" ng-model="transferOrder.transferType">
+      </ion-item>
+      <ion-item ng-if="transferOrder.transferTypeId==164" class="item-input">
+        <label class="input-label">调拨原因:</label>
+        <input ng-model="transferOrder.transferReason" ng-disabled="true" type="text">
+      </ion-item>
+      <ion-item
+        ng-if="transferOrder.transferTypeId==165"
+        class="item-input">
+        <label class="input-label">工单号:</label>
+        <input type="text" ng-model="transferOrder.workorderCode" placeholder="请选择" ng-disabled="true">
+      </ion-item>
+      <ion-item class="item-input item-icon-right" ng-click="selectInventory('response')">
+        <label class="input-label">发货仓库:</label>
+        <input type="text" ng-disabled="true" ng-model="transferOrder.giWhName">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item-input item-icon-right">
+        <div class="row text-center">
+          <div class="col" style="text-align: center" ng-click="gotoTransferMaterialsDetail()">
+            <img src="img/img-buttons-normal/required-material-normal.png" height="40px" width="40px">
+            <p>调拨清单</p>
+          </div>
+          <div class="col text-center" ng-click="gotoHandleRecord()">
+            <img src="img/img-buttons-normal/required-material-normal.png" height="40px" width="40px">
+            <p>过程记录</p>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="label-value">备注:</div>
+        <textarea ng-model="transferOrder.commentText" ng-disabled="true" style="margin-bottom: 0.5em;">备注</textarea>
+      </ion-item>
+      <ion-item>
+        <div class="label-value">附件列表:</div>
+        <div class="row row-wrap">
+          <i class="col-25"
+             ng-repeat="image in transferOrder.tOFilemappingDtoList track by $index">
+            <div style="position: relative">
+              <img style="height: 70px;width: 70px;position: relative" id="{{image.fileId}}"
+                   ng-src="{{image.filePath}}"
+                   ng-click="openFile(image)"
+                   alt="{{image.fileOriginalName}}"/>
+            </div>
+          </i>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

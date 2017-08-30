@@ -1,0 +1,78 @@
+<ion-view class="sparepart-list" view-title="备件调拔">
+    <ion-nav-buttons side="left">
+        <div ng-click="create();" ng-if="auth['auth_310103']">
+            <i class="icon ion-ios-plus-outline" style="margin-left: 5px;font-size: 32px"></i>
+        </div>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <div class="query" ng-click="openFilter();">
+            <i class="ion-funnel" style="margin-right: 5px;"></i>筛选
+        </div>
+    </ion-nav-buttons>
+    <ion-content overflow-scroll="false">
+        <ion-refresher pulling-text="下拉刷新" on-refresh="refreshData()"></ion-refresher>
+        <ion-list class="data-list">
+            <ion-item ng-repeat="sparepart in spareparts track by $index" ng-click="showDetail(sparepart)">
+                <div class="icon-father">
+                <div class="orderItem">
+                  <div class="orderTitle">
+                    <div class="row">
+                      <span class="col col-90">
+                        {{sparepart.transferOrderNo}}
+                      </span>
+                      <span class="col col-10 flagDW">
+                        {{sparepart.json.statusName}}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="orderElement">
+                    <div class="row">
+                      <div class="col">
+                        <span class="label-name">调拨类型:</span>
+                        <span class="label-value">{{sparepart.json.transferType}}</span>
+                        <span class="label-value" ng-if="sparepart.json.transferTypeId==165">|</span>
+                        <span class="label-value" ng-if="sparepart.json.transferTypeId==165">{{sparepart.json.workorderCode}}</span>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top:8px">
+                      <div class="col">
+                        <span class="label-name">发货仓库:</span>
+                        <span class="label-value">{{sparepart.giWhName}}</span>
+                      </div>
+                      <div class="col">
+                        <span class="label-name">创建时间:</span>
+                        <span class="label-value">{{sparepart.createDate|date:"yyyy-MM-dd"}}</span>
+                      </div>
+                    </div>
+                      <i class="icon ion-ios-arrow-right"></i>
+                  </div>
+                </div>
+              </div>
+               <!-- <div class="row">
+                    <div class="col title">{{sparepart.transferOrderNo}}</div>
+                </div>-->
+                <!--<div class="col color-green text-right">{{sparepart.json.statusName}}</div>-->
+
+                <!--<div class="row">
+                    <div class="col color-gray" ng-if="sparepart.json.transferTypeId==164">调拨原因：<span class="color-blue1 item-text-wrap">{{sparepart.json.transferReason}}</span></div>
+                    <div class="col color-gray" ng-if="sparepart.json.transferTypeId==165">工单号：<span class="color-blue1 item-text-wrap">{{sparepart.json.workorderCode}}</span></div>
+                </div>
+                <div class="row">
+                    <div class="col color-gray">调出方：<span class="color-blue1 item-text-wrap">{{sparepart.giWhName}}</span></div>
+                    <div class="col color-gray">调入方：<span class="color-blue1 item-text-wrap">{{sparepart.grWhName}}</span></div>
+                </div>
+                <div class="row">
+                    <div class="col color-gray">创建人：<span class="color-blue1 item-text-wrap">{{sparepart.createByName}}</span></div>
+                    <div class="col color-gray">创建时间：<span class="color-blue1 item-text-wrap">{{sparepart.createDate|date:"yyyy-MM-dd HH:mm:ss"}}</span></div>
+                </div>-->
+                <!--<i class="icon ion-ios-arrow-right">{{$index+1}}</i>-->
+            <ion-option-button
+              class="button-assertive"
+              ng-click="deleteSparepart(sparepart,$index);$event.stopPropagation()" ng-if="sparepart.transferOrderId<0">删除
+            </ion-option-button>
+            </ion-item>
+        </ion-list>
+        <ion-infinite-scroll on-infinite="loadMoreData()" ng-if="hasMoreData" distance="5%">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>

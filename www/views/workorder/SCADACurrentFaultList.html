@@ -1,0 +1,57 @@
+<ion-view title="{{faultList[0].fault_group_code}}">
+    <ion-content>
+        <ion-list class="data-list">
+            <ion-item ng-repeat="fault in faultList"
+                      class="item-icon-right">
+                <div class="row" style="padding:0.4em 0.8em 0.3em 1.2em;">
+                    <div class="col">
+                        <div class="title">{{fault.fault_comment}}</div>
+                    </div>
+                </div>
+                <div class="row" style="padding:0.4em 0.8em 0.3em 1.2em;">
+                    <div class="col">
+                        <span class="label-name">采集故障码:</span>
+                        <span class="label-value">{{fault.fault_code}}</span>
+                    </div>
+                    <div class="col">
+                        <span class="label-name">系统状态码:</span>
+                        <span class="label-value">{{fault.sys_status_code}}</span>
+                    </div>
+                </div>
+                <!--<div class="row">-->
+                <!--<div class="col">-->
+                <!--<span class="label-name">批次号:</span>-->
+                <!--<span class="label-value">{{fault.fault_group_code}}</span>-->
+                <!--</div>-->
+                <!--</div>-->
+                <div class="row" style="padding:0.4em 0.8em 0.3em 1.2em;">
+
+                    <div class="col">
+                        <span class="label-name">主要故障:</span>
+                        <span class="label-value">{{fault.is_primaryfault==1?"是":"否"}}</span>
+                    </div>
+                  <div class="col">
+                    <span class="label-name">故障激活时间:</span>
+                    <span class="label-value">{{fault.fault_active_date|date: 'yyyy-MM-dd HH:mm:ss'  }}</span>
+                  </div>
+                </div>
+                </div>
+                </div>
+                <div class="row icon-father" style="margin-bottom: .5em;padding:0.4em 0.8em 0.3em 1.2em;">
+                    <div class="col col-10" style="margin-right: 1.5em;">
+                        <span class="label-name">故障建议:</span>
+                    </div>
+                    <div class="col col-offset-12 col-80 ">
+                        <div class="text-ellipsis">
+                            <span class="label-value">{{fault.fault_advice}}</span>
+                        </div>
+                        <i class="icon ion-ios-arrow-right"
+                           style="top: -0.092em; position: absolute; right: 0.2em; color: #000; font-size: 1.5em;"
+                           ng-click="goToFaultAdviceDetail(fault,'fault_advice')"
+                           ng-if="fault.fault_advice&&fault.fault_advice.len4FullWidthCharacterNChinese(2)>=15*2"></i>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

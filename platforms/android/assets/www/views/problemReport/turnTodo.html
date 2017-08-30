@@ -1,0 +1,37 @@
+<ion-view title="转办问题报告">
+  <ion-content>
+    <ion-list>
+		<label class="item item-input">
+		  <textarea placeholder="转办说明..." style="height: 5em;" ng-model="pr.pdReplydesc"></textarea>
+		</label>
+		<ion-item class="item-input item-select">
+		  <div class="input-label">转办部门</div>
+	        <select ng-model="selectedIdName.workTypeIdName" class="form-control"
+	        		ng-options="workAnchor as workAnchor.detailName for workAnchor in workAnchors">
+	          <option value="">--请选择--</option>
+	        </select>
+		</ion-item>
+		<div class="item" style="padding: 5px">
+		  <div class="row">
+		    <label class="col col-90">上传附件</label>
+		  </div>
+		  <div class="row row-wrap">
+		    <div class="col col-25 remove-attachment" ng-repeat="attachment in fileList">
+		      <div class="card" ng-click="addeditAttachment(attachment)">
+		        <img ng-src="{{attachment.filePath}}" width="100%">
+		      </div>
+		      <span class="badge ion-close-circled" ng-click="removeAttachment(attachment)"></span>
+		    </div>
+		    <div class="col col-25 remove-attachment">
+		      <div class="card" ng-click="addeditAttachment()">
+		        <img src="img/uploadimg.png" width="100%">
+		      </div>
+		    </div>
+		  </div>
+		</div>
+      <div class="item">
+        <button class="button button-eambule-block" ng-click="turnTodo(pr)">确定</button>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>

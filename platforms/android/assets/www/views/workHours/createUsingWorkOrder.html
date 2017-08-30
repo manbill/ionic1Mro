@@ -1,0 +1,39 @@
+<ion-view title="{{title}}">
+  <ion-content>
+    <ion-list class="detail-data-list">
+      <ion-item class="item-toggle" style="padding: .5em 0.5em .5em 1em">
+        <span class="input-label">是否现场值守人员</span>
+        <label class="toggle toggle-balance" ng-click="isVendorFlag()">
+          <input type="checkbox" ng-model="webParams.confirm">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </ion-item>
+      <ion-item class="item item-input" ng-if="!webParams.confirm">
+        <span class="input-label">作业人</span>
+        <input type="text"  ng-model="wh.workerName" placeholder="请输入">
+      </ion-item>
+      <ion-item class="item item-input item-icon-right" ng-click="workerSelect()" ng-if="webParams.confirm">
+        <span class="input-label">作业人</span>
+        <input type="text"  class="input-label"  ng-disabled="true"  ng-model="wh.workerName" placeholder="请选择">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item-input item-date">
+        <span class="input-label">开始时间</span>
+        <input type="datetime-local" placeholder="请选择" ng-model="webParams.startDate">
+      </ion-item>
+      <ion-item class="item-input">
+        <span class="input-label">结束时间</span>
+        <input type="datetime-local" ng-model="webParams.endDate" placeholder="请选择">
+      </ion-item>
+      <ion-item >
+        <label for="remarkDesc" class="label-value">备注描述：</label>
+        <textarea id="remarkDesc" ng-model="wh.workContent" placeholder="备注描述"></textarea>
+      </ion-item>
+      <ion-item>
+        <button class="button button-eambule-block" ng-click="saveWorkHours()">保存</button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

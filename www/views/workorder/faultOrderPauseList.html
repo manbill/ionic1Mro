@@ -1,0 +1,54 @@
+<ion-view title="暂停记录">
+    <ion-content>
+        <div class="orderElement">
+            <div class="row">
+                <div class="col label-name">暂停/恢复</div>
+                <div class="col label-name">时间/原因/备注</div>
+            </div>
+
+            <!--<span class="col"></span>-->
+        </div>
+        <div class="item orderItem" ng-repeat="item in PauseList" >
+            <!--暂停记录中  status ==301 是故障工单暂停记录中的暂停状态码  status == 154 是业务工单的暂停 状态码-->
+            <!--<p>{{item.status}}</p>-->
+            <div class="" ng-if="item.status == 301 || item.status == 154">
+                <div class="orderElement">
+                    <div class="row ">
+                        <span class="col label-value">暂停</span>
+                        <span class="col label-value">{{item.createOn}}</span>
+                    </div>
+                </div>
+
+                <div class="orderElement">
+                    <div class="row">
+                        <span class="col label-name">暂停原因:</span>
+                        <span class="col label-value item-text-wrap">{{item.pausereasonName}}</span>
+                    </div>
+                    <div class="row">
+                        <span class="col label-name">备注描述:</span>
+                        <span class="col label-value item-text-wrap">{{item.pauseRemark}}</span>
+                    </div>
+                </div>
+
+            </div>
+            <!--  status==41 是故障工单 -->
+            <div class="orderElement" ng-if="item.status == 41 || item.status ==155">
+                <div class="row">
+                    <span class="col label-value">恢复</span>
+                    <span class="col label-value">{{item.createOn}}</span>
+                </div>
+            </div>
+
+            <!--<span  >-->
+                <!--<div class="row">-->
+                    <!--<span class="col">恢复 </span>-->
+                    <!--<span class="col">{{item.createOn}}</span>-->
+                <!--</div>-->
+            <!--</span>-->
+            <!--<ion-item ng-repeat="item in pauseList">-->
+                <!--<span>pauseResult</span>-->
+                <!--<span>pa useTime</span>-->
+            <!--</ion-item>-->
+        </div>
+    </ion-content>
+</ion-view>

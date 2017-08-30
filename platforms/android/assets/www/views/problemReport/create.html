@@ -1,0 +1,123 @@
+<ion-view title={{title}}>
+    <ion-content class="detail-data-list">
+        <ion-list ng-if="isCreate">
+            <!--<ion-item class="item item-input" ng-if="!isCreate">-->
+            <!--<span class="input-label">问题编号:</span>-->
+            <!--<input type="text" ng-model="pr.problemNo" ng-disabled="true" placeholder="{{pr.problemNo||'系统自动创建'}}">-->
+            <!--</ion-item>-->
+            <ion-item class="item-input" ng-if="!isCreate">
+                <div class="input-label"><span class="label-name">所属区域:</span></div>
+                <input type="text" ng-model="webParams.area.detailName" ng-disabled="true" class="form-control"/>
+            </ion-item>
+            <ion-item class="item-input" ng-if="!isCreate">
+                <div class="input-label"><span class="label-name">项目名称:</span></div>
+                <input type="text" ng-model="webParams.project.projectName" ng-disabled="true"/>
+            </ion-item>
+            <ion-item class="item-input item-select">
+                <div class="input-label"><span class="label-name">问题类型:</span></div>
+                <select ng-model="webParams.problemType" class="form-control"
+                        ng-options="pt as pt.detailName for pt in problemTypes">
+                </select>
+            </ion-item>
+            <ion-item class="item-input">
+                <span class="input-label"><span class="label-name">相关工单:</span></span>
+                <input type="text" ng-model="pr.workorderCode" placeholder="请选择" ng-click="workOrderSelect();">
+            </ion-item>
+            <ion-item class="item-input">
+                <span class="input-label"><span class="label-name">问题主题:</span></span>
+                <input type="text" ng-model="pr.problemSubject" placeholder="请输入">
+            </ion-item>
+            <ion-item>
+                <span class="label-value"><span class="label-name">问题描述:</span></span>
+                <textarea placeholder="问题描述:" style="margin:0 0 0.5em 0;" ng-model="pr.problemDesc"></textarea>
+            </ion-item>
+        </ion-list>
+
+        <!--问题报告修改-->
+        <ion-list ng-if="!isCreate" class="small-row-margin">
+            <ion-item >
+                <div class="row" style="margin-top: 0.5em;">
+                    <div class="col col-10">
+                        <span class="title">{{pr.problemNo}}</span>
+                    </div>
+                    <div class="col col-75 col-offset-67">
+                        <span class="status-name"> {{pr.problemStatusDesc}} </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span class="label-value"><span class="label-name">问题类型:</span></span>
+                        <span class="label-value">{{pr.problemTypeDesc}}</span>
+                    </div>
+                    <div class="col">
+                        <span class="label-value" ng-if="pr.workorderCode"><span class="label-name">关联工单:</span></span>
+                        <span class="label-value">{{pr.workorderCode}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span class="label-value"><span class="label-name">问题主题:</span></span>
+                        <span class="label-value">{{pr.problemSubject}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span class="label-value"><span class="label-name">问题描述:</span></span>
+                        <textarea ng-model="pr.problemDesc" placeholder="请输入内容" ng-disabed="!isCanEdit()"></textarea>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+        <!--附件部分-->
+        <!--<ion-list>-->
+            <ion-item class="item" style="padding: 5px 5px 5px 5px">
+                <div class="row">
+                    <label class="col" style="padding-left: 1em">
+                        <span class="label-name">上传附件</span>
+                    </label>
+                </div>
+                <div class="item row row-wrap" style="padding: 1%; border: none;">
+                    <i class="col col-25 icon-father" ng-repeat="attachment in fileList track by $index">
+                        <img style="height: 50px;width: 50px; margin: 0.4em"
+                             ng-src="{{attachment.filePath.indexOf('file://')>=0?attachment.filePath:'img/uploadimg.png'}}"
+                             ng-click="openFile(attachment,$index)" alt="{{attachment.fileOriginalName}}"/>
+                        <i class="icon ion-ios-close"
+                           ng-click="removeAttachment(attachment,$index)"
+                           ng-if="isCanEdit()"
+                           style="position: absolute;color:red;    font-size: 1.5em;    right: 5px;   top: 5px; z-index:100;">
+                        </i>
+                    </i>
+                    <i class="col col-25 icon-father"
+                       ng-click="addeditAttachment();"
+                        ng-if="isCanEdit()">
+                        <img ng-src="img/selectImage.png" style="height: 50px;width:50px; margin:0.4em"/>
+                        <i class="icon ion-ios-close" ng-show="false"
+                           style="position: absolute;color:#1565c0;font-size: 1.5em;right: 5px;top: 5px;"></i>
+                    </i>
+                </div>
+            </ion-item>
+            <ion-item>
+                <div class="row">
+                    <div class="col">
+                        <button class="button button-eambule button-eambule-block"
+                                ng-click="submitPr(pr)"
+                                ng-disabled="!isCanEdit()"
+                                ng-if="(userType==3) && (!pr.problemStatus || pr.problemStatus == problemStatus.PROBLEM_STATUS_UNSUBMIT)">
+                            提交
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button class="button button-eambule button-eambule-block"
+                                ng-click="savePr(pr,true)"
+                                style="margin-left: 1em"
+                                ng-disabled="!isCanEdit()"
+                                ng-if="(userType==3) && (!pr.problemStatus || pr.problemStatus == problemStatus.PROBLEM_STATUS_UNSUBMIT)">
+                            暂存
+                        </button>
+                    </div>
+                </div>
+            </ion-item>
+
+        <!--</ion-list>-->
+    </ion-content>
+</ion-view>

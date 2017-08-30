@@ -1,0 +1,27 @@
+<ion-view view-title="历史故障信息">
+	<ion-nav-buttons side="right">
+		<a class="button" style="font-size: 15px;" ng-click="openFilter()">筛选</a>
+	</ion-nav-buttons>
+		<ion-content>
+		<ion-list class="data-list ">
+			<div class="item item-icon-right " ng-repeat="faultList in faultLists " ng-click="goDetail(faultList) ">
+				<div class="title ">工单编号:{{faultList.workorderCode}}</div>
+				<div>
+					<span class="name ">故障建议：<span class="content textarea">{{faultList.faultAdvice}}</span></span>
+				</div>
+				<div>
+					<span class="name ">故障原因：<span class="content ">{{faultList.faultReasonName}}</span></span>
+				</div>
+				<div>
+					<span class="name ">故障开始时间：<span class="content ">{{isNaN(faultList.faultBeginTime)?faultList.faultBeginTime:(faultList.faultBeginTime |Infydate)}}</span></span>
+				</div>
+				<div>
+					<span class="name ">故障消除时间：<span class="content ">{{isNaN(faultList.faultEndTime)?faultList.faultEndTime:(faultList.faultEndTime |Infydate) }}</span></span>
+				</div>
+				<i class="icon ion-ios-arrow-right "></i>
+			</div>
+		</ion-list>
+		<ion-infinite-scroll on-infinite="loadMoreWorkHistory() " ng-if="hasMoreData " >
+		</ion-infinite-scroll>
+	</ion-content>
+</ion-view>

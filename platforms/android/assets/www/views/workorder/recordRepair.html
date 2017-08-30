@@ -1,0 +1,76 @@
+<style>
+  .recordRepair .item-complex.item-icon-right .item-content {
+    padding: 0px;
+  }
+
+  .recordRepair .item-content {
+    padding-right: 0px;
+  }
+
+  /*  .item {
+    !important;
+      position: initial;
+    }*/
+</style>
+<ion-view title="设备维修">
+  <ion-nav-buttons side="right">
+    <i ng-click="newRecordRepairList()" ng-if="isOrderCanEdit(work.workorderStatus)" style=" font-size:xx-large;"
+       class="icon ion-android-add-circle "></i>
+  </ion-nav-buttons>
+  <ion-content class="padding" style="padding-top: 0px;padding-bottom: 0px">
+    <ion-list class="data-list recordRepair" ng-if="recordRepairList.length>0">
+      <ion-item class="item-icon-right" ng-repeat="recordRepair in recordRepairList track by $index" ng-switch
+                on="recordRepair.fixType"
+                style="margin-top: 20px;background-color:#FBFCFD;font-size: small; padding: 0px;">
+        <div ng-switch-when="60" style="border-left:3px solid #1565c0;"
+             ng-click="isOrderCanEdit(work.workorderStatus)?editRecordRepair(recordRepair,$index):''">
+          <div class="row" style="padding: 5px 6px; border-bottom:1px solid #ddd;">
+            <div class="col name">维修类型：<span class="content">{{recordRepair.fixTypeText}}</span></div>
+            <div class="col name">部件名称：<span class="content">{{recordRepair.deviceName}}</span></div>
+          </div>
+          <div style="border-bottom:1px solid #ddd;padding: 10px;line-height: 1.3;">
+            <div class="row row-no-padding">
+              <div class="col-33 item-text title" style="max-width:31%;">{{recordRepair.serialNum1}}</div>
+              <div class="col-20" style="font-size: 24px;text-align:center;"><i class="ion-arrow-right-c"></i></div>
+              <div class="col-34 item-text title">{{recordRepair.serialNum2}}</div>
+            </div>
+            <div class="row row-no-padding">
+              <div class="col-33 name" style="max-width:31%;">变更前序列号</div>
+              <div class="col-20"></div>
+              <div class="col-34 name">变更后序列号</div>
+              <i class="icon ion-ios-arrow-right" ng-if="isOrderCanEdit(work.workorderStatus)"></i>
+            </div>
+          </div>
+          <!-- <div class="row">
+             <div class="col name">物料号：<span class="content textarea">{{recordRepair.wuliaohao1}}</span></div>
+           </div>-->
+          <div class="row">
+            <div class="col name">描述：<span class="content textarea">{{recordRepair.remark}}</span></div>
+          </div>
+        </div>
+        <div ng-switch-when="61" style="border-left:3px solid #00a63c;"
+             ng-click="isOrderCanEdit(work.workorderStatus)?editRecordRepair(recordRepair,$index):''">
+          <div class="row" style="padding: 5px 6px; border-bottom:1px solid #ddd;">
+            <div class="col name">维修类型：<span class="content">{{recordRepair.fixTypeText}}</span></div>
+            <div class="col name">部件名称：<span class="content">{{recordRepair.deviceName}}</span></div>
+          </div>
+          <div style="border-bottom:1px solid #ddd;padding: 10px;line-height: 3.5;">
+            <div class="row row-no-padding">
+              <div class="col-10 name" style="max-width:31%;">序列号</div>
+              <div class="col-84 title" style="line-height: 2.3;">{{recordRepair.serialNum1}}</div>
+              <div class="col-5"></div>
+              <i class="icon ion-ios-arrow-right" ng-if="isOrderCanEdit(work.workorderStatus)"></i>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col name">描述：<span class="content textarea">{{recordRepair.remark}}</span></div>
+          </div>
+        </div>
+        <!--<ion-option-button class="button"  ng-if="false"
+                           style="background-color: red; color: white;" ng-click="delete($index)">
+          删除
+        </ion-option-button>-->
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

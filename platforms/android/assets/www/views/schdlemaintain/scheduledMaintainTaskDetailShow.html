@@ -1,0 +1,138 @@
+<ion-view title="定维任务详情">
+    <ion-content>
+        <scroll class="detail-content" id="detail-content">
+            <!--<ion-list class="list-line list-detail ">-->
+                <!--<div id="id-plan-detail" ng-show="isShowScheduledTaskkDetail">-->
+                    <!--<ion-item class="item-text">-->
+            <div class="orderItem">
+                    <div class="orderElement">
+                        <div class="row">
+                            <div class="col col-70">
+                                <span class="projectNameStyle">
+                                    {{baseTaskInfo.projectName}}
+                                </span>
+                            </div>
+                            <div class="col col-30">
+                                <span class="statusStyle">
+                                    {{baseTaskInfo.workorderStatusName}}
+                                </span>
+                            </div>
+                            <!--<div class="col col-5">-->
+
+                            <!--</div>-->
+                        </div>
+                    </div>
+                    <div class="orderElement">
+                        <span class="label-name">任务号：</span>
+                        <span class="label-value-right">{{baseTaskInfo.workorderCode}}</span>
+                    </div>
+                    <!--</ion-item>-->
+                    <!--<ion-item>-->
+                        <div class="orderElement">
+                            <span class="label-name">机位编号：</span>
+                            <span class="label-value-right"> {{baseTaskInfo.positionCode}}#</span>
+                        </div>
+                    <!--</ion-item>-->
+                    <!--<ion-item>-->
+                        <div class="orderElement">
+                            <span class="label-name">作业节点: </span>
+                            <span class="label-value-right"> {{baseTaskInfo.workTypeName}} </span>
+                        </div>
+                    <!--</ion-item>-->
+                    <!--<ion-item>-->
+                        <div class="orderElement">
+                            <span class="label-name"> 负责人: </span>
+                            <span class="label-value-right">{{baseTaskInfo.assignPersonName}}</span>
+                        </div>
+            </div>
+            <!--</ion-item>-->
+                    <!--<ion-item>-->
+                        <!--<div>-->
+                            <!--<span class="label-name">现场经理:</span>-->
+                            <!--<span class="label-value">{{baseTaskInfo.isManager}}</span>-->
+                        <!--</div>-->
+                    <!--</ion-item>-->
+                    <!--<div class="item">-->
+                        <!--现场经理<span class="item-text">{{webInfo.siteManager}}</span>-->
+                    <!--</div>-->
+            <!--<div class="orderItem">-->
+                    <div class="item time orderElement">
+                        <div class="time">
+                            <div class="row row-no-padding">
+                                <div class="col-40 label-name">计划开始时间</div>
+                                <div class="col-20"></div>
+                                <div class="col-40 label-name" style="text-align: right;">计划结束时间</div>
+                            </div>
+                        </div>
+                        <div class="row row-no-padding">
+                            <div class="col-40 label-value">
+                                {{baseTaskInfo.planBegindate|date:'yyyy-MM-dd'}}
+                            </div>
+                            <div class="col-20" style="font-size: 24px;text-align:center;line-height: 31.2px"><i
+                                    class="ion-arrow-right-a"></i></div>
+                            <div class="col-40 label-value" style="text-align: right;">
+                                {{baseTaskInfo.planEnddate|date:'yyyy-MM-dd'}}
+                            </div>
+                        </div>
+                    </div>
+            <!--</div>-->
+                    <!--<div class="item">-->
+                        <!--累计作业时间-->
+                        <!--<span class="item-text">{{webInfo.workTotalHour}}</span>-->
+                    <!--</div>-->
+            <!--<div class="orderItem">-->
+                    <div class="orderElement">
+                        <p class="label-name">备注：</p>
+                        <textarea placeholder="填写备注..."
+                                  style="width: 100%;height: 5em;"
+                                  ng-model="detailTaskInfo.eaWoWorkorderinfoDto.remark"
+                                  ng-disabled="!isCanEditImg()">
+                          <!--ng-model="detailTaskInfo.eaWoWorkorderinfoDto.remark">-->
+                        </textarea>
+                    </div>
+                    <!--<div class="orderItem">-->
+                        <div class="row">
+                            <p class="label-name">上传附件：</p>
+                        </div>
+                        <div class="row row-wrap">
+                            <i class="col-25"
+                               ng-repeat="image in imgFiles track by $index" >
+                              <my-img attache-file="image" index="$index" attache-file-list="imgFiles" is-can-edit-img="isCanEditImg()"></my-img>
+                            </i>
+                            <i class="col-25" ng-click="addAttachment(baseTaskInfo);" ng-if="isCanEditImg()">
+                                <img ng-src="img/selectImage.png" style="position:relative;height: 50px;width:50px"/>
+                                <i class="icon ion-ios-close" ng-show="false"
+                                   style="position: relative;color:red; font-size: 2em;right: 1em; top: -2em; z-index:100;">
+                                </i>
+                            </i>
+                        </div>
+                    </div>
+
+            <!--<div class="row row-wrap">-->
+                <!--<i class="col-25" ng-repeat="image in imgFiles track by $index" >-->
+                    <!--<div style="position: relative">-->
+                        <!--<eam-img style="height: 70px;width: 70px;position: relative"-->
+                                 <!--ng-click="downloadImage(image,$index)">-->
+                            <!--testImg-->
+                        <!--</eam-img>-->
+                        <!--<i class="icon ion-ios-close"-->
+                           <!--ng-click="deleteAttachedImage(image,$index,baseTaskInfo)"-->
+                           <!--style="position: absolute;color:red; font-size: 2em;left: 55px;top : -5px; z-index:100;">-->
+                        <!--</i>-->
+                    <!--</div>-->
+                <!--</i>-->
+            <!--</div>-->
+
+            <!--</div>-->
+                    <!---->
+            <!--</ion-list>-->
+        </scroll>
+        <ion-item ng-if="baseTaskInfo.assignPerson == currentUserId && baseTaskInfo.workorderStatus == 141">
+            <!-- 处理中 状态  且当前登录用户是 负责人 -->
+            <botton  class="button button-block button-eambule"
+                     ng-click="saveDetailInfo()">
+                保存
+            </botton>
+        </ion-item>
+    </ion-content>
+</ion-view>

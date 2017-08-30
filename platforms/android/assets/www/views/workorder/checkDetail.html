@@ -1,0 +1,12 @@
+<ion-view view-title="点检表检查项">
+  <ion-content>
+    <ion-list class="list-line">
+      <div class="item item-text-wrap" ng-repeat="catalog in checkDetailCheckCataloglList" ng-click="goCheckDetailItem(catalog,$index)">
+        {{catalog.checklistCat}}
+        <span class="item-text">
+    				<i class="icon ion-ios-arrow-right" style="float: right;margin-left: 10px;font-size: 18px;"></i>
+        </span>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>

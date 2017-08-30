@@ -1,0 +1,33 @@
+<ion-view title="审核记录">
+    <ion-content>
+        <div class="orderElement">
+            <div class="row">
+                <!--<span class="col">审核人</span>-->
+                <span class="col label-name">审核结果</span>
+                <span class="col label-name">时间/审核描述</span>
+                <!--<span class="col"></span>-->
+            </div>
+        </div>
+        <div class="item orderItem" ng-repeat="item in verifyList" >
+            <div class="orderElement">
+                <div class="row">
+                    <!--<span class="col">{{item.auditingUser}}</span>-->
+                    <span class="col label-value">{{item.auditiogResultName}} </span>
+                    <span class="col label-value">{{item.auditingDate}}</span>
+                </div>
+                <div class="row">
+                    <!--<span class="col">{{item.auditingUser}}</span>-->
+                    <span class="col label-value"></span>
+                    <span class="col label-value item-text-wrap">{{item.auditingOpinion}}</span>
+                </div>
+            </div>
+            <!--<div class="row">暂停原因：-->
+                <!--<span class="item-text-wrap">{{item.pausereasonName}} ; {{item.pauseRemark}}</span>-->
+            <!--</div>-->
+        </div>
+            <!--<ion-item ng-repeat="item in pauseList">-->
+            <!--<span>pauseResult</span>-->
+            <!--<span>pa useTime</span>-->
+            <!--
+    </ion-content>
+</ion-view>

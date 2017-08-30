@@ -1,0 +1,79 @@
+<ion-view title="发货单查看">
+  <ion-content>
+    <ion-list class="detail-data-list">
+      <ion-item style="margin-top: 1em; border-top: 0;">
+        <div class="row">
+          <div class="col projectNameStyle ">{{shippingOrder.shippingOrderNo}}</div>
+          <div class="col status-name text-right">{{shippingOrder.shipingStatus}}</div>
+        </div>
+      </ion-item>
+      <ion-item class="item-input item-icon-right"
+                style="margin-top: -0.8em; border-top: 0;"
+                ng-click="gotoTransferOrderDetail()">
+        <label class="input-label">调拨单:</label>
+        <input type="text" ng-disabled="true" ng-model="shippingOrder.transferOrderNo">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item-input item-icon-right"
+                ng-click="selectInventory('response')">
+        <label class="input-label">发货仓库:</label>
+        <input type="text" ng-disabled="true" ng-model="shippingOrder.giWhName">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col">
+            <label class="label-value">发运方式:</label>
+          </div>
+          <div class="col text-right">
+            <label class="label-value">{{shippingOrder.shippingMethod}}</label>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col">
+            <label class="label-value">发运公司:</label>
+          </div>
+          <div class="col text-right">
+            <label class="label-value">{{shippingOrder.shippingCompany}}</label>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col">
+            <label class="label-value">发运单号:</label>
+          </div>
+          <div class="col text-right">
+            <label class="label-value">{{shippingOrder.shipmentTrackingNo}}</label>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item class="item-input item-icon-right"
+                ng-click="gotoShippingOrderMaterialsDetail()">
+        <label class="input-label">发运清单:</label>
+        <input type="text" ng-disabled="true" value="{{shippingOrderMaterialsInfo}}">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item>
+        <div class="label-value">备注:</div>
+        <textarea ng-model="shippingOrder.commentText" ng-disabled="true" style="margin-bottom: 0.5em;">备注</textarea>
+      </ion-item>
+      <ion-item>
+        <div class="label-value">附件列表:</div>
+        <div class="row row-wrap">
+          <i class="col-25"
+             ng-repeat="image in shippingOrder.sOGIFilemappingList track by $index">
+            <div style="position: relative">
+              <img style="height: 70px;width: 70px;position: relative" id="{{image.fileId}}"
+                   ng-src="{{image.filePath}}"
+                   ng-click="openFile(image)"
+                   alt="{{image.fileOriginalName}}"/>
+            </div>
+          </i>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

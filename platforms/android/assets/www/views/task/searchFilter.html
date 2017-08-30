@@ -1,0 +1,17 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-eamblue">
+    <a class="button button-clear ion-chevron-left" ng-click="backButtonAction();"></a>
+    <div class="title">筛选</div>
+  </ion-header-bar>
+  <ion-content>
+  <ion-list>
+    <ion-item >
+      <label>工单类型:</label>
+      <select ng-model="searchParams.orderType" ng-options="item.invoiceType as item.invoiceName for item in invoices">
+        <option value="">--请选择--</option>
+      </select>
+    </ion-item>
+  </ion-list>
+    <button class="button button-eambule-block" ng-click="query()">提交</button>
+  </ion-content>
+</ion-modal-view>

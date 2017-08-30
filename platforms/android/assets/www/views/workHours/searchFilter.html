@@ -1,0 +1,46 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-eamblue">
+      <a class="button button-clear ion-chevron-left" ng-click="backButtonAction();"></a>
+      <div class="title">筛选</div>
+    </ion-header-bar>
+  <ion-content>
+    <!--<ion-scroll direction="y" style="right: 0;bottom: 0;left: 0;position: absolute;" class="has-header">-->
+      <ion-list class="list-line">
+        <ion-item class="item item-input">
+          <span class="input-label">作业人</span>
+          <input type="text" ng-model="params.worker" placeholder="请输入">
+        </ion-item>
+        <ion-item class="item-input item-date">
+          <span class="input-label">作业开始日期</span>
+          <input type="date" ng-model="params.startDate">
+        </ion-item>
+        <ion-item class="item-input item-date">
+          <span class="input-label">作业结束日期</span>
+          <input type="date" ng-model="params.endDate">
+        </ion-item>
+        <ion-item class="item-input item-select" ng-if="!params.workOrderId">
+          <div class="input-label">
+            作业类型
+          </div>
+          <select ng-model="params.workType" class="form-control"
+                  ng-options="workAnchor.detailId as workAnchor.detailName for workAnchor in workAnchors">
+            <option value="">--请选择--</option>
+          </select>
+        </ion-item>
+        <!--工单跳转而来，自带项目和工单编号，不存在才能输入-->
+        <ion-item class="item item-input" ng-if="!params.workOrderId">
+          <span class="input-label">工单编号</span>
+          <input type="text" ng-model="params.workOrderNo" placeholder="请输入">
+        </ion-item>
+        <!--<ion-item class="item-input item-select" ng-if="!params.workOrderId">-->
+          <!--<div class="input-label">所属项目</div>-->
+          <!--<select ng-model="params.project"-->
+                  <!--ng-options="project as project.projectName for project in projectList">-->
+            <!--<option value="">&#45;&#45;请选择&#45;&#45;</option>-->
+          <!--</select>-->
+        <!--</ion-item>-->
+      </ion-list>
+      <button class="button button-eambule-block" ng-click="query()" style="margin-top: 50px;">提交</button>
+    <!--</ion-scroll>-->
+  </ion-content>
+</ion-modal-view>

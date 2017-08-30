@@ -1,0 +1,87 @@
+<ion-view>
+	<ion-nav-title>工单详情</ion-nav-title>
+	<ion-content>
+		<ion-list class="list-line list-detail">
+			<ion-item class="item-text">
+				<!--<img src="img/list_07.png"/>-->
+				<div> 工单号：{{work.orderNo}}</div>
+			</ion-item>
+			<div class="item">
+				项目<span class="item-text">{{work.projectName}}</span>
+			</div>
+			<div class="item">
+				机位号
+				<span class="item-text">
+    {{work.MachineIndex}}
+    </span>
+			</div>
+			<div class="item">
+				作业类型
+				<span class="item-text">
+    {{work.workType|formatPlanWorkType}}
+    </span>
+			</div>
+			<div class="item">
+				区域
+				<span class="item-text">
+                        {{work.areaName}}
+                      </span>
+			</div>
+			<div class="item">
+				现场经理
+				<span class="item-text">
+    {{work.scenePM}}
+    </span>
+			</div>
+			<div class="item">
+				状态
+				<span class="item-text">
+    {{work.status}}
+    </span>
+			</div>
+			<div class="item time">
+				<div class="row row-no-padding">
+					<div class="col-40 item-text">{{work.planBeginDate|Infydate}}</div>
+					<div class="col-20" style="font-size: 24px;text-align:center;line-height: 31.2px"><i class="ion-arrow-right-a"></i></div>
+					<div class="col-40 item-text" style="text-align: right;">{{work.planEndDate|Infydate}}</div>
+				</div>
+				<div class="row row-no-padding">
+					<div class="col-40">计划开始时间</div>
+					<div class="col-20"></div>
+					<div class="col-40" style="text-align: right;">计划结束时间</div>
+				</div>
+			</div>
+			<div class="item time">
+				<div class="row row-no-padding">
+					<div class="col-40 item-text">{{work.workBeginDate|Infydate}}</div>
+					<div class="col-20" style="font-size: 24px;text-align:center;line-height: 31.2px"><i class="ion-arrow-right-a"></i></div>
+					<div class="col-40 item-text" style="text-align: right;">{{work.workEndDate|Infydate}}</div>
+				</div>
+				<div class="row row-no-padding">
+					<div class="col-40">作业开始时间</div>
+					<div class="col-20"></div>
+					<div class="col-40" style="text-align: right;">作业结束时间</div>
+				</div>
+			</div>
+			<div class="item">
+				累计作业时间
+				<span class="item-text">
+    {{work.totalWorkTime}}
+    </span>
+			</div>
+			<div class="item">
+				创建时间
+				<span class="item-text">
+                        {{work.createTime|Infydate}}
+                      </span>
+			</div>
+			<label class="item item-input" style="margin-top: 15px;height: 42px;">
+        NRC号
+        <input type="text" ng-model="params.ncr" placeholder="请输入">
+      </label>
+			<ion-item>
+				<textarea placeholder="填写备注..." class="stable-bg" style="width: 100%;height: 5em;" ng-model="params.remark"></textarea>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>

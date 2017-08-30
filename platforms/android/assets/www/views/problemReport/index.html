@@ -1,0 +1,58 @@
+<ion-view class="sparepart-list" view-title="问题报告">
+  <ion-nav-buttons side="left">
+    <a ng-if="auth['auth_500101']" ng-click="problemReportCreate()" style="font-size:xx-large;color:#9cc6f8;"
+       class="icon ion-ios-plus-outline"></a>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <div class="query" ng-click="openFilter();">
+      <i class="ion-funnel" style="margin-right: 5px;"></i>筛选
+    </div>
+  </ion-nav-buttons>
+  <ion-content overflow-scroll="false">
+    <ion-refresher
+      pulling-text="下拉刷新"
+      on-refresh="problemReportListRefresh()">
+    </ion-refresher>
+    <div class="data-list">
+      <div class="item item-icon-right" ng-repeat="pr in problemReportList" ng-click="detail(pr)">
+        <div class="orderItem">
+          <div class="orderTitle">
+            <div class="row">
+              <div class="col col-70">
+                {{pr.problemNo}}
+              </div>
+              <div class="col col-20">
+                <span class="flagDW">{{pr.problemStatusDesc}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="orderElement">
+            <div class="row">
+              <div class="col">
+                <span class="label-name">问题类型:</span>
+                <span class="label-value">{{pr.problemTypeDesc}}</span>
+              </div>
+              <div class="col" ng-if="pr.workorderCode">
+                <span class="label-name">关联工单:</span>
+                <span class="label-value">{{pr.workorderCode}}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <span class="label-name">问题主题:</span>
+                <span class="label-value">{{pr.problemSubject}}</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="icon row">
+          <!--<span class="flag" style="text-align: left">{{pr.problemStatusDesc}}</span>-->
+          <i class="icon ion-ios-arrow-right"></i>
+        </div>
+      </div>
+    </div>
+    <ion-infinite-scroll on-infinite="loadMoreData()" ng-if="hasMoreData"></ion-infinite-scroll>
+  </ion-content>
+</ion-view>

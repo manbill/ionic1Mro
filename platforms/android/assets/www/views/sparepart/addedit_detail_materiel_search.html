@@ -1,0 +1,43 @@
+<ion-view view-title="物料选择">
+  <ion-nav-buttons side="right">
+    <div class="query" ng-click="openQuery()">
+      <i class="ion-funnel"></i>筛选
+    </div>
+  </ion-nav-buttons>
+  <ion-content overflow-scroll="false">
+    <ion-refresher
+      pulling-text="下拉刷新"
+      on-refresh="doRefresh()">
+    </ion-refresher>
+    <ion-list class="data-list">
+      <ion-item
+        ng-repeat="materiel in webMaterielList" class="item-icon-right">
+        <div class="material-add">
+          <div class="row" style="padding:0.4em 0 0.8em 0.4em">
+            <label class="col label-name">物料号/描述:</label>
+            <div class="text-ellipsis label-value">
+              {{materiel.materialSno}} - {{materiel.materialName}}
+            </div>
+          </div>
+          <div class="row" style="padding-left:0.4em">
+            <label class="col label-name">单位：</label>
+            <span class="col label-value">{{materiel["unitText"]}}</span>
+            <span class="col label-name">数量：</span>
+            <input class="col label-value" style="position: relative; top: -0.5em; background-color: whitesmoke;" type="number" min="0"
+                   placeholder="请输入" ng-model="materiel.amount">
+          </div>
+        </div>
+        <i class="icon ion-ios-arrow-right"  ng-click="materialDetailSearch(materiel)"></i>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll
+      ng-if="hasMoreData"
+      distance="1%"
+      immediate-check="false"
+      on-infinite="loadMoreData()">
+    </ion-infinite-scroll>
+  </ion-content>
+  <ion-footer-bar>
+    <button class=" button button-eambule-block" ng-click="saveMaterials()">保存</button>
+  </ion-footer-bar>
+</ion-view>

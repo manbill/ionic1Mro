@@ -1,0 +1,41 @@
+<ion-view view-title="点检表">
+  <ion-content>
+    <ion-list class="data-list">
+      <div class="item item-icon-right" ng-repeat="checkItem in checkList">
+        <div class="orderItem">
+          <div class="orderTitle">
+            <span>{{checkItem.eaWoManualDTO.manualName}}</span>
+            <div ng-click="openFile(checkItem)"
+                 ng-if="checkItem.eaWoManualDTO.fileId"
+                 style="padding: 0.5em 0;">
+              <div
+                class="label-value text-ellipsis">{{checkItem.eaWoManualDTO.fileName}}.{{checkItem.checkFileDto.fileType}}
+              </div>
+                <span class="label-name">查看附件</span>
+            </div>
+            <span class="flag">
+							<label class="toggle" style="float: right;margin-bottom: -15px;">
+                								<input type="checkbox"
+                                       ng-disabled="(!isCanEdit()) && (checkItem.eaWoManualDTO.isSelect == 157)"
+                                       ng-model="webParams[$index]" ng-click="switchChange(checkItem,$event)">
+                <!--ng-if="isOrderCanEdit(taskId)"-->
+                <!--ng-if="isOrderCanEdit(taskId)"-->
+								<div class="track">
+									<div class="handle"></div>
+								</div>
+							</label>
+						</span>
+          </div>
+        </div>
+        <!--<div>-->
+        <!--<span class="name">&lt;!&ndash;工程节点：<span class="content">{{checkItem.projectNode}}&ndash;&gt;</span></span>-->
+        <!--</div>-->
+        <!--<div>-->
+        <!--<span class="name">&lt;!&ndash;适用机型：<span class="content">{{checkItem.machineType}}&ndash;&gt;</span></span>-->
+        <!--</div>-->
+
+        <i class="icon ion-ios-arrow-right" ng-click="goCheckDetail(checkItem,$index,webParams[$index])"></i>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>

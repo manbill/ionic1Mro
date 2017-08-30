@@ -1,0 +1,37 @@
+<ion-view title="{{title}}">
+  <ion-content class="content">
+    <ion-list>
+        <div class="item item-input">
+          <label class="input-label">作业人</label>
+          <input type="text" ng-model="empTimeSheet.objectName" ng-click="selectEmp(empTimeSheet.type)"  placeholder="作业人"/>
+        </div>
+      <ion-item class="item-input item-date">
+        <span class="input-label">开始时间</span>
+        <input type="datetime-local"  ng-model="empTimeSheet.beginTime">
+        <!--<input type="date" formatDate/>-->
+      </ion-item>
+      <ion-item class="item-input">
+        <span class="input-label">结束时间</span>
+        <input type="datetime-local" ng-model="empTimeSheet.endTime">
+        <!--<input type="date" ng-model="empTimeSheet.endTime" formatDate/>-->
+      </ion-item>
+      <ion-item class="item-toggle">
+        <span >是否供应商</span>
+        <label class="toggle toggle-positive " >
+          <!--ng-disabled="isEditStatus&&isSupplyer"-->
+          <input type="checkbox" ng-checked="empTimeSheet.type==2"  ng-click="toggleSwitch()" ng-model="empTimeSheet.pink">
+              <div class="track">
+              <div class="handle"></div>
+        </div>
+      </label>
+      </ion-item>
+      <label class="item item-input">
+        <textarea placeholder="描述..." style="height: 5em;"
+                  ng-model="empTimeSheet.description"></textarea>
+      </label>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar>
+    <button class="button button-eambule-block" ng-click="save()">保存</button>
+  </ion-footer-bar>
+</ion-view>

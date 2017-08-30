@@ -1,0 +1,114 @@
+<ion-view view-title="用料标准">
+  <ion-nav-buttons side="right">
+    <button class="button button-eambule-small icon button-icon ion-ios-plus-outline"
+         ng-click="navigateToNewStdMaterial()"
+    ng-if="isCanAddNewMaterial()">
+
+    </button>
+  </ion-nav-buttons>
+  <ion-content>
+    <!--<p>1 {{currentUserId}} 2 {{taskDetailInfo.apiWorkorderBaseInfoDto.assignPerson}} 3 {{taskDetailInfo.apiWorkorderBaseInfoDto.workorderStatus}} 4 {{auth["auth_410105"]}} 5 {{auth["auth_460105"]}}</p>-->
+    <ion-list class="data-list">
+      <ion-item ng-repeat="stdMateriel in  stdMaterialsViewModels track by $index" ng-if="stdMateriel.activeFlag==0">
+        <!--<div>-->
+          <!--<div class="title">物料编号：{{stdMateriel.materialSno}}</div>-->
+          <div class="orderElement">
+            <span class="label-name">物料:</span>
+            <span class="label-value text-ellipsis">{{stdMateriel.materialSno}}-{{stdMateriel.materialName}}</span>
+                  <!--style="white-space: pre-line;"-->
+          </div>
+
+          <div class="orderElement">
+            <div class="row">
+              <div class="col">
+                <span class="label-name">单位:</span>
+                <span class="label-value">{{stdMateriel.unitName}}</span>
+              </div>
+              <div class="col">
+                <span class="label-name">参考数量:</span>
+                <span class="label-value">{{stdMateriel.referNum}}</span>
+              </div>
+            </div>
+
+          </div>
+
+        <div class="orderElement">
+          <div class="row">
+            <div class="col">
+              <div style="display: flex;justify-content: left;align-items: baseline;align-content: stretch;padding-top: 6px;">
+              <span class="label-name">实际数量:</span>
+              <span class="label-value">
+                <input ng-model="stdMateriel.actualNum" type="number" placeholder="请输入" style="border-style: solid;height: 1.5em;width: 80px;background-color: whitesmoke;" ng-if ="stdMateriel.referNum">
+                <!--没有参考数量，只能删除重新添加，不能直接修改-->
+                <input ng-model="stdMateriel.actualNum" type="number" readonly placeholder="请输入" style="background: transparent" ng-if ="!stdMateriel.referNum">
+              </span>
+              </div>
+            </div>
+            <div class="col">
+              <div style="display: flex;justify-content: center;align-items: center;align-content: stretch;">
+                <span class="label-name">账内:</span>
+                <span class="label-value">
+                  <label class="toggle">
+                  <input type="checkbox" ng-model="stdMateriel.sapInventoryFlag" ng-change="stdMateriel.sapInventoryFlag" ng-checked="stdMateriel.sapInventoryFlag== true" ng-disabled ="stdMateriel.referNum == null">
+                  <div class="track">
+                    <div class="handle"></div>
+                  </div>
+                </label>
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+          <!--<div class="name row">-->
+            <!--<span class="label-name col" ng-if="!!stdMateriel.demandId">参考物料数量：</span>-->
+            <!--<span class="label-value col">{{stdMateriel.referNum}}</span>-->
+            <!--<span class="label-name col">{{stdMateriel.unitName}}</span>-->
+          <!--</div>-->
+
+          <!--<div class="name  row">-->
+            <!--<span class="label-name col">实际消耗数量：</span>-->
+            <!--<span class="content col"> <input ng-model="stdMateriel.actualNum" type="number" placeholder="请输入" style="border-style: solid;height: 1.5em;"> </span>-->
+            <!--<span class="label-name col">{{stdMateriel.unitName}}</span>-->
+          <!--</div>-->
+          <!--<div class="name" style="display: flex;flex-direction: row;align-items: baseline;align-content: stretch">-->
+            <!--&lt;!&ndash;<span>&ndash;&gt;-->
+            <!--<div class="label-name">是否是帐内库存:</div>-->
+            <!--<div class="label-value">-->
+            <!--<label class="toggle"  style="float: right;margin-bottom: -15px;" >-->
+            <!--<ion-toggle ng-model="stdMateriel.sapInventoryFlag" ng-checked="stdMateriel.sapInventoryFlag"></ion-toggle>-->
+            <!--<span class="content">{{stdMateriel.sapInventoryFlag==0?"是":"否"}}</span>-->
+              <!--<label class="toggle toggle-assertive">-->
+                <!--<input type="checkbox" ng-model="stdMateriel.sapInventoryFlag" checked="stdMateriel.sapInventoryFlag">-->
+                <!--<div class="track">-->
+                  <!--<div class="handle"></div>-->
+                <!--</div>-->
+              <!--</label>-->
+              <!--&lt;!&ndash;<label>&ndash;&gt;-->
+                <!--&lt;!&ndash;<span >原始值{{stdMateriel.sapInventoryFlag}}</span>&ndash;&gt;-->
+                <!--&lt;!&ndash;<span >布尔值 checked要用{{!stdMateriel.sapInventoryFlag}}</span>&ndash;&gt;-->
+                <!--&lt;!&ndash;<br/>&ndash;&gt;-->
+                <!--&lt;!&ndash;<span class="label-name">是否是账内库存：</span>&ndash;&gt;-->
+                <!--&lt;!&ndash;<span> <input type="checkbox" name="ckeckIt" ng-model="stdMateriel.sapInventoryFlag" ng-checked="stdMateriel.sapInventoryFlag"></span>&ndash;&gt;-->
+            <!--</label><br/>-->
+              <!--<label class="toggle">-->
+                <!--<input type="checkbox" ng-model="stdMateriel.sapInventoryFlag" ng-change="stdMateriel.sapInventoryFlag" ng-checked="stdMateriel.sapInventoryFlag== true">-->
+                <!--<div class="track">-->
+                  <!--<div class="handle"></div>-->
+                <!--</div>-->
+              <!--</label>-->
+            <!--</div>-->
+            <!--</span>-->
+          </div>
+        <!--</div>-->
+        <ion-option-button class="button-assertive" ng-click="delStandardMaterialItem(stdMateriel,$index)" ng-disabled ="!!stdMateriel.referNum">删除
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar>
+    <button class="button button-eambule-block" ng-click="saveNewMaterials()" ng-if="isCanAddNewMaterial()" ng-disabled="!(taskDetailInfo.apiWorkorderBaseInfoDto.workorderStatus == 141)">保存并返回</button>
+  </ion-footer-bar>
+</ion-view>
+

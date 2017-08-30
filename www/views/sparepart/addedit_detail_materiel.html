@@ -1,0 +1,47 @@
+<ion-view class="sparepart-edit" view-title="调拨单物料清单">
+  <ion-nav-buttons side="right">
+    <div ng-click="create();" ng-if="isCanEdit">
+      <i class="icon ion-ios-plus-outline" style="font-size: 2.4em; margin: 0.4em; bottom: 0em;"></i>
+    </div>
+  </ion-nav-buttons>
+  <ion-content class="has-footer">
+    <ion-list class="data-list">
+      <ion-item ng-repeat="consume in materiels track by $index" class="item-icon-right icon-father" style="padding-top:0.5em ">
+        <div class="row orderItem">
+          <div class="col col-10 label-name">物料:</div>
+          <div class="col col-90 text-ellipsis label-value" style="padding: 0 0 0 1em;">
+            {{consume.materialNo}}-{{consume.materialComment}}
+          </div>
+        </div>
+        <div class="row orderItem">
+          <div class="col">
+            <span class="label-name">单位:</span>
+            <input type="text" ng-model="consume.unitName"
+                   ng-disabled="true"
+                   style="background-color:transparent;display: inline;padding: 0 0 0 0.5em; text-align: left; position: relative; top: -0.2em;" min="0"
+            >
+            <!--<span class="label-value" style="padding: 0 0 0 0.5em;">{{consume.unitName}}</span>-->
+          </div>
+          <div class="col">
+            <span class="label-name">数量:</span>
+            <input type="number"
+                   ng-disabled="!isCanEdit"
+                   style="display: inline;background-color: whitesmoke;
+                    text-align: left; position: relative; width: 3em;" min="0" placeholder="请输入"
+                   ng-model="consume.totalDemandAmount">
+          </div>
+        </div>
+        <i class="icon ion-ios-arrow-right" ng-click="materialDetailForEdit(consume)"></i>
+        <ion-option-button class="button"
+                           ng-if="isCanEdit"
+                           style="background-color: red; color: white;"
+                           ng-click="deleteMaterielInfo(consume,$index)">
+          删除
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar ng-if="isCanEdit">
+    <button class=" button button-eambule-block" ng-click="saveMaterielInfo()">保存</button>
+  </ion-footer-bar>
+</ion-view>

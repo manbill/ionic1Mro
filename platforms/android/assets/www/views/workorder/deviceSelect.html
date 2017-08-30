@@ -1,0 +1,19 @@
+<ion-view title="设备">
+	<ion-content scrollbar-y="false">
+		<ion-scroll class="nodes">
+			<div  class="node {{node.action}} index{{$index}}" ng-repeat="node in nodeList" ng-click="selectNode(node)">
+				<div ng-if="$index != 0" class="icon ion-arrow-down-a"></div>
+				{{node.deviceName}}
+			</div>
+		</ion-scroll>
+		<ion-list class="data-list nodeItems">
+			<ion-item class="item-icon-right" ng-repeat="device in deviceList">
+				<a ng-click="deviceDetail(device)">
+					<div class="title">{{device.deviceName}}</div>
+					<div class="name">点击查看详情</div>
+				</a>
+				<i class="icon ion-ios-arrow-right" ng-if="device.hasChildrenDevice == 'T'" ng-click="showNodeDevices(device)"></i>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>

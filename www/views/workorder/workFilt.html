@@ -1,0 +1,48 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-eamblue">
+    <a class="button button-clear ion-chevron-left" ng-click="backButtonAction()"></a>
+    <div class="title">筛选</div>
+  </ion-header-bar>
+  <ion-scroll direction="y" style="right: 0;bottom: 0;left: 0;position: absolute;" class="has-header">
+    <ion-list class="list-line">
+     <!--<div class="orderItem">-->
+      <ion-item class="item-input">
+        <span class="input-label">工单号</span>
+        <input type="text" ng-model="params.orderNo" placeholder="请输入">
+      </ion-item>
+      <ion-item class="item-input">
+        <span class="input-label">故障代码</span>
+        <input type="text" ng-model="params.faultCode" placeholder="请输入">
+      </ion-item>
+      <ion-item class="item-input item-date">
+        <span class="input-label">故障激活日期</span>
+        <input type="date" ng-model="params.faultBeginFromTime">
+      </ion-item>
+       <ion-item class="item-input item-date">
+        <span class="input-label">至</span>
+        <input type="date" ng-model="params.faultBeginToTime">
+      </ion-item>
+      <ion-item class="item-input item-select">
+        <div class="input-label">
+          状态
+        </div>
+        <select ng-model="params.workOrderStatus"
+                ng-options="act.detailId as act.detailName for act in workStatuss">
+          <option value="">--请选择--</option>
+        </select>
+      </ion-item>
+      <ion-item class="item-input item-select">
+        <div class="input-label">
+          来源
+        </div>
+        <select ng-model="params.faultSource"
+                ng-options="faultSource.detailId as faultSource.detailName for faultSource in faultSources"
+                class="form-control">
+          <option value="">--请选择--</option>
+        </select>
+      </ion-item>
+       <!--</div>-->
+    </ion-list>
+    <button class="button button-eambule-block" ng-click="query()" style="margin-top: 50px;">提交</button>
+  </ion-scroll>
+</ion-modal-view>

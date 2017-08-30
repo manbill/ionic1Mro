@@ -1,0 +1,38 @@
+<ion-view class="sparepart-list" view-title="备件收货">
+    <ion-nav-buttons side="right">
+        <div class="query" ng-click="openFilter();">
+            <i class="ion-funnel" style="margin-right: 5px;"></i>筛选
+        </div>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-refresher pulling-text="下拉刷新" on-refresh="refreshData()"></ion-refresher>
+        <ion-list class="data-list">
+            <div class="item item-icon-right" ng-repeat="receive in receives" ng-click="showDetail(receive.json, $event)">
+                <div class="row">
+                    <div class="col col-80 title">发货单号：{{receive.json.shippingOrderNo}}</div>
+                    <!--<div class="col col-20">-->
+                        <!--<a class="button button-small button-positive" ng-if="isOnline&&receive.statusId==182&&auth['auth_450102']"-->
+                           <!--ng-click="confirm(receive.json, $event)">确认收货</a>-->
+                        <!--<a class="button button-small button-assertive" ng-if="isOnline&&receive.statusId==183&&auth['auth_450103']"-->
+                           <!--ng-click="unconfirm(receive.json, $event)">撤销收货</a>-->
+                    <!--</div>-->
+                </div>
+                <div class="row">
+                    <div class="col col-67 name">调拨单号：<span class="color-blue1">{{receive.json.transferOrderNo}}</span></div>
+                    <div class="col col-33 text-right color-green">{{receive.json.shipingStatus}}</div>
+                </div>
+                <div class="row">
+                    <div class="col name">调入方：<span class="color-blue1">{{receive.json.grWhName}}</span></div>
+                    <div class="col name">调出方：<span class="color-blue1">{{receive.json.giWhName}}</span></div>
+                </div>
+                <div class="row">
+                    <div class="col name">创建人：<span class="color-blue1">{{receive.json.realName}}</span></div>
+                    <div class="col name">创建时间：<span class="color-blue1">{{receive.json.createOn|date:"yyyy-MM-dd"}}</span></div>
+                </div>
+                <i class="icon ion-ios-arrow-right"></i>
+            </div>
+        </ion-list>
+        <ion-infinite-scroll on-infinite="loadMoreData()" ng-if="hasMoreData" distance="5%">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>

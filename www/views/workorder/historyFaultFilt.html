@@ -1,0 +1,30 @@
+<ion-modal-view>
+	<ion-header-bar class="bar-eamblue">
+		<a class="button button-clear ion-chevron-left" ng-click="closeFilter();"></a>
+		<div class="title">历史故障筛选</div>
+	</ion-header-bar>
+	<ion-content>
+		<div class="list">
+
+			<ion-item class="item-input item-date">
+				<span class="input-label">故障开始时间</span>
+				<input type="datetime-local" ng-model="params.faultBeginFromTime" formatDate/>
+			</ion-item>
+			<ion-item class="item-input">
+				<span class="input-label">故障结束时间</span>
+				<input type="datetime-local" ng-model="params.faultBeginToTime" formatDate/>
+			</ion-item>
+			<label class="item item-input item-stacked-label" style="background-color: white;">
+				<span class="input-label">故障原因</span>
+				<input type="text" style="text-align: left;" ng-model="params.faultReasonName" placeholder="请输入">
+			</label>
+			<label class="item item-input item-stacked-label" style="background-color: white;">
+				<span class="input-label">故障现象详尽描述</span>
+				<input type="text" style="text-align: left;" ng-model="params.faultDetailComment" placeholder="请输入">
+			</label>
+			<div class="padding" style="margin-top: 50px;">
+				<button class="button button-block eamblue-bg" ng-click="closeFilter()" ><b>筛选</b></button>
+			</div>
+		</div>
+	</ion-content>
+</ion-modal-view>

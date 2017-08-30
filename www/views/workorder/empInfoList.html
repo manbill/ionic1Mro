@@ -1,0 +1,25 @@
+<ion-view title="作业人员列表">
+  <ion-nav-buttons side="right">
+    <div class="query" ng-click="openEmpInfoFilter();">
+      <i class="ion-funnel" style="margin-right: 5px;"></i>筛选
+    </div>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-list class="data-list">
+      <div class="item item-icon-right" ng-click="getEmpInfo(empInfo)" ng-repeat="empInfo in empInfos" >
+        <div class="title">{{empInfo.name}}</div>
+        <div>
+          <span class="name">用户类型：<span class="content">{{empInfo.userType}}</span></span>
+          <span class="divide">|</span>
+          <span class="name">用户账号：<span class="content">{{empInfo.userAccount}}</span></span>
+        </div>
+        <div>
+          <span class="name">所属项目：<span class="content textarea">{{empInfo.projectName}}</span></span>
+        </div>
+        <i class="icon ion-ios-arrow-right"></i>
+      </div>
+    </ion-list>
+    <ion-infinite-scroll on-infinite="loadMore()" ng-if="!noMoreData">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

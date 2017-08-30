@@ -1,0 +1,206 @@
+<ion-view view-title="{{title|formatOrderType}}详情" >
+  <ion-content>
+    <ion-list class="data-list list-line list-detail">
+      <div class="click-hide-item-action">
+        <div>
+          <ion-item class="item-divider" style="padding: 1% 5%;">
+            <span class="name">工单号：</span>
+            <span class="content">{{work.orderNo}}</span>
+          </ion-item>
+        </div>
+        <ion-item style="padding:3% 5%;">
+          <div class="title">
+            项目：{{work.projectName}}
+          </div>
+          <span class="name">机位号：</span><span class="content">{{work.machineNo}}</span>
+          <span class="divide">|</span>
+          <span class="name">设备名称：</span><span class="content">{{work.faultComponentName}}</span>
+
+          <div class="flag" style="right: 15px;">
+            <div>{{work.status | formatOrderStatus}}</div>
+          </div>
+        </ion-item>
+      </div>
+      <div class="item item-divide item-icon-right" ng-click="showManualWorkDetail()">
+        <div class="content" ng-hide="isShowManualWorkDetail" style="font-size: 14px;padding: 1% 3%;">显示工单详情</div>
+        <div ng-hide="!isShowManualWorkDetail" style="padding: 0 3%">
+          <div class="title">
+            项目：{{work.projectName}}
+          </div>
+          <span class="name">机位号：</span><span class="content">{{work.machineNo}}</span>
+          <span class="divide">|</span>
+          <span class="name">设备名称：</span><span class="content">{{work.faultComponentName}}</span>
+
+          <div class="flag" style="margin: 0 10px 0 0">
+            <div  >{{work.status | formatOrderStatus}}</div>
+          </div>
+        </div>
+        <a class="icon-size icon content"
+           ng-class="{false:'ion-chevron-right',true:'ion-chevron-down '}[isShowManualWorkDetail]"
+           style="color: #6581a1" href="#">
+        </a>
+      </div>
+
+      <!--详情列表-->
+      <div id="id-showing-detail" ng-show="isShowManualWorkDetail" class="list-detail">
+        <!--<div class="item">-->
+        <!--项目 <span class="item-text">{{work.projectName}}</span>-->
+        <!--</div>-->
+        <!--<div class="item">-->
+        <!--机位号 <span class="item-text">{{work.MachineIndex}}</span>-->
+        <!--</div>-->
+        <ion-item>
+          <!--<div style="float: left;"><img src="img/list_07.png" style="height: 20px;"/></div>-->
+          <div style="float: left;"> 工单号：{{work.orderNo}}</div>
+        </ion-item>
+        <div class="item">
+          区域 <span class="item-text">{{work.areaName}}</span>
+        </div>
+        <div class="item">
+          设备序列号<span class="item-text">{{work.deviceSn}}</span>
+        </div>
+        <!--<div class="item">-->
+        <!--设备名称<span class="item-text">{{work.faultComponentName}}</span>-->
+        <!--</div>-->
+        <div class="item">
+          采集故障码<span class="item-text">{{work.faultCode}}</span>
+        </div>
+        <div class="item">
+          故障名称<span class="item-text">{{work.faultName}}</span>
+        </div>
+        <!--<div class="item">-->
+        <!--状态 <span class="item-text">{{work.status}}</span>-->
+        <!--</div>-->
+        <div class="item time">
+          <div class="row row-no-padding">
+            <div class="col-40 item-text">{{work.faultBeginTime|Infydate}}</div>
+            <div class="col-20" style="font-size: 24px;text-align:center;line-height: 31.2px">
+              <i class="ion-arrow-right-a"></i>
+            </div>
+            <div class="col-40 item-text" style="text-align: right;">{{work.faultEndTime|Infydate}}</div>
+          </div>
+          <div class="row row-no-padding">
+            <div class="col-40">故障激活时间</div>
+            <div class="col-20"></div>
+            <div class="col-40" style="text-align: right;">故障解决时间</div>
+          </div>
+        </div>
+        <div class="item">
+          累计停机时间
+          <span class="item-text">{{work.totalWorkTime}}</span>
+        </div>
+        <div class="item time">
+          <div class="row row-no-padding">
+            <div class="col-40 item-text">{{work.workBeginDate|Infydate}}</div>
+            <div class="col-20" style="font-size: 24px;text-align:center;line-height: 31.2px">
+              <i class="ion-arrow-right-a"></i>
+            </div>
+            <div class="col-40 item-text" style="text-align: right;">{{work.workEndDate|Infydate}}</div>
+          </div>
+          <div class="row row-no-padding">
+            <div class="col-40">作业开始时间</div>
+            <div class="col-20"></div>
+            <div class="col-40" style="text-align: right;">作业结束时间</div>
+          </div>
+        </div>
+        <div class="item">
+          创建时间<span class="item-text">{{work.createTime|Infydate}}</span>
+        </div>
+        <ion-item class="item-divider" style=" margin-top: 15px;height: 50px;">
+          <label style="margin-left:40%;font-size: 16px;">描述信息</label>
+
+          <div class="button " ng-click="goManualEdit(work)" ng-if="isOrderCanEdit(taskId)"
+               style="background-color: #1565c0;color: #FFFFFF;line-height: 28px;min-height: 28px;float: right;">
+            <b>编辑</b>
+          </div>
+        </ion-item>
+        <div class="item">
+          NRC号<span class="item-text">{{work.ncr}}</span>
+        </div>
+        <div class="item">
+          其他因素分类<span class="item-text">{{work.otherCauseCategory|CauseCategoryFilter}}</span>
+        </div>
+        <div class="item">
+          其他因素停机时间<span class="item-text">{{work.otherCauseStopTime|Infydate}}</span>
+        </div>
+        <div class="item">
+          累计停机时间(h) <span class="item-text">{{work.totalStopTime}}</span>
+        </div>
+        <div class="item">
+          现场因素描述<span class="item-text">{{work.currentCauseDes}}</span>
+        </div>
+        <div class="item">
+          故障建议<span class="item-text">{{work.faultSuggest}}</span>
+        </div>
+        <div class="item">
+          故障现象详尽描述<span class="item-text">{{work.faultDetailDes}}</span>
+        </div>
+        <div class="item">
+          故障原因<span class="item-text">{{work.faultCause}}</span>
+        </div>
+        <div class="item">
+          故障原因描述<span class="item-text">{{work.faultCauseDes}}</span>
+        </div>
+      </div>
+
+      <!--人员报工、物料请求-->
+      <div class="div-buttons-items-action" ng-hide="isShowManualWorkDetail">
+        <div class="item text-center " style="padding: 15% 5% 15% 5%;border: none;">
+          <div style="background:#d4dae2 ;margin: 0;padding: 0">
+            <div class="row row-no-padding text-center">
+              <div class="col col-center" style="margin: 0 1px 1px 0;display: block;">
+                <a href="#/tab/workorder/empTimeSheet/list/{{taskId}}/1">
+                  <img src="img/img-buttons-normal/work-time-normal.png" height="40px" width="40px">
+
+                  <p style="margin: 0 0 7% 0;">人员报工</p>
+                </a>
+              </div>
+              <div class="col col-center" style="margin: 0 1px 1px 0">
+                <a href="#/tab/workorder/materialRequest/{{taskId}}">
+                  <img src="img/img-buttons-normal/material-request.png" height="40px" width="40px">
+
+                  <p style="margin: 0 0 7% 0;">物料请求</p>
+                </a>
+              </div>
+              <div class="col col-center" style="margin: 0 0px 1px 0;">
+                <a href="#/tab/workorder/recordRepair/{{taskId}}">
+                  <img src="img/img-buttons-normal/maintain-record.png" height="40px" width="40px">
+
+                  <p style="margin: 0 0 7% 0;">维修记录</p>
+                </a>
+              </div>
+            </div>
+            <!--第二行-->
+            <div class="row row-no-padding text-center " style="margin:0px 0 0 0;">
+              <div class="col col-center" style="margin: 0 1px 0px 0">
+                <a href="#/tab/workorder/empTimeSheet/list/{{taskId}}/2">
+                  <img src="img/img-buttons-normal/other-normal.png" height="40px" width="40px">
+
+                  <p>其他报工</p>
+                </a>
+              </div>
+              <div class="col col-center" style="margin: 0 1px 0px 0 ;">
+                <a href="#/tab/workorder/currentFaultList/{{taskId}}">
+                  <img src="img/img-buttons-normal/false-list.png" height="40px" width="40px">
+
+                  <p>故障列表</p>
+                </a>
+              </div>
+              <div class="col" style="margin:0;">
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="button button-eambule-block  click-submit-action-class"
+                ng-click="submitManualWorkOrder(work)" ng-if="isOrderCanEdit(taskId)" style=" margin: 6% 0;">{{buttonText.text}}
+        </button>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>
+<style>
+  .data-list .item .row .col {
+    background: #fff;
+    padding: 5% 0 0 0;;
+  }
+</style>

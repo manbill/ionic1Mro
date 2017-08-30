@@ -1,0 +1,53 @@
+<ion-view view-title="备件列表">
+  <ion-nav-buttons side="right">
+    <div class="query" ng-click="openFilter();">
+      <i class="ion-funnel"></i>筛选
+    </div>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefreshRepertoryData()">
+    </ion-refresher>
+    <ion-list class="data-list">
+      <div class="item item-icon-right" ng-repeat="materiel in materiels" >
+        <div class="orderItem icon-father">
+            <div class="row">
+              <div class="col">
+                <div class="text-ellipsis" style="width: 17.9em">
+                  <div class="orderTitle">
+                  <span class="label-name">物料:</span>
+                  <span class="label-value">{{materiel.materialSno}}&nbsp;{{materiel.materialName}}</span>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="orderElement">
+            <div class="row">
+                <div class="col">
+                  <span class="label-name">单位:</span>
+                  <span class="label-value">{{materiel.unit}}</span>
+                </div>
+                <div class="col">
+                <label class="label-name">部套厂商:</label>
+                <span class="label-value">{{materiel.materialVendor}}</span>
+                </div>
+            </div>
+          </div>
+          <div class="orderElement">
+            <div class="row ">
+                <div class="col">
+                  <label class="label-name">机型:</label>
+                  <span class="label-value">{{materiel.machineModel}}</span>
+                </div>
+                <div class="col">
+                  <label class="label-name">所属部套:</label>
+                  <span class="label-value">{{materiel.materialSuite}}</span>
+                </div>
+            </div>
+          </div>
+          <i class="icon ion-ios-arrow-right" ng-click="showDetail(materiel)"></i>
+        </div>
+      </div>
+    </ion-list>
+    <ion-infinite-scroll on-infinite="loadMoreData()" ng-if="hasMoreData" distance="5%"></ion-infinite-scroll>
+  </ion-content>
+</ion-view>

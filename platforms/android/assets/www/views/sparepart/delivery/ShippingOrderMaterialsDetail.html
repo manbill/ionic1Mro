@@ -1,0 +1,42 @@
+<ion-view class="sparepart-edit" view-title="发运清单详细">
+  <ion-content>
+    <ion-list class="detail-data-list">
+      <ion-item ng-repeat="materiel in shippingOrderMaterielDetails track by $index"
+                ng-click="materialDetail(materiel)"
+                class="item-icon-right icon-father">
+        <div class="row ">
+          <div class="col text-ellipsis title">{{materiel.materialSno}}-{{materiel.materialName}}</div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <span class="label-name">本次发货:</span>
+            <span class="text-red">{{materiel.issueAmount}}</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <span class="label-name">总需求:</span>
+            <span class="label-value">{{materiel.totalDemandAmount}}</span>
+            <span class="divide">|</span>
+          </div>
+          <div class="col">
+            <span class="label-name">待处理:</span>
+            <span class="label-value">{{materiel.demandAmount}}</span>
+            <span class="divide">|</span>
+          </div>
+          <div class="col">
+            <!--已转办= 总需求-已发货-待处理-->
+            <span class="label-name">已转办:</span>
+            <span class="label-value">{{materiel.totalDemandAmount-materiel.totalIssueAmount-materiel.demandAmount}}</span>
+            <span class="divide">|</span>
+          </div>
+          <div class="col">
+            <span class="label-name">已发货:</span>
+            <span class="label-value">{{materiel.totalIssueAmount}}</span>
+          </div>
+        </div>
+        <i class="icon ion-ios-arrow-right" ></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

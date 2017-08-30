@@ -1,0 +1,14 @@
+<ion-view title="{{title}}">
+  <ion-content>
+    <div class="list pdf-detail">
+      <div class="pdf-detail-title ">{{title}}</div>
+      <div >
+        <li><p eam-show-content="{{contentDto}}"></p></li>
+      </div>
+      <div class="row" >
+        <!--<img  id="{{image.fileId}}" ng-src="{{image.filePath?image.filePath:'img/uploadimg.png'}}" ng-click="downloadImage(image.fileId)" alt="{{image.fileOriginalName}}"/>-->
+        <img style="height: 100px;width: 100px" ng-click="downloadWoManualImg(fs)" ng-repeat="fs in node.fileList" class="col-33" id="{{fs.fileId}}" ng-src="{{fs.filePath?fs.filePath:'img/ionic.png'}}" alt="{{fs.originalFileName}}">
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

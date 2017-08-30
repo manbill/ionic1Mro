@@ -1,0 +1,157 @@
+<style>
+	.data-list .item .row .col {
+		background: #fff;
+		padding: 5% 0 0 0;
+		;
+	}
+
+	.data-list .item .button-icon .icon:before,
+	.button-icon.icon:before {
+		font-size: 45px;
+	}
+</style>
+<ion-view view-title="{{title|formatOrderType}}详情">
+	<!--<ion-nav-title>计划工单详情</ion-nav-title>-->
+	<ion-content>
+		<ion-list class="data-list list-line list-detail">
+			<div class="click-hide-item-action">
+				<div>
+					<ion-item class="item-divider" style="padding: 1% 5%;">
+						<span class="name">工单号：</span>
+						<span class="content">{{work.orderNo}}</span>
+					</ion-item>
+				</div>
+				<ion-item style="padding:3% 5%;">
+					<div class="title">
+						项目：{{work.projectName}}
+					</div>
+					<span class="name">机位号：</span><span class="content">{{work.machineNo}}</span>
+					<span class="divide">|</span>
+					<span class="name">作业类型：<span class="content">{{work.workType|formatPlanWorkType}}</span></span>
+
+					<div class="flag" style="right: 15px;">
+						<div>{{work.status | formatOrderStatus}}</div>
+					</div>
+				</ion-item>
+			</div>
+			<div class="item item-divide item-icon-right" ng-click="showPlanWorkDetail()">
+				<div class="content" ng-hide="isShowPlanWorkDetail" style="font-size: 14px;padding: 1% 3%;">显示工单详情</div>
+				<div ng-hide="!isShowPlanWorkDetail" style="padding: 0% 3%;">
+					<div class="title">
+						项目：{{work.projectName}}
+					</div>
+					<span class="name">机位号：</span><span class="content">{{work.machineNo}}</span>
+					<span class="divide">|</span>
+					<span class="name">作业类型：<span class="content">{{work.workType|formatPlanWorkType}}</span></span>
+
+					<div class="flag" style="margin: 0 10px 0 0">
+						<div>{{work.status | formatOrderStatus}}</div>
+					</div>
+				</div>
+				<a class="icon-size icon content" ng-class="{false:'ion-chevron-right',true:'ion-chevron-down'}[isShowPlanWorkDetail]" style="color: #6581a1" href="#">
+				</a>
+			</div>
+
+			<!--下面是工单详情-->
+			<scroll class="detail-content" id="detail-content">
+				<ion-list class="list-line list-detail ">
+					<div id="id-plan-detail" ng-show="isShowPlanWorkDetail">
+						<ion-item class="item-text">
+							<div> 工单号：{{work.orderNo}}</div>
+						</ion-item>
+						<div class="item">
+							现场经理
+							<span class="item-text">
+    {{work.belongTo}}
+    </span>
+						</div>
+						<div class="item time">
+							<div class="row row-no-padding">
+								<div class="col-40 item-text">{{work.planBeginDate|Infydate}}</div>
+								<div class="col-20" style="font-size: 24px;text-align:center;line-height: 31.2px"><i class="ion-arrow-right-a"></i></div>
+								<div class="col-40 item-text" style="text-align: right;">{{work.planEndDate|Infydate}}</div>
+							</div>
+							<div class="row row-no-padding">
+								<div class="col-40">计划开始时间</div>
+								<div class="col-20"></div>
+								<div class="col-40" style="text-align: right;">计划结束时间</div>
+							</div>
+						</div>
+						<div class="item time">
+							<div class="row row-no-padding">
+								<div class="col-40 item-text">{{work.workBeginDate|Infydate}}</div>
+								<div class="col-20" style="font-size: 24px;text-align:center;line-height: 31.2px"><i class="ion-arrow-right-a"></i></div>
+								<div class="col-40 item-text" style="text-align: right;">{{work.workEndDate|Infydate}}</div>
+							</div>
+							<div class="row row-no-padding">
+								<div class="col-40">作业开始时间</div>
+								<div class="col-20"></div>
+								<div class="col-40" style="text-align: right;">作业结束时间</div>
+							</div>
+						</div>
+						<div class="item">
+							创建时间<span class="item-text">{{work.createTime|Infydate}}</span>
+						</div>
+						<div class="item">
+							累计作业时间
+							<span class="item-text">{{work.totalWorkTime}}</span>
+						</div>
+						<label class="item item-input" style="height: 42px;">
+              NRC号
+              <input type="text" ng-model="params.ncr" ng-disabled="!isOrderCanEdit(taskId)" placeholder="请输入">
+            </label>
+						<ion-item>
+							<Textarea placeholder="填写备注..." ng-disabled="!isOrderCanEdit(taskId)" class="stable-bg" style="width: 100%;height: 5em;" ng-model="params.remark"></Textarea>
+						</ion-item>
+						<button ng-show="isShowPlanWorkDetail" class=" button-eambule-block button" ng-if="isOrderCanEdit(taskId)" ng-click="planWorkSave()">保存</button>
+					</div>
+				</ion-list>
+			</scroll>
+			<div class="div-buttons-items-action">
+				<div class="item text-center" style="padding: 15% 5% 15% 5%;border: none;" id="div-buttons">
+					<div style="background: #d4dae2;margin: 0;padding: 0">
+						<div class="row row-no-padding">
+							<div class="col" style="margin: 0 1px 1px 0">
+								<a href="#/tab/workorder/instructor/{{taskId}}">
+									<img src="img/img-buttons-normal/work-instrucktor-normal.png" height="40px" width="40px">
+									<p style="margin: 0 0 7% 0;">作业指导</p>
+								</a>
+							</div>
+							<div class="col" style="margin: 0 1px 1px 0">
+								<a href="#/tab/workorder/checkList/{{taskId}}">
+									<img src="img/img-buttons-normal/check-sheet-normal.png" height="40px" width="40px">
+									<p style="margin: 0 0 7% 0;">点检表</p>
+								</a>
+							</div>
+							<div class="col" style="margin: 0 0px 1px 0">
+								<a href="#/tab/workorder/checkMaterial/{{taskId}}">
+									<img src="img/img-buttons-normal/required-material-normal.png" height="40px" width="40px">
+									<p style="margin: 0 0 7% 0;">所需物料</p>
+								</a>
+							</div>
+						</div>
+						<!--第二行-->
+						<div class="row row-no-padding" style="margin:0px 0 0 0;">
+							<div class="col" style="margin: 0 1px 0px 0">
+								<a href="#/tab/workorder/empTimeSheet/list/{{taskId}}/1">
+									<img src="img/img-buttons-normal/work-time-normal.png" height="40px" width="40px">
+									<p>人员报工</p>
+								</a>
+							</div>
+							<div class="col" style="margin: 0 1px 0px 0">
+								<a href="#/tab/workorder/empTimeSheet/list/{{taskId}}/2">
+									<img src="img/img-buttons-normal/other-normal.png" height="40px" width="40px">
+									<p>其他报工</p>
+								</a>
+							</div>
+							<div class="col" style="margin:0;">
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--<button  class="button button-eambule-block click-submit-action-class" ng-controller="WorkOrderCtrl" ng-click="submitOrder(work)" ng-if="isOrderCanEdit(taskId)" style="margin: 6% 0;">{{buttonText.text}}</button>-->
+				<button class="button button-eambule-block click-submit-action-class" ng-click="submitOrder(work)" ng-if="isOrderCanEdit(taskId)" style="margin: 6% 0;">{{buttonText.text}}</button>
+			</div>
+		</ion-list>
+	</ion-content>
+</ion-view>

@@ -1,0 +1,105 @@
+<ion-view class="sparepart-detail" view-title="{{name}}">
+  <ion-content overflow-scroll="true">
+    <!--反馈记录-->
+    <ion-scroll ng-if="isfkjl" direction="y" style="height: 80%">
+      <div class="list">
+        <div class="item" ng-repeat="fkjl in fkjls">
+          <!--<div class="row">-->
+          <!--<div class="col col-25">类型   </div>-->
+          <!--<div class="col col-25">作业人 </div>-->
+          <!--<div class="col col-50">时间        </div>-->
+          <!--</div>-->
+          <div class="row">
+            <div class="col col-50 ">类 型：<span class="color-blue1">{{fkjl.userType}}</span></div>
+            <div class="col col-50">作业人：<span class="color-blue1">{{fkjl.createByName}}</span></div>
+            <!--<div class="col col-50">{{fkjl.createOn|date:"yyyy-MM-dd HH:mm:ss"}}</div>-->
+          </div>
+          <div class="row">
+            <div class="col">时 间：<span class="color-blue1 ">{{fkjl.createOn|date:"yyyy-MM-dd HH:mm:ss"}}</span></div>
+          </div>
+          <div class="row">
+            <div class="col item-text-wrap">
+              反馈记录：<span class="color-blue1">{{fkjl.content}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-scroll>
+    <ion-list style="height:20%;" ng-if="isfkjl&&isedit&&isOnline">
+      <ion-item>
+        <div class="row">
+          <div class="col col-80">
+            <textarea placeholder="请输入备注内容……" style="width: 100%" ng-model="fkjl.content"></textarea>
+          </div>
+          <div class="col col-20">
+            <a class="button button-block button-eambule" style="top: -0.2em" ng-click="send()">提交</a>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+    <!--转办记录-->
+    <!--<ion-scroll ng-if="iszbjl" direction="y" ng-class="height80">-->
+    <!--<div class="list">-->
+    <!--<div class="item" ng-repeat="fkjl in fkjls">-->
+    <!--<div class="row">-->
+    <!--<div class="col col-33">记录时间：</div>-->
+    <!--<div class="col col-50"><span class="color-blue1">{{fkjl.createOn|date:"yyyy-MM-dd HH:mm:ss"}}</span></div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col col-33">类别：</div>-->
+    <!--<div class="col col-40"><span class="color-blue1">{{fkjl.userType}}</span></div>-->
+    <!--<div class="col col-20 flag"><span class="color-blue1">{{fkjl.transferOrderStatus}}</span></div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col col-25">转办人：</div>-->
+    <!--<div class="col col-75"><span class="color-blue1">{{fkjl.createByName}}</span></div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col col-33">转办后调拨单号：</div>-->
+    <!--<div class="col col-67"><span class="color-blue1">{{fkjl.shiftTransferOrderNo}}</span></div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</ion-scroll>-->
+    <!--<div class="bar bar-footer bar-footer-80" ng-if="iszbjl&&isedit&&isOnline">-->
+    <!--<div class="row">-->
+    <!--<div class="col">-->
+    <!--<a href="#" class="button button-full button-positive" ng-click="send()">转办</a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--驳回记录-->
+    <!--<ion-scroll ng-if="isbhjl" direction="y" ng-class="height80">-->
+    <!--<div class="list">-->
+    <!--<div class="item" ng-repeat="fkjl in fkjls">-->
+    <!--<div class="row">-->
+    <!--<div class="col col-25">记录时间：</div>-->
+    <!--<div class="col col-50"><span class="color-blue1">{{fkjl.createOn|date:"yyyy-MM-dd HH:mm:ss"}}</span></div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col col-25">调出方：</div>-->
+    <!--<div class="col col-50"><span class="color-blue1">{{fkjl.giWhName}}</span></div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col col-25">驳回人：</div>-->
+    <!--<div class="col col-50"><span class="color-blue1">{{fkjl.createByName}}</span></div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col col-25">驳回原因：</div>-->
+    <!--<div class="col col-50"><span class="color-blue1">{{fkjl.content}}</span></div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</ion-scroll>-->
+    <!--<div class="bar bar-footer bar-footer-80" ng-if="isbhjl&&isedit&&isOnline">-->
+    <!--<div class="row">-->
+    <!--<div class="col col-80 item-input">-->
+    <!--<textarea placeholder="请输入备注内容……" ng-model="fkjl.content"></textarea>-->
+    <!--</div>-->
+    <!--<div class="col col-20">-->
+    <!--<a href="#" class="button button-full button-positive" ng-click="send()">驳回</a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+  </ion-content>
+</ion-view>

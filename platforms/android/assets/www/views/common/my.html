@@ -1,0 +1,62 @@
+<ion-view title="个人资料">
+  <ion-content>
+    <ion-item>
+      <h1 class="profile-name">
+        {{profileInfo.realname}}
+      </h1>
+    </ion-item>
+    <ion-list class="detail-data-list">
+      <ion-item class="item-input item-icon-right" ng-click="switchProject()">
+        <label class="label-name">当前项目</label>
+        <p class="label-value text-center" style="padding: .5em;width: 24em;">
+          {{selectedCompany.companyName}}
+          <br/>
+          {{selectedProject.projectName}}
+        </p>
+        <i class="icon ion-ios-arrow-right"></i>
+        <!--<div class="row">-->
+        <!--<label class="col-12 label-name">当前项目</label>-->
+        <!--<p class="col-70 label-value" style="padding:0 .8em">-->
+        <!--{{selectedCompany.companyName+selectedProject.projectName}}</p>-->
+        <!--<div class="col-10">-->
+        <!--<i class="icon ion-ios-arrow-right"></i>-->
+        <!--</div>-->
+        <!--</div>-->
+      </ion-item>
+      <ion-item class="item item-input item-icon-right" ng-click="upgradeVersion()">
+        <label class="label-name">检查更新</label>
+        <input type="text" ng-model="currentVersion" ng-disabled="true">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <div class="item item-toggle" ng-click="wifiSwitchAction($event)">
+        <span class="label-name">仅WiFi联网</span>
+        <label class="toggle toggle-balanced">
+          <input type="checkbox" ng-model="wifiSwitch.onlyWifi">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </div>
+      <ion-item class="item-input item-icon-right" ng-click="goAbout()">
+        <label class="label-name">关于</label>
+        <input type="text" ng-disabled="true">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+
+    </ion-list>
+    <div class="row row-wrap">
+      <div class="col">
+        <button class="button button-eambule-block eamblue-bg"
+                style="height: 20px;font-size: 15px;line-height: 15px;width: 80%;margin-left: 10%;" ng-click="syncData()">
+          同步
+        </button>
+      </div>
+      <div class="col">
+        <button class="button button-eambule-block eamblue-bg"
+                style="height: 20px;font-size: 15px;line-height: 15px;width: 80%;margin-left: 10%;" ng-click="logout()">
+          退出
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

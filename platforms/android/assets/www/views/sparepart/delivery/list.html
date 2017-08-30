@@ -1,0 +1,39 @@
+<ion-view class="sparepart-list"  view-title="备件发货">
+    <ion-nav-buttons side="right">
+        <div class="query" ng-click="openFilter();">
+            <i class="ion-funnel" style="margin-right: 5px;"></i>筛选
+        </div>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-refresher pulling-text="下拉刷新" on-refresh="refreshData()"></ion-refresher>
+        <ion-list class="data-list">
+            <div class="item item-icon-right" ng-repeat="sparepart in spareparts" ng-click="showDetail(sparepart)">
+                <div class="row">
+                    <div class="col col-85 title">调拨单号：{{sparepart.transferOrderNo}}</div>
+                </div>
+                <div class="row">
+                    <div class="col name">调拨类型：<span class="color-blue1">{{sparepart.json.transferType}}</span></div>
+                    <div class="col color-gray" ng-if="sparepart.json.transferTypeId==164">调拨原因：<span class="color-blue1">{{sparepart.json.transferReason}}</span></div>
+                    <div class="col color-gray" ng-if="sparepart.json.transferTypeId==165">工单号：<span class="color-blue1">{{sparepart.json.workorderCode}}</span></div>
+
+                </div>
+                <div class="row">
+                    <div class="col name">调入方：<span class="color-blue1">{{sparepart.grWhName}}</span></div>
+                </div>
+                <div class="row">
+                    <div class="col name">调出方：<span class="color-blue1">{{sparepart.giWhName}}</span></div>
+                    <div class="col col-20 text-right color-green">{{sparepart.json.statusName}}</div>
+                </div>
+                <div class="row">
+                    <div class="col name">期望到货时间：<span class="color-blue1">{{sparepart.json.expectReceiveDateTime|date:"yyyy-MM-dd"}}</span></div>
+                </div>
+                <!--<div class = "row">-->
+                    <!--<div class="col name">创建时间：<span class="color-blue1">{{sparepart.createDate|date:"yyyy-MM-dd HH:mm:ss"}}</span></div>-->
+                <!--</div>-->
+                <i class="icon ion-ios-arrow-right"></i>
+            </div>
+        </ion-list>
+        <ion-infinite-scroll on-infinite="loadMoreData()" ng-if="hasMoreData" distance="5%">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>

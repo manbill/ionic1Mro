@@ -1,0 +1,28 @@
+
+<ion-view title="维修记录">
+  <ion-nav-buttons side="right">
+    <i ng-click="newlog({{taskId}})" style=" font-size:xx-large;" class="icon ion-android-add-circle "></i>
+  </ion-nav-buttons>
+  <ion-content class="content padding" >
+    <div ng-click="goDetail({{work}})"  style=" margin-top: 15px;background-color: white;">
+      <div class="item" style="padding: 5px;font-size: small;">
+        <div class="row row-no-padding">
+          <div class="col" >维修类型：DH{{work.machineNo}}</div>
+          <div class="col" >物料号：DH{{work.machineNo}}</div>
+        </div>
+        <div class="row row-no-padding">
+          <div class="col">序列号：DH{{work.machineNo}}</div>
+          <div class="col" >维修数量：DH{{work.machineNo}}</div>
+        </div>
+        <div class="row row-no-padding">
+          <div class="col ">内部领料数：DH{{work.machineNo}}</div>
+          <div class="col">供应商直供数：DH{{work.machineNo}}</div>
+        </div>
+        <div class=" row row-no-padding ">
+          <div class="col ">功能位置：DH{{work.machineNo}}</div>
+          <div class="col "></div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,55 @@
+<ion-view>
+  <ion-content>
+    <ion-list class="detail-data-list ">
+      <ion-item
+        class="item-icon-right icon-father"
+        ng-repeat="inventory in inventories"
+        ng-click="selectInventory(inventory)">
+        <div class="project-title">{{inventory.repertoryName}}</div>
+        <div class="row">
+          <div class="col col-12">
+            <span class="label-name">联系方式:</span>
+          </div>
+          <!--需求改变，不能编辑联系人信息、地址信息-->
+          <!--<div class="col col-90" ng-if="isCanEdit()">-->
+            <!--<textarea ng-click="gotoEditContent('编辑联系人方式',inventory,'contactInfo')"-->
+                      <!--class="label-value"-->
+                      <!--ng-model="inventory.contactInfo"-->
+                      <!--style="border: none; position: absolute; right: -6em; height: 2em; padding: 0.3em; top: 3.1em; line-height: 1.4em;">-->
+            <!--</textarea>-->
+          <!--</div>-->
+          <div class="col col-90" ng-if="!isCanEdit()">
+            <p>
+            <span class="label-value">{{inventory.repertoryLinkman}}</span>
+            <span class="label-value">|</span>
+            <span class="label-value">{{inventory.repertoryContactNum}}</span>
+            <span class="label-value">|</span>
+            <span class="label-value">{{inventory.email}}</span>
+            </p>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col col-12">
+            <span class="label-name">地址:</span>
+          </div>
+          <!--<div class="col col-90" ng-if="isCanEdit()">-->
+            <!--<textarea ng-click="gotoEditContent('编辑地址信息',inventory,'repertoryAddress')"-->
+                      <!--class="label-value"-->
+                      <!--ng-model="inventory.repertoryAddress"-->
+                      <!--style=" border: none; position: absolute; right: -6em; height: 2em; padding: 0.1em; top: 5.6em; line-height: 1.4em;">-->
+            <!--</textarea>-->
+          <!--</div>-->
+          <div class="col col-90" ng-if="!isCanEdit()">
+            <p>
+              <span class="label-value">{{inventory.repertoryAddress}}</span>
+            </p>
+          </div>
+        </div>
+           <!--ng-if="isCanEdit()"-->
+        <i class="icon ion-ios-arrow-right"
+           style="position: absolute; right: 1em; top: -1.7em;"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

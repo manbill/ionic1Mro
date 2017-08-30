@@ -1,0 +1,226 @@
+<ion-view view-title="{{title}}">
+  <ion-content overflow-scroll="false">
+    <ion-list class="detail-data-list" ng-repeat="checkDetailItem in checkDetailItemList track by $index" ng-switch
+              on="checkDetailItem.checklistType">
+
+      <div class="orderItem">
+        <div class="orderElement">
+          <div class="row" >
+            <div class="col">
+              <!---{{isCanEdit}-->
+              <span class="label-name">序号:</span>
+              <span class="label-value-right">{{checkDetailItem.seriesNum}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="orderElement">
+          <div class="row" >
+            <div class="col">
+              <span class="label-name">项目维护:</span>
+              <span class="label-value-right">{{checkDetailItem.item}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="orderElement">
+          <div class="row" >
+            <div class="col">
+              <span class="label-name">说明:</span>
+              <span class="label-value-right item-text-wrap">{{checkDetailItem.item}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="orderElement">
+          <div class="row" >
+            <div class="col">
+              <span class="label-name">备注:</span>
+              <textarea placeholder="填写备注..." class=" item-text"
+                        ng-model="checkDetailItem.remark" ng-disabled = "!isCanEdit"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!--<div class="orderElement" ng-if="26==checkDetailItem.checklistType">-->
+          <!--<div class="row" >-->
+            <!--<div class="col">-->
+              <!--<span class="label-name">结果:</span>-->
+              <!--<span class="label-value-right">-->
+                <!--<label class="toggle">-->
+                  <!--<input type="checkbox"-->
+                         <!--ng-click="checkDetailItem.checklistUserInput=webParamsForType26[$index]?1:0"-->
+                         <!--ng-disabled="(!(auth['auth_410105']) || workOrderDetail['apiWorkorderBaseInfoDto'].workorderStatus != 141) && !isCanEdit"-->
+                         <!--ng-model="webParamsForType26[$index]">-->
+                  <!--<div class="track">-->
+                    <!--<div class="handle"></div>-->
+                  <!--</div>-->
+                <!--</label>-->
+              <!--</span>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+
+        <div class="orderElement" ng-if="26==checkDetailItem.checklistType">
+          <div class="row">
+            <div class="col-50">
+              <div class="label-name">
+                结果:
+              </div>
+            </div>
+            <div class="col-25">
+              <input type="radio" id="redio1+{{$index}}" name="approve+{{$index}}" ng-value="true" style="display:block;zoom:120%;"
+                     ng-disabled="!isCanEdit"
+                     ng-model="checkDetailItem.checklistUserInput" ng-checked="checkDetailItem.checklistUserInput == true || checkDetailItem.checklistUserInput == 'true' "/><sapn for = 'redio1+{{$index}}'>OK   </sapn>
+            </div>
+            <div class="col-25">
+              <input type="radio" id="redio2+{{$index}}" name="approve+{{$index}}" ng-value="false" style="display:block;zoom:120%;"
+                     ng-disabled="!isCanEdit"
+                     ng-model="checkDetailItem.checklistUserInput" ng-checked="checkDetailItem.checklistUserInput == false || checkDetailItem.checklistUserInput == 'false' "/><span for = 'redio2+{{$index}}'>N OK   </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="orderElement" ng-if="27==checkDetailItem.checklistType">
+          <div class="row">
+            <!--<label class="item item-input"  style="height: 42px;">-->
+            <div class="col">
+              <span class="label-name">结果:</span>
+              <span class="label-value">
+                <textarea class="item-text" ng-model="checkDetailItem.checklistUserInput" placeholder="请输入" ng-disabled="!isCanEdit"></textarea>
+              </span>
+            </div>
+            <!--</label>-->
+          </div>
+        </div>
+
+        <div class="orderElement"  ng-if="28==checkDetailItem.checklistType" style="height: 50px">
+          <div class="row">
+            <div class="col-60">
+              <div class="label-name">
+                结果:
+              </div>
+            </div>
+            <ion-item class="item-input item-select col-40" >
+                      <!--ng-options="checkValue as checkValue for checkValue in checkDetailItem.checklistValue.split(';')"-->
+              <select ng-model="checkDetailItem.checklistUserInput" class="form-control"
+                      ng-options="checkValue as checkValue for checkValue in checkDetailItem.checklistValue.split(';')"
+                      ng-disabled = "!isCanEdit">
+                <option value="">--请选择--</option>
+              </select>
+            </ion-item>
+          </div>
+        </div>
+
+        <div class="orderElement">
+          <div class="row" ng-if="checkDetailItem.eaWoFilemappingDtoList.length>0||checkDetailItem.isUploadPic==1">
+              <div class="row row-wrap" id="idCtrlWidth" style="margin: 0%;padding: 2.6%;width: 100%;height: 100%">
+                <i style="height: 70px; width: 70px;margin:1%" class="col col-25"
+                   ng-repeat="image in checkDetailItem.eaWoFilemappingDtoList track by $index">
+                  <my-img attache-file="image" index="$index" attache-file-list="checkDetailItem.eaWoFilemappingDtoList" is-can-edit-img = "isCanEditImg()"></my-img>
+                  <!--<img style="height: 70px;width: 70px"-->
+                       <!--ng-src="{{fm.filePath.indexOf('file://')>=0?fm.filePath:'img/uploadimg.png'}}" id="{{fm.fileId}}"-->
+                       <!--alt="{{fm.fileOriginalName}}" ng-click="downloadCheckItemImg(checkDetailItem,fm,$index)"/>-->
+                  <!--<i class="icon ion-ios-close" ng-if="fm.filePath.indexOf('file://')>=0"-->
+                     <!--ng-click="deleteAttachedImage(checkDetailItem,$index)"-->
+                     <!--ng-disabled = "!isCanEdit"-->
+                     <!--style="position: relative;color:red;font-size: 206%;right: 26px;top: -51px;"></i>-->
+                </i>
+                <i class="col col-25" ng-click="addAttachment(checkDetailItem,checkDetailItem.eaWoFilemappingDtoList)"
+                   style="height: 50px; width: 50px;margin:1%"
+                   ng-if="checkDetailItem.isUploadPic==1 && isCanEdit">
+                  <img ng-src="img/selectImage.png" style="height: 50px;width:50px">
+                  <!--<i class="icon ion-ios-close" ng-show="false"-->
+                     <!--style="position: relative;color:#1565c0;font-size: 206%;right: 17%;top: -85%;"></i>-->
+                </i>
+              </div>
+          </div>
+        </div>
+
+        </div>
+
+
+      <!--<div class="item">-->
+        <!--序号-->
+        <!--<span class="item-text">-->
+                        <!--{{checkDetailItem.seriesNum}}-->
+                      <!--</span>-->
+      <!--</div>-->
+      <!--<div class="item">-->
+        <!--项目维护-->
+        <!--<span class="item-text">-->
+                        <!--{{checkDetailItem.item}}-->
+        <!--</span>-->
+      <!--</div>-->
+      <!--<div class="item">-->
+        <!--说明-->
+        <!--<span class="item-text">-->
+                        <!--{{checkDetailItem.comment}}-->
+                      <!--</span>-->
+      <!--</div>-->
+      <!--<div class="item item-input">备注-->
+        <!--&lt;!&ndash;<input type="textarea"  ng-model="checkDetailItem.remark" class="item-text" placeholder="备注信息">&ndash;&gt;-->
+        <!--<Textarea placeholder="填写备注..." class="stable-bg item-text"-->
+                  <!--ng-model="checkDetailItem.remark"></Textarea>-->
+      <!--</div>-->
+      <!--<ion-item class="item item-toggle" ng-if="26==checkDetailItem.checklistType">结果-->
+        <!--<label class="toggle">-->
+          <!--<input type="checkbox"-->
+                 <!--ng-click="checkDetailItem.checklistUserInput=webParamsForType26[$index]?1:0"-->
+                 <!--ng-disabled="!(auth['auth_410105']) || workOrderDetail['apiWorkorderBaseInfoDto'].workorderStatus != 141"-->
+                 <!--ng-model="webParamsForType26[$index]">-->
+          <!--<div class="track">-->
+            <!--<div class="handle"></div>-->
+          <!--</div>-->
+        <!--</label>-->
+      <!--</ion-item>-->
+      <!--<label class="item item-input" ng-if="27==checkDetailItem.checklistType" style="height: 42px;">-->
+        <!--<span class="input-label">结果</span>-->
+        <!--<input type="text" ng-model="checkDetailItem.checklistUserInput" placeholder="请输入">-->
+      <!--</label>-->
+      <!--<ion-item class="item-input item-select" ng-if="28==checkDetailItem.checklistType" style="height: 42px;">-->
+        <!--<div class="input-label">-->
+          <!--结果-->
+        <!--</div>-->
+        <!--<select ng-model="checkDetailItem.checklistUserInput" class="form-control"-->
+                <!--ng-options="checkValue as checkValue for checkValue in checkDetailItem.checklistValue.split(';')">-->
+          <!--<option value="">&#45;&#45;请选择&#45;&#45;</option>-->
+        <!--</select>-->
+      <!--</ion-item>-->
+      <!--<ion-item ng-if="checkDetailItem.eaWoFilemappingDtoList.length>0||checkDetailItem.isUploadPic==1">-->
+        <!--&lt;!&ndash;<ion-scroll direction="x" style="width: 100%;height: 100px">&ndash;&gt;-->
+        <!--<div class="row row-wrap" id="idCtrlWidth" style="margin: 0%;padding: 2.6%;width: 100%;height: 100%">-->
+          <!--<i style="height: 70px; width: 70px;margin:1%" class="col col-25"-->
+             <!--ng-repeat="fm in checkDetailItem.eaWoFilemappingDtoList track by $index">-->
+            <!--<img style="height: 70px;width: 70px"-->
+                 <!--ng-src="{{fm.filePath.indexOf('file://')>=0?fm.filePauploadimg.png.png.png'}}" id="{{fm.fileId}}"-->
+                 <!--alt="{{fm.fileOriginalName}}" ng-click="downloadCheckItemImg(checkDetailItem,fm,$index)"/>-->
+            <!--<i class="icon ion-ios-close" ng-if="fm.filePath.indexOf('file://')>=0"-->
+               <!--ng-click="deleteAttachedImage(checkDetailItem,$index)"-->
+               <!--style="position: relative;color:red;font-size: 206%;right: 26px;top: -51px;"></i>-->
+          <!--</i>-->
+          <!--<i class="col col-25" ng-click="addAttachment(checkDetailItem,checkDetailItem.eaWoFilemappingDtoList);"-->
+             <!--style="height: 70px; width: 70px;margin:1%"-->
+             <!--ng-if="checkDetailItem.isUploadPic==1">-->
+            <!--<img ng-src="img/selectImage.png" style="height: 70px;width:70px">-->
+            <!--<i class="icon ion-ios-close" ng-show="false"-->
+               <!--style="position: relative;color:#1565c0;font-size: 206%;right: 17%;top: -85%;"></i>-->
+          <!--</i>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;</ion-scroll>&ndash;&gt;-->
+      <!--</ion-item>-->
+      <!--<ion-item class="item-divider">-->
+      <!--</ion-item>-->
+
+        </div>
+      </div>
+      <div class="item-divider"></div>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar ng-if="isCanEdit">
+    <button class=" button button-eambule-block"
+            ng-disabled="!isCanEdit"
+            ng-click="saveCheckListCatalogItems()">保存点检表
+    </button>
+  </ion-footer-bar>
+</ion-view>

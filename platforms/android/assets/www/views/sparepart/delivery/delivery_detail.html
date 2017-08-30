@@ -1,0 +1,108 @@
+<ion-view class="sparepart-detail" view-title="查看发货单详情">
+  <ion-content>
+    <!--<ion-scroll direction="y" ng-class="height">-->
+    <div class="list">
+      <div class="item item-divider title">
+        <div class="row">
+          <div class="col">发货单号：{{detail.shippingOrderNo}}</div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="row">
+          <div class="col"><h3>物料调拨信息</h3></div>
+        </div>
+        <div class="list list-inset">
+
+          <div class="item" ng-repeat="materiel in detail.sOrderItemDtoList">
+            <div class="row">
+              <div class="col">名称：{{materiel.materialName}}</div>
+            </div>
+            <div class="row">
+              <div class="col">物料号：{{materiel.materialSno}}</div>
+              <div class="col">单位：{{materiel.unitName}}</div>
+            </div>
+            <div class="row">
+              <div class="col">软件版本号：{{materiel.versionNo}}</div>
+            </div>
+            <div class="row">
+              <div class="col">需求总数：{{materiel.totalDemandAmount|number:2}}</div>
+            </div>
+            <div class="row">
+              <div class="col">待处理数量：{{materiel.demandAmount|number:2}}</div>
+            </div>
+            <div class="row">
+              <div class="col">本次发货数量：{{materiel.issueAmount|number:2}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="row">
+          <div class="col"><h3>发货信息</h3></div>
+        </div>
+        <div class="row">
+          <div class="col col-25">发货方式：</div>
+          <div class="col col-75">{{detail.shippingMethod}}</div>
+        </div>
+        <div class="row">
+          <div class="col col-25">发运公司：</div>
+          <div class="col col-75">{{detail.shippingCompany}}</div>
+        </div>
+        <div class="row">
+          <div class="col col-25">发货单号：</div>
+          <div class="col col-75">{{detail.shipmentTrackingNo}}</div>
+        </div>
+        <div class="row">
+          <div class="col col-25">发货状态：</div>
+          <div class="col col-75">{{detail.shipingStatus}}</div>
+        </div>
+        <div class="row">
+          <div class="col col-25">备注：</div>
+          <div class="col col-75">{{detail.commentText}}</div>
+        </div>
+        <div class="row">
+          <div class="col">附件：</div>
+        </div>
+        <div class="row row-wrap">
+          <div class="col col-25" ng-repeat="attachment in detail.sOGIFilemappingList">
+            <div class="card">
+              <img src="{{attachment.filePath}}" width="100%">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="row">
+          <div class="col"><h3>拒收原因</h3></div>
+        </div>
+        <div class="list list-inset">
+          <div class="item" ng-repeat="refuse in detail.sOrderRefuseDtoList">
+            <div class="row">
+              <div class="col">{{refuse.reasonContent}}</div>
+              <div class="col">{{refuse.createOn|date:"yyyy-MM-dd HH:mm:ss"}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div class="row">
+          <div class="col"><h3>撤销收货原因</h3></div>
+        </div>
+        <div class="list list-inset">
+          <div class="item" ng-repeat="cancel in detail.sOrderCancelDtoList">
+            <div class="row">
+              <div class="col">{{cancel.reasonContent}}</div>
+              <div class="col">{{cancel.createOn|date:"yyyy-MM-dd HH:mm:ss"}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--</ion-scroll>-->
+    <div class="bar bar-footer" ng-if="is_edit && isOnline && auth['auth_440102']">
+      <div class="button-bar">
+        <button class="button button-positive" ng-click="edit()">编辑</button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

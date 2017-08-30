@@ -1,0 +1,41 @@
+<ion-view title="设备维修">
+    <ion-nav-buttons side="right">
+        <!--<i ng-click="createReformRepair()"-->
+        <i ng-click="createReformRepair()" ng-if="isCanEditRecord()"
+           style=" font-size:xx-large;"
+           class="icon ion-android-add-circle "></i>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-list class="data-list" ng-if="recordRepairList.length>0">
+            <ion-item
+                    ng-click="editRecordRepair(recordRepair,$index)"
+                    class="item-icon-right"
+                    ng-repeat="recordRepair in recordRepairList track by $index">
+                <div class="orderElement">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row ">
+                                <label class="col-25 label-name">部件名称：</label>
+                                <label class="col-75 label-value text-ellipsis" style="width : 5em">{{recordRepair.deviceName}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="row">-->
+                    <!--<pre>{{recordRepair|json}}</pre>-->
+                    <!--</div>-->
+                    <div class="row">
+                        <div class="col col-50">
+                            <label class="label-name">维护类型：</label>
+                            <label class="label-value">{{recordRepair.fixTypeText}}</label>
+                        </div>
+                        <div class="col col-50">
+                            <label class="label-name">维修时间：</label>
+                            <label class="label-value">{{recordRepair.createOn|WorkHoursInfydate}}</label>
+                        </div>
+                    </div>
+                </div>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

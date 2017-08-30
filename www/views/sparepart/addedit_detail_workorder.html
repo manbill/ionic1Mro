@@ -1,0 +1,40 @@
+<ion-view class="sparepart-edit" view-title="选择工单">
+  <ion-nav-buttons side="right">
+    <div class="query" ng-click="openFilter();">
+      <i class="ion-funnel"></i>筛选
+    </div>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-refresher on-refresh="doRefresh()" pulling-text="下拉刷新">
+    </ion-refresher>
+    <ion-list class="detail-data-list">
+      <ion-item class="icon-father" ng-repeat="workorder in workorders track by $index"
+                ng-click="selectItem(workorder)">
+        <!--<pre>{{workorder|json}}</pre>-->
+        <div class="row">
+          <div class="col col-40 title">{{workorder.workorderCode}}</div>
+          <div class="col col-50 status-name">{{workorder.workorderStatusName||'处理中'}}</div>
+          <div class="col col-10">
+            <i class="icon ion-ios-arrow-right icon-right-custom"></i>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-10 label-name">主题:</div>
+          <div class="col label-value text-ellipsis">{{workorder.workorderTitle}}</div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <span class="label-name">风机号:</span>
+            <span class="label-value">{{workorder.positionCode}}#</span>
+          </div>
+          <div class="col">
+            <span class="label-name">发生时间:</span>
+            <span class="label-value">{{workorder.createOn|date:"yyyy-MM-dd HH:mm"}}</span>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll on-infinite="loadMoreData()" ng-if="hasMoreData" distance="5%">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

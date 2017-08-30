@@ -1,0 +1,210 @@
+<ion-view class="sparepart-detail" view-title="备件调拨详情">
+    <ion-content overflow-scroll="false">
+        <!--<ion-scroll direction="y" ng-class="height">-->
+            <div class="list">
+                <div class="item item-divider title item-icon-right">
+                    <div class="row">
+                        <div class="col title">调拨单号：{{detail.json.transferOrderNo}}</div>
+                    </div>
+                    <div class="icon">
+                      <span class="flag" style="font-size: 12px">{{detail.json.statusName}}</span>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="row" ng-if="detail.json.transferTypeId==165">
+                        <div class="col">主题：{{detail.json.workorderTitle}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-50">调拨类型：<span class="color-blue1">{{detail.json.transferType}}</span></div>
+                        <div class="col col-50" ng-if="detail.json.transferTypeId==164">调拨原因：<span class="color-blue1">{{detail.json.transferReason}}</span></div>
+                        <div class="col col-50" ng-if="detail.json.transferTypeId==165">工单号：<span class="color-blue1">{{detail.json.workorderCode}}</span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col">创建时间：<span class="color-blue1">{{detail.json.createDate|date:"yyyy-MM-dd HH:mm:ss"}}</span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-75">期望到货时间：<span class="color-blue1">{{detail.json.expectReceiveDateTime|date:"yyyy-MM-dd"}}</span></div>
+                    </div>
+                </div>
+                <div class="item">
+                    <!--<div class="row" ng-click="showDc()">-->
+                        <!--<div class="col"><h3>调出方信息</h3></div>-->
+                    <!--</div>-->
+                    <div class="row" ng-click="showDc()">
+                        <div class=" col-25">调出仓库：</div>
+                        <div class=" col-70"><span class="color-blue1">{{detail.json.giWhName}}</span></div>
+                        <i class=" col ion-ios-arrow-up" style="float:right" ng-if="is_show_dc"></i>
+                        <i class=" col ion-ios-arrow-down" style="float:right" ng-if="!is_show_dc"></i>
+                    </div>
+                    <div class="row" ng-if="is_show_dc">
+                        <div class="col col-25">仓库编号：</div>
+                        <div class="col col-75"><span class="color-blue1">{{detail.json.giRepertoryNo}}</span></div>
+                    </div>
+                    <div class="row" ng-if="is_show_dc">
+                        <div class="col col-25">联系人：</div>
+                        <div class="col col-75"><span class="color-blue1">{{detail.json.giWhContactName}}</span></div>
+                    </div>
+                    <div class="row" ng-if="is_show_dc">
+                        <div class="col col-25">联系电话：</div>
+                        <div class="col col-75"><span class="color-blue1">{{detail.json.giWhContactNum}}</span></div>
+                    </div>
+                    <div class="row" ng-if="is_show_dc">
+                        <div class="col col-25">发货地址：</div>
+                        <div class="col col-75"><span class="color-blue1">{{detail.json.giAddress}}</span></div>
+                    </div>
+                </div>
+                <div class="item">
+                 <!--   <div class="row" ng-click="showDr()">
+                        <div class="col"><h3>调入方信息</h3></div>
+                    </div>-->
+                    <div class="row" ng-click="showDr()">
+                        <div class=" col-25">调入仓库：</div>
+                        <div class=" col-70"><span class="color-blue1">{{detail.json.grWhName}}</span></div>
+                        <i class=" col ion-ios-arrow-up" ng-if="is_show_dr"></i>
+                        <i class=" col ion-ios-arrow-down " ng-if="!is_show_dr"></i>
+                    </div>
+                    <div class="row" ng-if="is_show_dr">
+                        <div class="col col-25">仓库编号：</div>
+                        <div class="col col-75"><span class="color-blue1">{{detail.json.grRepertoryNo}}</span></div>
+                    </div>
+                    <div class="row" ng-if="is_show_dr">
+                        <div class="col col-25">联系人：</div>
+                        <div class="col col-75"><span class="color-blue1">{{detail.json.grWhContactName}}</span></div>
+                    </div>
+                    <div class="row" ng-if="is_show_dr">
+                        <div class="col col-25">联系电话：</div>
+                        <div class="col col-75"><span class="color-blue1">{{detail.json.grWhContactNum}}</span></div>
+                    </div>
+                    <div class="row" ng-if="is_show_dr">
+                        <div class="col col-25">收货地址：</div>
+                        <div class="col col-75"><span class="color-blue1">{{detail.json.grAddress}}</span></div>
+                    </div>
+                </div>
+                <div class="item-divider" style="background-color:#f5f5f5"></div>
+                <!--<div class="item" style="padding: 3px">-->
+                    <!--<div class="row">-->
+                        <!--<div class="col"><h4>物料信息</h4></div>-->
+                    <!--</div>-->
+                    <div class="list">
+                        <div class="item" ng-repeat="materiel in detail.json.tranferOrderItemDtoList">
+                            <div class="row">
+                                <div class="col">物料描述：</div>
+                                <span class="color-blue1 item-text-wrap" style="text-overflow-ellipsis: true">{{materiel.materialComment}}</span>
+                            </div>
+                            <div class="row">
+                              <div class="col">物料号：<span class="color-blue1">{{materiel.materialNo}}</span></div>
+                              <div class="col">总需求：<span class="color-blue1">{{materiel.totalDemandAmount}}</span></div>
+                              <!--<div class="col">单位：<span class="color-blue1">{{materiel.unitName}}</span></div>-->
+                            </div>
+                            <!--<div class="row">-->
+                                <!--<div class="col text-nowrap">备注：<span class="color-blue1">{{materiel.versionNo}}</span></div>-->
+                            <!--</div>-->
+                            <div class="row">
+                            </div>
+                          <div class="row row-wrap">
+                                <div class="col">待处理：<span class="color-blue1">{{materiel.demandAmount}}</span></div>
+                           <!--已转办= 总需求-已发货-待处理-->
+                                <div class="col">已转办：<span class="color-blue1">{{materiel.totalDemandAmount-(materiel.totalIssueAmount?materiel.totalIssueAmount:0)-materiel.demandAmount}}</span></div>
+                            </div>
+                          <div class="row row-wrap">
+                            <div class="col">已发货：<span class="color-blue1">{{materiel.totalIssueAmount}}</span></div>
+                            <div class="col">已收货：<span class="color-blue1">{{materiel.totalReceiveAmount}}</span></div>
+                          </div>
+                        </div>
+
+                    </div>
+
+                <!--</div>-->
+
+                <div class="item">
+                    <div class="row row-wrap">
+                        <div class="col card text-center" ng-click="showReceive()" ng-if="auth['auth_45'] && (sparepartStatus.TRANSFERORDER_STATUS_INHANDLE == detail.statusId || sparepartStatus.TRANSFERORDER_STATUS_FINISH == detail.statusId)">
+                            <img src="img/sparepart/shouhuo.png" width="40"/><br/>
+                            收货记录
+                        </div>
+                        <div class="col card text-center" ng-click="showFkjl('zbjl')">
+                            <img src="img/sparepart/zhuanbanjilu.png" width="40" height="40px"/><br/>
+                            转办记录
+                        </div>
+                        <div class="col card text-center" ng-click="showFkjl('bhjl')">
+                            <img src="img/sparepart/bohuijilu.png" width="40" height="40px"/><br/>
+                            驳回记录
+                        </div>
+                    <!--</div>-->
+                    <!--<div class="row row-wrap">-->
+                        <!--&lt;!&ndash;<div class="col card text-center" >&ndash;&gt;-->
+                            <!--&lt;!&ndash;<img src="img/sparepart/fankuijilu.png" width="40" height="40px"/><br/>&ndash;&gt;-->
+                            <!--&lt;!&ndash;反馈记录&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!---->
+                    <!--</div>-->
+                </div>
+                <div class="item">
+                    <div class="row">
+                        <div class="col col-25">
+                            备注：
+                        </div>
+                        <div class="col col-75">
+                            <span class="color-blue1">{{detail.json.commentText}}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-90">
+                            附件信息：
+                        </div>
+                    </div>
+                    <div class="row row-wrap">
+                        <div class="col col-25" ng-repeat="attachment in detail.json.tOFilemappingDtoList">
+                            <div class="card" ng-click="openEamAttachedFile(attachment)">
+                                <img ng-src="{{attachment.filePath}}" alt="{{attachment.fileOriginalName}}"  width="100px" height="100px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              <!--<ion-item>-->
+                  <!--未提交-->
+
+                  <div class='row row-wrap' ng-if="sparepartStatus.TRANSFERORDER_STATUS_SAVE == detail.statusId && detail.json.editRight == 'true' && auth['auth_310103'] ">
+                    <button class="col button button-block button-eambule" ng-click="edit()" >修改</button>
+                    <button class="col button button-block button-eambule" ng-click="delete()" >取消</button>
+                  </div>
+                  <!--未处理-->
+                  <div class='row row-wrap' ng-if="sparepartStatus.TRANSFERORDER_STATUS_UNHANDLE == detail.statusId ">
+
+                      <button class="col button button-block button-eambule" ng-click="edit()" ng-if="detail.json.editRight == 'true' && auth['auth_310103']">修改</button>
+                      <button class="col button button-block button-eambule" ng-click="showFkjl('fkjl')" ng-if="detail.json.editRight == 'true' && auth['auth_310102']">处理反馈</button>
+                      <button class="col button button-block button-eambule" ng-click="delete()" ng-if="(detail.json.editRight == 'shiftWarehouse' || detail.json.editRight == 'true') && auth['auth_310103'] ">取消</button>
+                  </div>
+                  <!--处理中-->
+                  <!--todo-->
+                  <div class='row row-wrap' ng-if="sparepartStatus.TRANSFERORDER_STATUS_INHANDLE == detail.statusId">
+                      <!--<button class="col button button-block button-eambule" >收货记录</button>-->
+                      <button class="col button button-block button-eambule" ng-click="showFkjl('fkjl')" ng-if="auth['auth_310102']">处理反馈</button>
+                  </div>
+                  <!--已完成-->
+                  <div class='row row-wrap' ng-if="sparepartStatus.TRANSFERORDER_STATUS_FINISH == detail.statusId">
+                      <!--<button class="col button button-block button-eambule" >收货记录</button>-->
+                      <button class="col button button-block button-eambule" ng-click="showFkjl('fkjl')" ng-if="auth['auth_310102']" >处理反馈</button>
+                  </div>
+                  <!--已驳回-->
+                  <div class='row row-wrap' ng-if="sparepartStatus.TRANSFERORDER_STATUS_REJECT == detail.statusId">
+                      <button class="col button button-block button-eambule" ng-if="detail.json.editRight == 'true' && auth['auth_310103']" ng-click="edit()" >修改</button>
+                      <button class="col button button-block button-eambule" ng-if="(detail.json.editRight == 'true' || detail.json.editRight == 'shiftWarehouse')&& auth['auth_310103']" ng-click="delete()" >取消</button>
+                      <button class="col button button-block button-eambule" ng-click="showFkjl('fkjl')" ng-if="auth['auth_310102']" >处理反馈</button>
+                  </div>
+
+
+                  <!--<div class='row row-wrap'>-->
+                  <!--<button class="col button button-block button-eambule" ng-click="edit()" ng-if="sparepartStatus.TRANSFERORDER_STATUS_SAVE&&auth['auth_310103']">修改</button>-->
+                  <!--<button class="col button button-block button-eambule" ng-click="showFkjl('fkjl')" ng-if="auth['auth_310102']">处理反馈</button>-->
+                  <!--<button class="col button button-block button-eambule" ng-click="done()" ng-if="is_done&&auth['auth_310104']">完成</button>-->
+                  <!--<button class="col button button-block button-eambule" ng-click="delete()" ng-if="is_edit&&auth['auth_310103']">取消</button>-->
+                <!--</div>-->
+              <!--</ion-item>-->
+            </div>
+        <!--</ion-scroll>-->
+        <!--<div class="bar bar-footer" >-->
+            <!---->
+        <!--</div>-->
+    </ion-content>
+</ion-view>

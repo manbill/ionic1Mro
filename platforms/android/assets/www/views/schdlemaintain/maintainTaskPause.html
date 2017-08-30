@@ -1,0 +1,31 @@
+<div class="modal">
+  <ion-header-bar class="bar-eamblue">
+    <a class="button button-clear ion-chevron-left" ng-click="pauseBackBtnAction();"></a>
+    <div class="title">暂停</div>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list>
+      <div class="item item-divider">
+        <span>暂停原因(必填项)</span>
+      </div>
+      <ion-checkbox ng-model="pauseReason.isChecked" ng-repeat="pauseReason in pauseReasons">
+        {{pauseReason.desc}}
+      </ion-checkbox>
+    </ion-list>
+    <div class="item">
+      <textarea autofocus ng-model="pauseInfoFromModal.remark" ng-maxlength="100" placeholder="备注" style="width: 99%"></textarea>
+    </div>
+  </ion-content>
+  <ion-footer-bar style="padding: 0;margin: 0;height: 10%;background: transparent">
+    <div class="row">
+      <div class="col">
+        <button class="button button-block button-eambule" ng-click="pauseInfoConfirmed()"><span style="color: #fff">确定</span>
+        </button>
+      </div>
+      <div class="col" >
+        <button class="button button-block button-eambule" ng-click="pauseBackBtnAction()"><span style="color: #fff">返回</span>
+        </button>
+      </div>
+    </div>
+  </ion-footer-bar>
+</div>

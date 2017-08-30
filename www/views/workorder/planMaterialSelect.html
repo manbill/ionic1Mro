@@ -1,0 +1,41 @@
+<ion-view view-title="选择物料">
+  <ion-nav-buttons side="right">
+    <!-- 筛选权限 就是查看权限 ng-if="auth['auth_110101']" -->
+    <div class="query" ng-click="openFilter();">
+      <i class="ion-funnel"></i>筛选
+    </div>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-list class="detail-data-list">
+      <ion-item ng-repeat="materiel in materielList" class="icon-father">
+        <div class="row">
+          <div class="col col-10"><span class="label-name"> 物料:</span></div>
+          <p class="col col-80"><span class="label-value">{{materiel.materialSno}}-{{materiel.materialName}}</span></p>
+        </div>
+        <div class="row orderItem">
+          <div class="col">
+            <span class="label-name">单位:</span>
+            <span class="label-value">{{materiel.unitText}}</span>
+          </div>
+          <div class="col">
+            <!--<span class="label-name">价值:</span>-->
+            <!--<span class="label-value">{{materiel.materialValue}}</span>-->
+          </div>
+          <div class="col" style="float: right;text-align: right">
+            <button class="button-eambule-small" ng-click="select(materiel)">
+              选择
+            </button>
+          </div>
+        </div>
+        <!--<div class="row" style="padding: 0 0 0.125em 0;">-->
+          <!--<div class="col">-->
+            <!--<span class="label-name">分类:</span>-->
+            <!--<span class="label-value">{{materiel.materialSuite}}</span>-->
+          <!--</div>-->
+        <!--</div>-->
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll on-infinite="loadMore()" ng-if="hasMoreData">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

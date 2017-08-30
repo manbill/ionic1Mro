@@ -1,0 +1,182 @@
+<ion-view class="sparepart-edit" view-title="{{title}}">
+  <ion-content>
+    <div class="list">
+      <div class="item item-divider">
+        调拨单基本信息
+      </div>
+      <div class="item item-input">
+        <span class="input-label">调拨单号：</span><input ng-model="detail.transferOrderNo" type="text" disabled="disabled"
+                                                     placeholder="系统自动生成调拨单号"/>
+      </div>
+      <div class="item item-input" ng-if="is_workorderCode">
+        <span class="input-label">主题：</span><input ng-model="detail.workorderTitle" placeholder="请输入主题信息" type="text"
+                                                   disabled="disabled"/>
+      </div>
+      <div class="item item-input item-select">
+        <span class="input-label">调拨类型：</span>
+        <select ng-change="transferTypeIdChange()" ng-model="detail.transferTypeId"
+                ng-options="transferType.detailId as transferType.detailName for transferType in transferOrderTypes"></select>
+      </div>
+      <!--<div class="item item-input" ng-if="!is_create">-->
+      <!--<span class="input-label">调拨类型：</span>-->
+      <!--<input ng-model="detail.transferType" type="text" disabled="disabled"/>-->
+      <!--</div>-->
+      <div class="item item-input item-select" ng-if="is_transferReason">
+        <span class="input-label">调拨原因：</span>
+        <select ng-model="detail.transferReasonId"
+                ng-options="transferReason.detailId as transferReason.detailName for transferReason in transferReasons"></select>
+      </div>
+      <!--<div class="item item-input" ng-if="is_transferReason&&!is_create">-->
+      <!--<span class="input-label">调拨原因：</span>-->
+      <!--<input ng-model="detail.transferReason" type="text" disabled="disabled"/>-->
+      <!--</div>-->
+      <div class="item item-input" ng-if="is_workorderCode">
+        <span class="input-label">工单号：</span>
+        <input placeholder="请选择工单号" type="text" ng-model="detail.workorderCode" ng-focus="selectOrder()"/>
+        <input type="hidden" value="detail.workOrderId"/>
+      </div>
+      <!--<div class="item item-input" ng-if="is_workorderCode&&!is_create">-->
+      <!--<span class="input-label">工单号：</span>-->
+      <!--<input placeholder="请选择工单号" type="text" ng-model="detail.workorderCode" disabled="disabled"/>-->
+      <!--<input type="hidden" value="detail.workOrderId"/>-->
+      <!--</div>-->
+      <div class="item item-input">
+        <span class="input-label">期望到货时间：</span>
+        <input ng-model="params.expectReceiveDateTime" type="date" placeholder="选择日期"/>
+      </div>
+      <!--<div class="item item-input" ng-if="!is_create">-->
+      <!--<span class="input-label">期望到货时间：</span>-->
+      <!--<input ng-model="params.expectReceiveDateTime" type="date" placeholder="选择日期" disabled="disabled"/>-->
+      <!--</div>-->
+
+      <div class="item item-divider">
+        调出方信息
+      </div>
+      <div class="item item-input item-select">
+        <span class="input-label">调出仓库：</span>
+        <select ng-model="change.repertoryi"
+                ng-options="repertory as repertory.repertoryName for repertory in repertorysi"
+                ng-change="repertoryChange('i')"></select>
+      </div>
+      <form name="repertoryiForm" class="repertoryi-form">
+      <div class="item item-input">
+        <span class="input-label">仓库编号：</span>
+        <input ng-model="detail.giRepertoryNo" type="text" disabled="disabled">
+      </div>
+      <div class="item item-input">
+        <span class="input-label">联系人：</span>
+        <input ng-model="detail.giWhContactName"  type="text" placeholder="请填写联系人信息"/>
+      </div>
+      <div class="item item-input">
+        <span class="input-label">联系电话：</span>
+        <input ng-model="detail.giWhContactNum" type="tel" ng-maxlength="50" placeholder="请填写联系电话"/>
+      </div>
+      <div class="item item-input">
+        <span class="input-label">发货地址：</span>
+        <input ng-model="detail.giAddress" type="text" name="detailGiAddress" required  placeholder="请填写发货地址"/>
+        <!--<div ng-if="!repertoryiForm.detailGiAddress.$valid&&repertoryiForm.detailGiAddress.$dirty">发货地址文字太长</div>-->
+      </div>
+      </form>
+      <div class="item item-divider">
+        调入方信息
+      </div>
+      <div class="item item-input item-select">
+        <span class="input-label">调入仓库：</span>
+        <select ng-model="change.repertoryr"
+                ng-options="repertory as repertory.repertoryName for repertory in repertorysr"
+                ng-change="repertoryChange('r')"></select>
+      </div>
+      <div class="item item-input">
+        <span class="input-label">仓库编号：</span>
+        <input ng-model="detail.grRepertoryNo" type="text" disabled="disabled">
+      </div>
+      <div class="item item-input">
+        <span class="input-label">联系人：</span>
+        <input ng-model="detail.grWhContactName" type="text" placeholder="请填写联系人信息"/>
+      </div>
+      <div class="item item-input">
+        <span class="input-label">联系电话：</span>
+        <input ng-model="detail.grWhContactNum" type="tel" ng-maxlength="50" placeholder="请填写联系电话"/>
+      </div>
+      <div class="item item-input">
+        <span class="input-label">发货地址：</span>
+        <input ng-model="detail.grAddress" type="text" placeholder="请填写发货地址"/>
+      </div>
+      <div class="item item-divider">
+          <span>物料信息</span>
+        <span class="item-text">
+          <a class="button-eambule-small" ng-click="editMateriel()">新增物料</a>
+        </span>
+      </div>
+      <div class="item" ng-repeat="materiel in detail.tranferOrderItemDtoList" style="padding: 5px">
+        <div class="row">
+          <div class="col">名称：{{materiel.materialComment}}</div>
+        </div>
+        <div class="row">
+          <div class="col">物料号：{{materiel.materialNo}}</div>
+          <div class="col">单位：{{materiel.unitName}}</div>
+        </div>
+        <div class="row">
+          <div class="col">备注：{{materiel.versionNo}}</div>
+        </div>
+        <div class="row">
+          <div class="item-input" style="margin: 0 0 0 0.4em;padding: 0;">
+            <label class="input-label">需求数量：
+            </label>
+              <input ng-model="materiel.totalDemandAmount" type="number" min="0"/>
+          </div>
+        </div>
+      </div>
+      <!--<div class="item" style="padding: 5px">-->
+        <!--<div class="row">-->
+          <!--<div class="col" ng-click="editMateriel()">-->
+            <!--<button class="button button-eambule button-full">编辑物料调拨信息&nbsp;<i-->
+              <!--class="ion-ios-arrow-forward"></i></button>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <div class="item item-divider">
+        其他信息
+      </div>
+      <div class="item item-input" style="padding: 5px">
+        <label class="col col-25">
+          备注：
+        </label>
+
+        <div class="col col-75 item-input">
+          <textarea ng-model="detail.commentText" rows="5" placeholder="请输入备注内容">
+          </textarea>
+        </div>
+      </div>
+      <div class="item" style="padding: 5px">
+        <div class="row">
+          <label class="col col-90">
+            上传附件
+          </label>
+        </div>
+        <div class="row row-wrap">
+          <div class="col col-25 remove-attachment"
+               ng-repeat="attachment in detail.tOFilemappingDtoList track by $index">
+            <div class="card">
+              <img src="{{attachment.filePath}}" width="100%">
+            </div>
+            <span class="badge ion-close-circled" ng-click="removeAttachment(attachment,$index)"></span>
+          </div>
+          <div class="col col-25 remove-attachment">
+            <div class="card" ng-click="addeditAttachment()">
+              <img ng-src="img/uploadimg.png" width="100px" height="100px">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bar bar-footer">
+      <div class="row row-wrap">
+        <button class="col button button-block button-eambule" ng-click="saveTransferOrder()">保存草稿</button>
+        <button class="col button button-block button-eambule" ng-click="submitTransferOrder(true)">提交</button>
+        <button class="col button button-block button-eambule" ng-click="goback()">取消</button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,33 @@
+<ion-modal-view>
+  <ion-content ng-click="closeModal()" ng-class="{true:'modal',false:''}[!!showImgModal]">
+    <ion-slides options="options" slider="data.slider">
+      <ion-slide-page ng-repeat="img in images">
+        <img ng-src="{{img.filePath}}" alt="{{img.filePath}}"
+              style="
+        margin:20% 0;
+        padding: 0;
+        /*width: 90%;*/
+        height:70%;"/>
+      </ion-slide-page>
+    </ion-slides>
+  </ion-content>
+</ion-modal-view>
+<style>
+  .modal {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(8, 8, 8, 0) !important;
+    margin: auto;
+  }
+
+  .slider-paper {
+    display: none;
+  }
+
+  .centerme {
+    margin: 0 auto;
+    padding: 0;
+    width: 90%;
+    height: 90%;
+  }
+</style>

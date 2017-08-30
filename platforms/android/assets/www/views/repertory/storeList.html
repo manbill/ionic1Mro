@@ -1,0 +1,38 @@
+<ion-view title="备件库存">
+    <ion-nav-buttons side="right">
+        <div class="query" ng-click="allStore();">
+            <i class="ion-funnel" style="margin-right: 5px;"></i>所有库存
+        </div>
+    </ion-nav-buttons>
+    <ion-content>
+        <div class="orderItem">
+            <!--<div class="orderTitle">-->
+                <div class="row">
+                    <div class="col col-80">
+                        库位
+                    </div>
+                    <div class="col col-20">
+                        数量
+                    </div>
+                </div>
+            <!--</div>-->
+        </div>
+        <div class="data-list">
+            <ion-item ng-repeat="store in storeList" ng-click="goToStoreDetail(store)">
+                <div class="orderItem icon-father">
+                    <div class="orderElement">
+                        <div class="row">
+                            <div class="col col-80">
+                                {{store.repertoryName}}
+                            </div>
+                            <div class="col col-10">
+                                {{store.amount}}
+                            </div>
+                        </div>
+                    </div>
+                <i class="icon ion-ios-arrow-right icon-right-custom"  style="height: 20px;width: 20px" ng-click="goToStoreDetail(store)"></i>
+                </div>
+            </ion-item>
+        </div>
+    </ion-content>
+</ion-view>

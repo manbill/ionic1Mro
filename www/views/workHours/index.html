@@ -1,0 +1,81 @@
+<ion-view class="sparepart-list" view-title="{{title}}">
+  <ion-nav-buttons side="left">
+    <!--是否直接从工时填报进入-->
+    <a ng-click="createWorkHours()"
+       class="icon ion-ios-plus-outline"
+       ng-if = "isCanAddNewReport()"></a>
+
+    <!--ng-if="!isNotWorkHoursReportEntry ||-->
+       <!--(isNotWorkHoursReportEntry &&-->
+       <!--(detailFaultOrder.apiWorkorderBaseInfoDto.workorderStatus == 141 ||-->
+        <!--detailFaultOrder.apiWorkorderBaseInfoDto.workorderStatus == 41))"-->
+
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+    <div class="query" ng-click="openFilter();">
+      <i class="ion-funnel"></i>筛选
+    </div>
+  </ion-nav-buttons>
+  <ion-content overflow-scroll="false">
+    <ion-refresher on-refresh="doRefreshWorkHoursData()" pulling-text="下拉刷新"></ion-refresher>
+    <ion-list class="data-list">
+      <ion-item class="item-icon-right" ng-repeat="wh in workHoursList track by $index" ng-if="wh.activeFlag==0" style="padding-top: 0.5em">
+        <div ng-click="detail(wh)">
+          <div class="orderElement">
+          <div class="row">
+            <div class="col title">作业人： {{wh.worker}}</div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <span class="label-name">工时数：</span>
+              <span class="label-value"><span>{{wh['workedTotalHours']}}</span> <span
+                ng-if="wh.workedTotalHours">h</span></span>
+            </div>
+            <div class="col">
+              <span class="label-name">作业类型：</span>
+              <span class="label-value">{{wh.workTypeName}}</span>
+            </div>
+          </div>
+          <div class="row">
+            <!--<pre>{{wh|json}}</pre>-->
+            <div class="col col-12 label-name">作业时间：</div>
+            <div class="col col-80 label-value item-text-wrap"><span>{{ wh.startDate? wh.startDate : wh.json.beginDate | WorkHoursInfydate}}</span>  ~ <span>{{(wh.endDate ? wh.endDate : wh.json.endDate| WorkHoursInfydate )}}</span>
+            </div>
+            <!--<div class="col col-80 label-value">{{wh.startDate ? wh.startDate : wh.json.beginDate | WorkHoursInfydate}} ~-->
+              <!--{{wh.endDate?  wh.endDate : wh.json.endDate | WorkHoursInfydate}}-->
+            <!--</div>-->
+          </div>
+          <!--<pre>{{wh | json }} </pre>-->
+          <!--<p>{{wh.json.beginDate | WorkHoursInfydate}} - {{ wh.json.endDate | WorkHoursInfydate}}</p>-->
+          <!--<p>{{wh.json.startDate | WorkHoursInfydate}} - {{ wh.json.endDate | WorkHoursInfydate}}</p>-->
+
+          <i class="icon ion-ios-arrow-right"></i>
+          <!--<div class="row">-->
+          <!--<div class="col name">作业类型：<span class="color-blue1">{{wh.workTypeName}}-->
+          <!--<span-->
+          <!--ng-if="wh.workType==213"> | 工单编号：<span class="color-blue1">{{wh.workOrderNo||wh.json.workorderCode}}-->
+          <!--</span>-->
+          <!--</span>-->
+          <!--<span ng-if="wh.workType==214"> |原因：<span class="color-blue1">{{wh.elseReason}}</span>-->
+          <!--</span>-->
+          <!--</span>-->
+          <!--</div>-->
+          <!--</div>-->
+          <!--<div class="row">-->
+          <!--<div class="col name">所属项目：<span class="color-blue1">{{wh['project']||wh.json.project}}</span></div>-->
+          <!--</div>-->
+          </div>
+        </div>
+        <ion-option-button class="button button-assertive" ng-click="deleteWorkHoursRecord(wh,$index)">
+          删除
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll
+      on-infinite="loadMoreWork()"
+      immediate-check="false"
+      distance="1%"
+      ng-if="hasMoreData">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

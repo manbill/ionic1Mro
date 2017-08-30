@@ -1,0 +1,158 @@
+<ion-view title="故障工单详情">
+  <ion-content class="detail-data-list">
+    <ion-item>
+      <div class="show-detail">
+        <span class="project-title">{{selectedProject.projectName}}</span>
+        <div class="row">
+          <div class="col-25 label-value">工单编号:</div>
+          <span class="col-25 label-value">{{faultOrder.apiWorkorderBaseInfoDto.workorderCode}}</span>
+          <div class="col col-40 label-value status-name">{{faultOrder.apiWorkorderBaseInfoDto.workorderStatusName}}
+          </div>
+        </div>
+        <div class="row">
+          <span class="col-25 label-value">机位编号:</span>
+          <span class="col-25 label-value">{{faultOrder.apiWorkorderBaseInfoDto.positionCode}}#</span>
+        </div>
+      </div>
+    </ion-item>
+    <ion-item class="item-input item-select" ng-if="isCanModifyMachineNum">
+      <span class="input-label">机位号:</span>
+      <select ng-model="params.machine"
+              ng-options="machine as machine.position_code+'#' for machine in machines">
+      </select>
+    </ion-item>
+    <ion-item class="item-input item-icon-right" ng-click="selectFanEquipment()">
+      <label class="input-label">部件名称:</label>
+      <input type="text" ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.deviceName" ng-disabled="isCanModifyMachineNum">
+      <i class="icon ion-ios-arrow-right" ng-if="isCanModify()"></i>
+    </ion-item>
+    <!-- 风云工单的故障代码 -->
+    <ion-item class="item-input item-icon-right" ng-if="isScadaOrder(faultOrder.apiWorkorderBaseInfoDto.workorderType)">
+      <div class="row">
+        <label class="input-label col-30">故障代码:</label>
+        <input class="col-60" type="text" placeholder="请输入" ng-model="faultOrder.apiWorkorderBaseInfoDto.faultCode" ng-disabled="!isCanModify()">
+        <i class="col-10 icon ion-ios-arrow-right"  ng-click="gotoSCADAFaultCodeInfo()"></i>
+      </div>
+    </ion-item>
+    <!-- 人工工单的故障代码 -->
+    <ion-item class="item-input item-icon-right" ng-if="!isScadaOrder(faultOrder.apiWorkorderBaseInfoDto.workorderType)">
+      <label class="input-label">故障代码:</label>
+      <input type="text" ng-model="faultOrder.apiWorkorderBaseInfoDto.faultCode" placeholder="请输入" ng-disabled="!isCanModify()">
+    </ion-item>
+
+    <ion-item class="item-input item-icon-right">
+      <label class="input-label">故障名称:</label>
+      <input type="text" ng-model="faultOrder.apiWorkorderBaseInfoDto.faultName" ng-disabled="!isCanModify()">
+      <!--<i class="icon ion-ios-arrow-right"></i>-->
+    </ion-item>
+    <ion-item>
+      <div class="row">
+        <span class="input-label col col-30">故障激活时间:</span>
+        <i class="icon ion-arrow-right-a col col-40"></i>
+        <span class="input-label col col-30">故障解决时间:</span>
+      </div>
+      <div ng-if="isCanModify()" class="row">
+        <input class="datetime-left col-50" type="datetime-local" placeholder="请输入"
+               ng-model="params.faultBeginTime">
+        <!--<i class="col col-40"></i>-->
+        <input class="datetime-right  col-50"
+               ng-disabled="!isCanModify()"
+               type="datetime-local" placeholder="请输入" ng-blur="calculateStopTime()"
+               ng-model="params.faultEndTime">
+      </div>
+      <div class="row" ng-if="!isCanModify()">
+        <span class="col datetime-left item-text-wrap">{{params.faultBeginTime?+params.faultBeginTime:null | date:("yyyy-MM-dd hh:mm")}}</span>
+        <span
+          class="col datetime-right item-text-wrap">{{params.faultEndTime?+params.faultEndTime:null | date:("yyyy-MM-dd hh:mm")}}</span>
+      </div>
+    </ion-item>
+    <ion-item class="item item-input">
+      <span class="input-label">停机时间(h):</span>
+      <input type="text" ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.shutdownTotalHour">
+    </ion-item>
+    <ion-item class="item-input" ng-if="!isCanModify()">
+      <label class="input-label">故障原因:</label>
+      <input type="text"
+             ng-disabled="true"
+             ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.faultReasonName">
+    </ion-item>
+    <ion-item class="item-select" ng-if="isCanModify()">
+      <span class="input-label">故障原因:</span>
+      <select
+        ng-options="faultCause as faultCause.detailName for faultCause in faultCauses"
+        ng-model="params.faultCause">
+        <option value="">--请选择--</option>
+      </select>
+    </ion-item>
+    <ion-toggle ng-model="params.ncrTrigger"
+                ng-disabled="!isCanModify()"
+                toggle-class="toggle-balanced">NCR:
+    </ion-toggle>
+    <ion-item class="item-input item-select" ng-if="params.ncrTrigger&&isCanModify()">
+      <div class="input-label label-name">NCR号:</div>
+      <select ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.ncrNum"
+              class="form-control"
+              ng-options="projSpecialWbs.ncrNum as projSpecialWbs.ncrDesc for projSpecialWbs in projSpecialWbsList">
+        <option value="">--请选择--</option>
+      </select>
+    </ion-item>
+    <ion-item class="item-input" ng-if="params.ncrTrigger&&!isCanModify()">
+      <label class="input-label">NCR号:</label>
+      <input type="text" ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.ncrNum" ng-disabled="true">
+    </ion-item>
+    <!--<ion-item class="item item-input">-->
+    <!--<span class="input-label">工单主题:</span>-->
+    <!--<input type="text"-->
+    <!--ng-disabled="!isCanModify()"-->
+    <!--ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.workorderTitle" placeholder="请输入">-->
+    <!--</ion-item>-->
+    <ion-item class="item-input text-ellipsis item-icon-right"
+              ng-click="gotoEditContent('工单主题',faultOrder.workorderDetails.eaWoWorkorderinfoDto,'workorderTitle')">
+      <span class="input-label">工单主题:</span>
+      <input type="text"
+             ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.workorderTitle"
+             placeholder="请输入" ng-disabled="!isCanModify()">
+      <i class="icon ion-ios-arrow-right" ng-if="isCanModify()"></i>
+    </ion-item>
+    <ion-item class="item-input text-ellipsis item-icon-right"
+              ng-click="gotoEditContent('现象描述',faultOrder.workorderDetails.eaWoWorkorderinfoDto,'faultDetailComment')">
+      <span class="input-label">现象描述:</span>
+      <input type="text"
+             ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.faultDetailComment"
+             placeholder="请输入" ng-disabled="!isCanModify()">
+      <i class="icon ion-ios-arrow-right" ng-if="isCanModify()"></i>
+    </ion-item>
+    <ion-item class="item-input text-ellipsis item-icon-right"
+              ng-click="gotoEditContent('过程描述',faultOrder.workorderDetails.eaWoWorkorderinfoDto,'faultHandleDesc')">
+      <span class="input-label">过程描述:</span>
+      <input type="text"
+             ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.faultHandleDesc"
+             placeholder="请输入" ng-disabled="!isCanModify()">
+      <i class="icon ion-ios-arrow-right" ng-if="isCanModify()"></i>
+    </ion-item>
+
+    <ion-item>
+      <div class="row">
+        <label class="col col-90 label-value">
+          上传附件
+        </label>
+      </div>
+      <div class="row row-wrap" style="padding: 1%">
+        <i class="col-25" ng-repeat="attachment in fileList track by $index">
+          <my-img attache-file="attachment" index="$index" attache-file-list="fileList" is-can-edit-img="isCanEditImg()"></my-img>
+        </i>
+        <i class="col col-25" ng-if="isCanModify()" ng-click="addAttachment(faultOrder.workorderDetails.eaWoWorkorderinfoDto);">
+          <img ng-src="img/selectImage.png" style="position:relative;height: 50px;width:50px;"/>
+          <i class="icon ion-ios-close" ng-show="false"></i>
+        </i>
+      </div>
+    </ion-item>
+    <ion-item>
+      <button
+        ng-disabled="!isCanModify()"
+        ng-click="saveModifiedFaultOrder(faultOrder)"
+        class="button button-block button-eambule">保存
+      </button>
+    </ion-item>
+  </ion-content>
+</ion-view>

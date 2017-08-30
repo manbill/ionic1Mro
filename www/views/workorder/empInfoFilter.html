@@ -1,0 +1,19 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-eamblue">
+    <a class="button button-clear ion-chevron-left" ng-click="backButtonAction();"></a>
+    <div class="title">筛选</div>
+  </ion-header-bar>
+  <ion-scroll direction="y" style="right: 0;bottom: 0;left: 0;position: absolute;" class="has-header">
+    <ion-list class="list-line">
+      <ion-item class="item item-input">
+        <span class="input-label">用户名称</span>
+        <input type="text" ng-model="searchCondition.name" placeholder="请输入">
+      </ion-item>
+      <ion-item class="item item-input">
+        <span class="input-label">用户账号</span>
+        <input type="text" ng-model="searchCondition.userAccount" placeholder="请输入">
+      </ion-item>
+    </ion-list>
+    <button class="button button-eambule-block" ng-click="confirmEmpInfo()" style="margin-top: 50px;">提交</button>
+  </ion-scroll>
+</ion-modal-view>

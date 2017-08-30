@@ -1,0 +1,136 @@
+<ion-view class="sparepart-detail" view-title="{{title}}">
+    <ion-content>
+        <!--<ion-scroll direction="y" class="height">-->
+            <div class="list">
+                <div class="item item-divider title">
+                    <div class="row">
+                        <div class="col">调拨单号：{{detail.transferOrderNo}}</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="row">
+                        <div class="col">主题：{{detail.workorderTitle}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-50">调拨类型：{{detail.transferType}}</div>
+                        <div class="col col-50" ng-if="detail.transferTypeId==164">调拨原因：{{detail.transferReason}}</div>
+                        <div class="col col-50" ng-if="detail.transferTypeId==165">工单号：{{detail.workorderCode}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col">创建时间：{{detail.createDate|date:"yyyy-MM-dd HH:mm:ss"}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-67">期望到货时间：{{detail.expectReceiveDateTime|date:"yyyy-MM-dd"}}</div>
+                        <div class="col col-33 text-right flag">{{detail.statusName}}</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="row">
+                        <div class="col"><h3>调出方信息</h3></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-33">调出仓库：</div>
+                        <div class="col col-67">{{detail.giWhName}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-33">仓库编号：</div>
+                        <div class="col col-67">{{detail.giRepertoryNo}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-33">联系人：</div>
+                        <div class="col col-67">{{detail.giWhContactName}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-33">联系电话：</div>
+                        <div class="col col-67">{{detail.giWhContactNum}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-33">发货地址：</div>
+                        <div class="col col-67">{{detail.giAddress}}</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="row">
+                        <div class="col"><h3>调入方信息</h3></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-33">调入仓库：</div>
+                        <div class="col col-67">{{detail.grWhName}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-33">仓库编号：</div>
+                        <div class="col col-67">{{detail.grRepertoryNo}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-33">联系人：</div>
+                        <div class="col col-67">{{detail.grWhContactName}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-33">联系电话：</div>
+                        <div class="col col-67">{{detail.grWhContactNum}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-33">收货地址：</div>
+                        <div class="col col-67">{{detail.grAddress}}</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="row">
+                        <div class="col"><h3>物料调拨信息</h3></div>
+                    </div>
+                    <div class="list list-inset">
+                        <div class="item" ng-repeat="materiel in detail.tranferOrderItemDtoList">
+                            <div class="row">
+                                <div class="col">名称：{{materiel.materialComment}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col">物料号：{{materiel.materialNo}}</div>
+                                <div class="col">单位：{{materiel.unitName}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col">软件版本号：{{materiel.versionNo}}</div>
+                            </div>
+                          <div class="row">
+                            <div class="col">需求总数：{{materiel.totalDemandAmount|number:2}}</div>
+                          </div>
+                          <div class="row">
+                            <div class="col">待处理数量：{{materiel.demandAmount|number:2}}</div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="row">
+                        <div class="col col-25">
+                            备注：
+                        </div>
+                        <div class="col col-75">
+                            {{detail.commentText}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-90">
+                            附件信息：
+                        </div>
+                    </div>
+                    <div class="row row-wrap">
+                        <div class="col col-25" ng-repeat="attachment in detail.tOFilemappingDtoList">
+                            <div class="card">
+                                <img src="{{attachment.filePath}}" width="100%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!--</ion-scroll>-->
+        <div class="bar bar-footer">
+            <div class="button-bar">
+                <!--<button class="button button-positive" ng-click="create()">发货</button>-->
+                <button class="button button-calm" ng-click="showFkjl('zbjl')" ng-if="auth['auth_440103']">转办记录</button>
+                <button class="button button-assertive" ng-click="showFkjl('bhjl')" ng-if="auth['auth_440102']">驳回记录</button>
+                <button class="button button-balanced" ng-click="showFkjl('fkjl')" ng-if="auth['auth_440104']">处理反馈</button>
+                <button class="button button-royal" ng-click="showDeliveryList()" ng-if="auth['auth_440101']">发货记录</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

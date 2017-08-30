@@ -1,0 +1,73 @@
+<style>
+  .tabs .tab-item .active1 {
+    padding: 5% 30%;
+    border-radius: 7px;
+    background-color: #4887ce;
+    color: #FFFFFF;
+  }
+
+  .bar .buttons-right span {
+    display: inline-block;
+  }
+
+  .tabs-top .tab-item {
+    overflow: visible;
+    margin-left: 2%;
+    margin-right: 2%;
+    max-width: 300px;
+  }
+
+  .tabs {
+    justify-content: flex-start;
+  }
+</style>
+<ion-view title="风机列表">
+  <ion-nav-buttons side="right">
+    <div class="query" ng-click="filterFanData();">
+      <i class="ion-funnel" style="margin-right: 5px;"></i>筛选
+    </div>
+  </ion-nav-buttons>
+  <ion-content overflow-scroll="false">
+    <ion-refresher
+      on-refresh="doRefreshFanEquipmentList()"
+      pulling-text="下拉刷新">
+    </ion-refresher>
+    <ion-list  class="data-list">
+      <div class="item item-icon-right" ng-repeat="fanEquipment in fanEquipmentList">
+        <div  ng-click="goFanEquipmentDetail(fanEquipment)">
+          <div style="clear:both"></div>
+          <div class="icon-father">
+            <div class="orderItem">
+              <div class="orderTitle">
+              <div>
+                <span class="title">机位编号：<span class="content">{{fanEquipment.position_code}} <span ng-if="fanEquipment.position_id">#</span> </span></span>
+                <span class="flagDW" >查看</span>
+              </div>
+              </div>
+              <div class="orderElement">
+                <div class="row">
+                <span class="label-name">风机ID：</span>
+                <span class="label-value">{{fanEquipment.machine_id }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--<div class="name"> 项目名称：{{fanEquipment.project_name}}</div>
+          <div>
+            <span class="name">机型：<span class="content">{{fanEquipment.machine_type_name}}</span></span>
+            <span class="divide">|</span>
+            <span class="name">风机ID：<span class="content">{{fanEquipment.machine_id }}</span></span>
+          </div>
+          <span class="flag" >查看</span>-->
+          <i class="icon ion-ios-arrow-right" ></i>
+        </div>
+      </div>
+    </ion-list>
+    <ion-infinite-scroll
+      ng-if="isMoreFanListData"
+      distance="1%"
+      immediate-check="false"
+      on-infinite="loadMoreFanListData()">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

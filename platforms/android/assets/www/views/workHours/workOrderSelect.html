@@ -1,0 +1,40 @@
+<ion-view class="sparepart-list" view-title="选择工单">
+  <ion-nav-buttons side="right">
+    <div class="query" ng-click="openFilter();">
+      <i class="ion-funnel" style="margin-right: 5px;"></i>筛选
+    </div>
+  </ion-nav-buttons>
+  <ion-content  overflow-scroll="false">
+    <ion-refresher
+      pulling-text="下拉刷新"
+      on-refresh="doRefreshWorkOrder()">
+    </ion-refresher>
+    <ion-list class="detail-data-list">
+      <ion-item class="item-icon-right" ng-repeat="wo in workOrderList">
+        <div ng-click="selectWorkOrder(wo)">
+          <div class="row">
+            <div class="col title">{{wo.workorderCode}}</div>
+          </div>
+          <!--<div class="row">-->
+            <!--<div class="col name">风机：<span class="color-blue1">{{wo.machineNo}}   |   来源：<span class="color-blue1">{{wo.workTypeName}}</span></span>-->
+            <!--</div>-->
+          <!--</div>-->
+          <div class="row">
+            <div class="col col-10 label-name">主题:</div>
+            <div class="col col-90 label-value text-ellipsis">{{wo.workorderTitle}}</div>
+          </div>
+          <!--<div class="row">-->
+            <!--<div class="col name">故障名称：<span class="color-blue1">{{wo.faultComponentName}}</span></div>-->
+          <!--</div>-->
+          <i class="icon ion-ios-arrow-right"></i>
+        </div>
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll
+      ng-if="isMoreWorkOrderData"
+      distance="1%"
+      immediate-check="false"
+      on-infinite="loadWorkOrder()">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

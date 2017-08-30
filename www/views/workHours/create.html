@@ -1,0 +1,44 @@
+<ion-view title="{{title}}报工">
+  <ion-scroll direction="y" style="right: 0;bottom: 0;left: 0;position: absolute;" class="has-header">
+    <ion-list>
+		<ion-item class="item-input item-select">
+		  <div class="input-label">所属项目</div>
+        <select ng-model="webParams.project" class="form-control"
+                ng-options="project as project.projectName for project in projectList">
+          <option value="">--请选择--</option>
+        </select>
+		</ion-item>
+      <ion-item class="item item-input">
+        <span class="input-label">作业人</span>
+        <input type="text" ng-model="wh.worker" placeholder="请选择" ng-click="workerSelect()">
+      </ion-item>
+      <ion-item class="item-input item-select">
+        <div class="input-label">
+          作业节点
+        </div>
+        <!-- `select` **`as`** `label` **`for`** `value` **`in`** `array`-->
+        <select ng-model="selectedIdName.workTypeIdName" class="form-control" ng-options="workAnchor as workAnchor.detailName for workAnchor in workAnchors">
+          <option value="">--请选择--</option>
+        </select>
+      </ion-item>
+      <ion-item class="item item-input">
+        <span class="input-label">工单编号</span>
+        <input type="text" ng-model="wh.workOrderNo"  ng-disabled="!isCreate&&wh.workOrderNo" placeholder="请选择" ng-click="workOrderSelect()">
+      </ion-item>
+      <ion-item class="item-input item-date">
+        <span class="input-label">开始时间</span>
+        <input type="datetime-local" ng-model="wh.startDate">
+      </ion-item>
+      <ion-item class="item-input item-date">
+        <span class="input-label">结束时间</span>
+        <input type="datetime-local" ng-model="wh.endDate">
+      </ion-item>
+      <label class="item item-input">
+        <textarea placeholder="作业内容..." style="height: 5em;" ng-model="wh.content"></textarea>
+      </label>
+      <div class="item">
+        <button class="button button-eambule-block" ng-click="save(wh)">保存</button>
+      </div>
+    </ion-list>
+  </ion-scroll>
+</ion-view>

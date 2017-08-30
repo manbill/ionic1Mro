@@ -1,0 +1,116 @@
+<ion-view title="{{title}}">
+  <ion-content overflow-scroll="false" direction="y">
+    <ion-list class="detail-data-list">
+      <!--<pre>{{faultOrderDetailInfo|json}}</pre>-->
+      <ion-item>
+        <span class="project-title">{{faultOrderDetailInfo.projectName}}</span>
+        <div class="row">
+          <div class="col-15 label-name">工单编号:</div>
+          <span class="col-60 label-value">{{faultOrderDetailInfo.workorderCode}}</span>
+          <div class="col col-15 label-value status-name">{{baseFaultOrder.workorderStatusName}}</div>
+        </div>
+        <div class="row">
+          <div class="col col-10 label-name">主题:</div>
+          <div class="col col-80 label-value text-ellipsis">{{detailFaultOrder['workorderDetails']['eaWoWorkorderinfoDto'].workorderTitle}}</div>
+        </div>
+        <div class="row" style="padding-top: 0.7em;">
+          <div class="col">
+            <span class="label-name">机位编号:</span>
+            <span class="label-value">{{baseFaultOrder.positionCode?baseFaultOrder.positionCode:detailFaultOrder['workorderDetails']['eaWoWorkorderinfoDto'].positionCode}}#</span>
+          </div>
+          <div class="col">
+            <!--<span class="label-name"><span class="divide">|</span>部件名称:</span>-->
+            <span class="label-name">部件名称:</span>
+            <span class="label-value">{{detailFaultOrder['workorderDetails']['eaWoWorkorderinfoDto'].deviceName}}</span>
+          </div>
+        </div>
+      </ion-item>
+      <ion-list class="data-list list-detail">
+      <div class="item text-center" id="div-buttons">
+        <div class="eam-nine-grid">
+          <!--第一行 图标 -->
+          <div class="row row-no-padding" style="padding: 0;margin: 0;vertical-align: bottom">
+            <div class="col eam-nine-padding-grid" id="eam-1st-grid">
+              <!--<a ng-click="goToFaultOrderDetail()">-->
+              <a ng-click="goSCADAEdit(faultOrderDetailInfo)">
+                <img src="img/img-buttons-normal/false-list.png" height="40px" width="40px">
+                <p>工单详情</p>
+              </a>
+            </div>
+            <div class="col eam-nine-padding-grid" id="eam-2nd-grid">
+              <a ng-click="recordRepair(faultOrderDetailInfo)">
+                <img src="img/img-buttons-normal/maintain-record.png" height="40px" width="40px">
+                <p>设备维修</p>
+              </a>
+            </div>
+            <div class="col eam-nine-padding-grid" id="eam-3rd-grid">
+              <a ng-click="goToPeopleReport()">
+                <img src="img/img-buttons-normal/work-time-normal.png" height="40px" width="40px">
+                <p>人员报工</p>
+              </a>
+            </div>
+          </div>
+
+          <!--第二行 图标 -->
+          <div class="row row-no-padding" style="padding: 0;margin: 0;vertical-align: bottom">
+            <div class="col eam-nine-padding-grid" id="eam-7th-grid">
+              <a ng-click="goToPauseList()">
+                <img src="img/img-buttons-normal/maintain-record.png" height="40px" width="40px">
+                <p>暂停记录</p>
+              </a>
+            </div>
+            <div class="col eam-nine-padding-grid" id="eam-8th-grid">
+              <a ng-click="goToVerifyList()">
+                <img src="img/img-buttons-normal/maintain-record.png" height="40px" width="40px">
+                <p>审核记录</p>
+              </a>
+            </div>
+            <div class="col eam-nine-padding-grid" id="eam-9th-grid" style="border: none;">
+            </div>
+          </div>
+        </div>
+      </div>
+      </ion-list>
+      <!-- 添加暂停权限 暂停处理事件 处理中显示该组按钮-->
+      <div class="row">
+        <div class="col"  ng-if="baseFaultOrder.workorderStatus == faultStatus.FAULT_STATUS_PROCESSING">
+          <button class="button button-block button-eambule" style="color: #ffffff"
+                  ng-click="pauseOrder(faultOrderDetailInfo)">暂停
+          </button>
+        </div>
+        <div class="col" ng-if="baseFaultOrder.workorderStatus == faultStatus.FAULT_STATUS_PROCESSING">
+          <button class="button button-block button-eambule" style="color: #ffffff"
+                  ng-click="submitSCADAWorkOrder(faultOrderDetailInfo)">提交工单
+          </button>
+        </div>
+        <div class="col">
+          <button ng-if="(baseFaultOrder.workorderStatus == faultStatus.FAULT_STATUS_PROCESSING)"
+                  class="button button-block button-eambule"
+                  style="color: #ffffff"
+                  ng-click="saveSCADAWorkOrder()">保存
+          </button>
+        </div>
+      </div>
+
+      <!-- 暂停状态显示该组按钮 ng-if="isOrderCanEdit(faultOrderDetailInfo.workorderStatus)"-->
+      <div class="row">
+        <div class="col" ng-if="baseFaultOrder.workorderStatus== faultStatus.FAULT_STATUS_PAUSE">
+          <button class="button button-block button-eambule" style="color: #ffffff"
+                  ng-click="recoveryOrder(faultOrderDetailInfo)">恢复
+          </button>
+        </div>
+      </div>
+
+      <!-- 待审核状态显示该组按钮-->
+      <div class="row">
+        <div class="col" ng-if="baseFaultOrder.workorderStatus == faultStatus.FAULT_STATUS_TOREVICEW">
+          <button class="button button-block button-eambule" style="color: #ffffff"
+                  ng-click="goToVerifyOrder(faultOrderDetailInfo)">审核
+            <!--ng-click="submitSCADAWorkOrder(faultOrderDetailInfo)">审核-->
+          </button>
+        </div>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>
+

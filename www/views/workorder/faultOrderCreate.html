@@ -1,0 +1,123 @@
+<script src="../../js/controller/ctl_workorder_scada.js"></script>
+<ion-view title="故障工单{{title}}">
+  <ion-content overflow-scroll="false">
+    <ion-list class="detail-data-list">
+      <ion-item>
+        <span class="label-value project-title">{{selectedProject.projectName}}</span>
+      </ion-item>
+      <ion-item class="item-input item-select">
+        <span class="input-label">机位号:</span>
+        <select ng-model="params.machine"
+                ng-options="machine as machine.position_code+'#' for machine in machines">
+        </select>
+      </ion-item>
+      <ion-item class="item item-input item-icon-right" ng-click="selectFanEquipment()">
+        <span class="input-label">部件名称:</span>
+        <input type="text" ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.deviceName" placeholder="请选择设备"/>
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item item-input">
+        <span class="input-label">故障代码:</span>
+        <input type="text" ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.faultCode" placeholder="请输入">
+        <!--<i class="icon ion-ios-arrow-right"></i>-->
+      </ion-item>
+      <ion-item class="item item-input">
+        <span class="input-label">故障名称:</span>
+        <input type="text" ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.faultName" placeholder="请输入">
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <span class="input-label col col-30">故障激活时间:</span>
+          <i class="icon ion-arrow-right-a col col-40"></i>
+          <span class="input-label col col-30">故障解决时间:</span>
+        </div>
+        <div class="row">
+          <input class="col datetime-left" type="datetime-local" placeholder="请输入" ng-blur="calculateStopTime()"
+                 ng-model="params.faultBeginTime">
+          <!--<i class="col col"></i>-->
+          <input class="col datetime-right" type="datetime-local" placeholder="请输入" ng-blur="calculateStopTime()"
+                 ng-model="params.faultEndTime">
+        </div>
+        </div>
+      </ion-item>
+      <ion-item>
+      </ion-item>
+      <ion-item class="item item-input">
+        <span class="input-label">停机时间(h):</span>
+        <input type="text" ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.shutdownTotalHour" >
+      </ion-item>
+      <ion-item class="item-input item-select">
+        <span class="input-label">故障原因:</span>
+        <select ng-model="params.faultCause"
+                ng-options="faultCause as faultCause.detailName for faultCause in faultCauses"></select>
+      </ion-item>
+      <ion-toggle ng-model="params.ncrTrigger" toggle-class="toggle-balanced">NCR:</ion-toggle>
+      <ion-item class="item-input item-select" ng-if="params.ncrTrigger">
+        <div class="input-label label-name">NCR号:</div>
+        <select ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.ncrNum" class="form-control"
+                ng-options="projSpecialWbs.ncrNum as projSpecialWbs.ncrDesc for projSpecialWbs in projSpecialWbsList">
+          <option value="">--请选择--</option>
+        </select>
+      </ion-item>
+      <!--<ion-item class="item item-input">-->
+      <!--<div class="input-label">故障建议:</div>-->
+      <!--<input ng-disabled="true" type="text" ng-model="">-->
+      <!--<i class="icon ion-ios-arrow-right"></i>-->
+      <!--</ion-item>-->
+      <!--<ion-item class="item item-input">-->
+        <!--<span class="input-label">工单主题:</span>-->
+        <!--<input type="text" ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.workorderTitle" placeholder="请输入">-->
+      <!--</ion-item>-->
+      <ion-item class="item-input text-ellipsis item-icon-right"
+                ng-click="gotoEditContent('工单主题',faultOrder.workorderDetails.eaWoWorkorderinfoDto,'workorderTitle')">
+        <span class="input-label">工单主题:</span>
+        <input type="text"
+               class="label-value"
+               ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.workorderTitle"
+               placeholder="请输入" ng-disabled="true">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item-input text-ellipsis item-icon-right" ng-click="gotoEditContent('现象描述',faultOrder.workorderDetails.eaWoWorkorderinfoDto,'faultDetailComment')">
+        <span class="input-label">现象描述:</span>
+        <input type="text"
+               class="label-value"
+               ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.faultDetailComment"
+               placeholder="请输入" ng-disabled="true">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item-input text-ellipsis item-icon-right" ng-click="gotoEditContent('过程描述',faultOrder.workorderDetails.eaWoWorkorderinfoDto,'faultHandleDesc')">
+        <span class="input-label">过程描述:</span>
+        <input type="text"
+               ng-model="faultOrder.workorderDetails.eaWoWorkorderinfoDto.faultHandleDesc"
+               placeholder="请输入" ng-disabled="true">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <div class="item" style="padding: 5px">
+        <div class="row">
+          <label class="col col-90">
+            上传附件
+          </label>
+        </div>
+        <div class="item row row-wrap" style="padding: 1%">
+          <i class="col col-25" ng-repeat="attachment in fileList track by $index">
+            <img style="height: 70px;width: 70px; margin: 0.4em"
+                 ng-src="{{attachment.filePath.indexOf('file://')>=0?attachment.filePath:'img/uploadimg.png'}}"
+                 ng-click="downloadImage(attachment,$index)" alt="{{attachment.fileOriginalName}}"/>
+            <i class="icon ion-ios-close"
+               ng-click="removeAttachment($index,attachment)"
+               style="position: relative;color:red;    font-size: 2em;    right: 1em;   top: -2em; z-index:100;">
+            </i>
+          </i>
+          <i class="col col-25" ng-click="addAttachment(faultOrder.workorderDetails.eaWoWorkorderinfoDto);">
+            <img ng-src="img/selectImage.png" style="position:relative;height: 70px;width:70px;"/>
+            <i class="icon ion-ios-close" ng-show="false"
+               style="position: relative;color:#1565c0;font-size: 206%;right: -70%;top: -99%;"></i>
+          </i>
+        </div>
+      </div>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar>
+    <button class="button button-eambule-block" ng-click="save(faultOrder.workorderDetails.eaWoWorkorderinfoDto)">保存</button>
+  </ion-footer-bar>
+</ion-view>

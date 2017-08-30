@@ -1,0 +1,20 @@
+<ion-view title="作业指导书">
+	<ion-content>
+		<ion-list class="data-list">
+			<div class="item" ng-repeat="instructor in instructors" ng-click="openDirectory(instructor)" >
+				<div style="padding: 0.5em 0.5em 0.5em 0.5em">
+					<div class="title" style="width:80%;">{{instructor.fileName}}</div>
+					<!--<div>-->
+						<!--<span class="name">更新于：<span class="content">{{instructor.uploadTime|Infydate}}</span></span>-->
+						<!--<span class="divide">|</span>-->
+						<!--<span class="name"><span class="content">{{instructor.fileSize}}M</span></span>-->
+					<!--</div>-->
+					<span class="flag" style="right: 5%;color: #FFF;" >
+						<!--<a class="button-eambule-small" style="right: 5%;" ng-click="download(instructor)">查看</a>-->
+						<i class="button-eambule button-clear button button-icon ion-chevron-right" style="right: 5%;" ></i>
+				</span>
+				</div>
+			</div>
+		</ion-list>
+	</ion-content>
+</ion-view>

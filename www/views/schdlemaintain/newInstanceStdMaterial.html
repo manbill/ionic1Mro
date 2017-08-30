@@ -1,0 +1,177 @@
+<style type="text/css">
+.blue {
+  color: #6581a1;
+}
+
+.selectedMaterial {
+  color: #444;
+}
+</style>
+<ion-view view-title="消耗物料选择">
+  <ion-nav-buttons side="right">
+    <div class="query">
+      <i class="ion-funnel" style="font-size: 15px;" ng-click="openQuery()">筛选</i>
+    </div>
+  </ion-nav-buttons>
+  <ion-content class="content" overflow-scroll="false">
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()">
+    </ion-refresher>
+    <ion-list class="data-list">
+      <ion-item class="item icon-father" style="background-color:#FBFCFD;" ng-repeat="materiel in webMaterielList track by $index">
+
+        <div class="orderTitle">
+          <span class="label-name">物料号-描述:</span>
+          <span class="label-value text-ellipsis" >{{materiel.materialSno}}-{{materiel.materialName}}</span>
+        </div>
+
+        <!--<div class="orderElement">-->
+          <!--<div class="row">-->
+            <!--<div class="col">-->
+              <!--<span class="label-name ">物料号:</span>-->
+              <!--<span class="label-value ">{{materiel.materialSno}}</span>-->
+            <!--</div>-->
+            <!--<div class="col">-->
+              <!--<span class="label-name">价值:</span>-->
+              <!--<span class="label-value">{{materiel.materialValue}}</span>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+
+
+        <!--<div class="orderElement">-->
+          <!--<div class="row">-->
+            <!--<div class="col">-->
+              <!--<span class="label-name">分类:</span>-->
+              <!--<span class="label-value">{{materiel.materialSuite}}</span>-->
+            <!--</div>-->
+            <!--<div class="col">-->
+              <!--<span class="label-name">单位:</span>-->
+              <!--<span class="label-value">{{materiel.unitText}}</span>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="orderElement" >-->
+          <!--<div class="row">-->
+            <!--<div class="col">-->
+              <!--<div style="display: flex;flex-direction: row;align-items: baseline;align-content: stretch">-->
+                <!--<div class="label-name">-->
+                  <!--数量:-->
+                <!--</div>-->
+                <!--<input class="title selectedMaterial" type="number" min="0" ng-model="materiel.amount" style="width: 80px;height: 1.5em;border: 1px solid #999999;" placeholder="请输入">-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col">-->
+              <!--<div style="display: flex;flex-direction: row;align-items: center;align-content: stretch; padding-top: 0.4em;">-->
+                <!--<div class="label-name">单位:</div>-->
+                <!--<div class="label-value">{{materiel.unitText}}</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col">-->
+              <!--<div style="display: flex;flex-direction: row;align-items: center;align-content: stretch">-->
+                <!--<div class="label-name">-->
+                  <!--是否账内:-->
+                <!--</div>-->
+                <!--<div >-->
+                  <!--<label class="toggle toggle-balanced">-->
+                    <!--<input type="checkbox" ng-model="materiel.sapInventoryFlag">-->
+                    <!--<div class="track">-->
+                      <!--<div class="handle"></div>-->
+                    <!--</div>-->
+                  <!--</label>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;{{materiel.sapInventoryFlag}}&ndash;&gt;-->
+
+          <!--</div>-->
+
+        <div class="orderElement">
+          <div class="row" style="padding-top:0.3em">
+            <label class="col label-name">单位：</label>
+            <span class="col label-value">{{materiel.unitText}}</span>
+            <span class="col label-name">数量：</span>
+            <input class="col label-value" style="position: relative; top: -0.5em; background-color: whitesmoke" type="number" min="0"
+                   placeholder="请输入" ng-model="materiel.amount">
+            <div class="col label-name" style="text-align: center">帐内:</div>
+            <div class="col" ng-click="isAccount($event)">
+              <label class="toggle toggle-balanced" style="position: relative; top: -0.4em;">
+                <input type="checkbox"
+                       ng-model="materiel.sapInventoryFlag">
+                <div class="track">
+                  <div class="handle"></div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+
+
+          <!--<div class="row">-->
+            <!--<div class="col">-->
+              <!--<span class="label-name">数量:-->
+                <!--<span class="label-value">-->
+                  <!--<input class="title selectedMaterial" type="number" min="0" ng-model="materiel.amount" style="width: 50px;height: 1.5em;border: 1px solid #999999;" placeholder="请输入">-->
+                <!--</span>-->
+              <!--</span>-->
+
+            <!--</div>-->
+            <!--<div class="col">-->
+              <!--<span class="label-name">是否账内:</span>-->
+              <!--<span class="label-value">-->
+                <!--<label class="toggle toggle-balanced">-->
+                  <!--<input type="checkbox" ng-model="materiel.sapInventoryFlag">-->
+                  <!--<div class="track">-->
+                    <!--<div class="handle"></div>-->
+                  <!--</div>-->
+                <!--</label>-->
+              <!--</span>-->
+            <!--</div>-->
+          <!--</div>-->
+        </div>
+
+
+
+        <i class="icon ion-ios-arrow-right custom-icon-right" style="font-size: 24px; height: 24px; width: 24px;" ng-click="materialDetail(materiel)"></i>
+
+        <!--<div class="row " style="border: 1px solid #DDDDDD;border-right-style: none;border-left-style: none;">-->
+          <!--<div class="col">-->
+            <!--<div class="row title">{{materiel.materialSno}}</div>-->
+            <!--<div class="row name" style="margin-top:2%;">物料号</div>-->
+          <!--</div>-->
+          <!--<div class="col">-->
+            <!--<div class="row title" style="text-align: center">{{materiel["materialValue"]}}</div>-->
+            <!--<div class="row name" style="margin-top:2%;">价值</div>-->
+          <!--</div>-->
+          <!--<div class="col">-->
+            <!--<div class="row title">-->
+              <!--<input class="title selectedMaterial" type="number" min="0" ng-model="materiel.amount" style="width: 50px;height: 34px;border: 1px solid #999999;" placeholder="请输入">-->
+            <!--</div>-->
+            <!--<div class="row name" style="margin-top:2%;">数量</div>-->
+          <!--</div>-->
+          <!--<div class="col">-->
+            <!--<div class="row">-->
+              <!--<label class="toggle toggle-balanced">-->
+                <!--<input type="checkbox" ng-model="materiel.sapInventoryFlag">-->
+                <!--<div class="track">-->
+                  <!--<div class="handle"></div>-->
+                <!--</div>-->
+              <!--</label>-->
+            <!--</div>-->
+            <!--<div class="row name" style="margin:1% 0 0 0;">是否帐内库存</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div>-->
+          <!--<span class="name">分类:<span class="content">{{materiel["materialSuite"]}}</span></span>-->
+          <!--<span class="name">单位:<span class="content">{{materiel["unitText"]}}</span></span>-->
+        <!--</div>-->
+      </ion-item>
+    </ion-list>
+    <ion-infinite-scroll ng-if="isMoreData" distance="1%" immediate-check="false" on-infinite="loadMoreMaterials()">
+    </ion-infinite-scroll>
+  </ion-content>
+  <ion-footer-bar>
+    <button class=" button button-eambule-block" ng-click="saveMaterials()"><b>保存</b></button>
+  </ion-footer-bar>
+</ion-view>

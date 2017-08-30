@@ -1,0 +1,82 @@
+<ion-view title="修改报工">
+  <ion-content>
+    <ion-list class="detail-data-list">
+      <!--<p>{{statusCanEdit}}</p>-->
+      <!--<p>{{isCanEditWorkHours}}</p>-->
+      <!--<p>{{isCanEditWorkHoursDetail()}}</p>-->
+      <ion-item class="item-toggle" style="padding: 1em 0.5em 1em 1em">
+        是否现场值守人员
+        <label class="toggle toggle-balance" ng-click="toggleChange()">
+          <input type="checkbox" ng-disabled="!(statusCanEdit&&isCanEditWorkHoursDetail())" ng-model="webParams.confirm">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </ion-item>
+      <!--<ion-item class="item-input item-select" ng-if="!isFromWorkOrder">-->
+        <!--<div class="input-label">所属项目</div>-->
+        <!--<select ng-model="webParams.project"-->
+                <!--ng-disabled="!isCanEditWorkHours||!statusCanEdit"-->
+                <!--ng-options="project as project.projectName for project in projectList">-->
+        <!--</select>-->
+      <!--</ion-item>-->
+      <ion-item class="item item-input item-icon-right">
+        <span class="input-label label-value">作业人</span>
+        <input type="text" ng-if="!webParams.confirm" ng-disabled="!(statusCanEdit&&isCanEditWorkHoursDetail())"
+               ng-model="wh.worker" placeholder="请选择">
+        <input type="text" ng-if="webParams.confirm" ng-disabled="!(statusCanEdit&&isCanEditWorkHoursDetail())"
+               ng-model="wh.worker" placeholder="请选择" ng-click="workerSelect();">
+        <i class="icon ion-ios-arrow-right" ng-click="workerSelect();" ng-if="webParams.confirm"></i>
+      </ion-item>
+      <ion-item class="item-input item-select" ng-if="!isFromWorkOrder">
+        <div class="input-label label-value">
+          作业类型
+        </div>
+        <!-- `select` **`as`** `label` **`for`** `value` **`in`** `array`-->
+        <select ng-model="selectedIdName.workTypeIdName" class="form-control"
+                ng-disabled="!(statusCanEdit&&isCanEditWorkHoursDetail())"
+                ng-options="workAnchor as workAnchor.detailName for workAnchor in workAnchors">
+          <option value="">--请选择--</option>
+        </select>
+      </ion-item>
+      <ion-item class="item item-input" ng-if="!isFromWorkOrder&&wh.workType==213&&webParams.project">
+        <span class="input-label">工单编号</span>
+        <input type="text" ng-model="wh.workOrderNo" placeholder="请选择" ng-disabled="!(statusCanEdit&&isCanEditWorkHoursDetail())"
+               ng-click="workOrderSelect();">
+      </ion-item>
+      <ion-item class="item item-input" ng-if="214==wh.workType" ng-disabled="!(statusCanEdit&&isCanEditWorkHoursDetail())">
+        <span class="input-label">请输入原因</span>
+        <input type="text" ng-model="wh.elseReason" ng-disabled="!(statusCanEdit&&isCanEditWorkHoursDetail())"
+               placeholder="输入原因">
+      </ion-item>
+      <ion-item class="item-input item-date">
+        <span class="input-label">开始时间</span>
+        <input type="datetime-local" placeholder="请选择" ng-disabled="!(statusCanEdit&&isCanEditWorkHoursDetail())"
+               ng-model="webParams.startDate">
+      </ion-item>
+      <ion-item class="item-input item-date">
+        <span class="input-label">结束时间</span>
+        <input type="datetime-local" placeholder="请选择" ng-disabled="!(statusCanEdit&&isCanEditWorkHoursDetail())"
+               ng-model="webParams.endDate">
+      </ion-item>
+      <ion-item class="label-value">
+      <label>备注描述：</label>
+      <textarea ng-disabled="!(statusCanEdit&&isCanEditWorkHoursDetail())" ng-model="wh.content"></textarea>
+      </ion-item>
+      <div class="item" ng-if="(statusCanEdit&&isCanEditWorkHoursDetail())">
+        <button class="button button-eambule-block"
+                ng-click="save(wh)">保存
+        </button>
+      </div>
+      <!--<p>start {{webParams.startDate}}&#45;&#45; end {{webParams.endDate}}</p>-->
+      <!--<p>isFromWorkOrder {{isFromWorkOrder}}</p>-->
+      <!--<p>workorderStatus {{workOrderObj.apiWorkorderBaseInfoDto.workorderStatus}}</p>-->
+      <!--<p>auth['auth_110103'] {{auth['auth_110103']}}</p>-->
+      <!--<p>auth['auth_410105'] {{auth['auth_410105']}}</p>-->
+      <!--<p>auth['auth_430105'] {{auth['auth_430105']}}</p>-->
+      <!--<p>auth['auth_460105'] {{auth['auth_460105']}}</p>-->
+
+
+    </ion-list>
+  </ion-content>
+</ion-view>

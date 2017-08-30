@@ -1,0 +1,43 @@
+<ion-view title="处理过程详细">
+  <ion-nav-buttons side="right" >
+    <div class="query" ng-if="auth['auth_310102']" ng-click="feedBack();">
+        <span style="color: white">处理反馈</span>
+    </div>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-list class="detail-data-list">
+      <ion-item ng-repeat="record in handleRecords">
+        <div class="row">
+          <div class="col">
+            <span class="title">{{record.userName}}</span>
+            <span class="divide">|</span>
+            <span class="title">{{record.userType}}</span>
+          </div>
+          <div class="col text-right">
+            <span>{{record.handleDate|date:'yyyy-MM-dd hh:mm'}}</span>
+          </div>
+        </div>
+        <div class="row" ng-click="orderDetailInfo(record)">
+          <div class="col col-12">
+            <span class="label-name">单据编号:</span>
+          </div>
+          <div class="col col-60">
+            <span class="label-value">{{record.orderNo}}</span>
+          </div>
+          <div class="col col-10 text-right">
+            <!--发货单是2转办调拨单是1-->
+            <i class="icon ion-ios-arrow-right"></i>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-12">
+            <span class="label-name">工作内容:</span>
+          </div>
+          <div class="col col-90 text-ellipsis">
+            <span class="label-value">{{record.content}}</span>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

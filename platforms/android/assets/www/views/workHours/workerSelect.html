@@ -1,0 +1,27 @@
+<ion-view class="sparepart-list" view-title="选择作业人">
+  <ion-nav-buttons side="right">
+    <div class="query" ng-click="openFilter();">
+      <i class="ion-funnel"></i>筛选
+    </div>
+  </ion-nav-buttons>
+  <ion-content overflow-scroll="false">
+    <ion-refresher on-refresh="refreshDate()" pulling-text="下拉刷新">
+    </ion-refresher>
+    <ion-list >
+      <div class="item" ng-repeat="wr in workerList" ng-click="selected(wr.id, wr.realname);">
+        <div class="detail-data-list">
+          <!--<span>{{$index+1}}&nbsp;&nbsp;</span>-->
+          <span class="title">{{wr.realname}}</span>
+          <label class="label-value">--</label>
+          <span class="label-value">{{wr.name}}</span>
+        </div>
+      </div>
+    </ion-list>
+    <ion-infinite-scroll
+      on-infinite="loadWorker()"
+      ng-if="hasMoreDate"
+      distance="1%"
+      immediate-check="false">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

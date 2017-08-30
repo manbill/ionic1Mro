@@ -1,0 +1,88 @@
+<ion-view view-title="{{title|formatOrderType}}详情">
+  <ion-content>
+    <ion-list class="data-list list-line list-detail">
+      <div class="click-hide-item-action">
+        <ion-item style="padding:5% 5%;">
+          <div class="title">
+            工单编号：{{work.orderNo}}
+          </div>
+          <div class="flag" style="right: 15px;">
+            <div>{{work.status}}</div>
+          </div>
+        </ion-item>
+      </div>
+      <div class="item item-divide item-icon-right" ng-click="showOrderArrivalDetail()" >
+        <div class="content" ng-hide="isShowOrderArrivalDetail" style="font-size: 14px;padding: 1% 3%;">显示工单详情</div>
+        <div ng-hide="!isShowOrderArrivalDetail" style="padding:2% 5%;">
+          <div class="title">
+            工单编号：{{work.orderNo}}
+          </div>
+          <div class="flag" style="margin: 0 10px 0 0">
+            <div>{{work.status}}</div>
+          </div>
+        </div>
+        <a class="icon-size icon content"
+           ng-class="{false:'ion-chevron-right',true:'ion-chevron-down'}[isShowOrderArrivalDetail]"
+           style="color: #6581a1" href="#">
+        </a>
+      </div>
+
+      <!--详情列表-->
+      <div id="id-showing-detail" ng-show="isShowOrderArrivalDetail">
+        <ion-item ng-repeat="arrivalPlan in work.arrivalPlans">
+          <div class="item time">
+            <div class="row row-no-padding">
+              <div class="col-40 item-text">{{arrivalPlan.planBeginDate|Infydate}}</div>
+              <div class="col-20" style="font-size: 24px;text-align:center;line-height: 31.2px"><i
+                class="ion-arrow-right-a"></i></div>
+              <div class="col-40 item-text" style="text-align: right;">{{arrivalPlan.planEndDate|Infydate}}</div>
+            </div>
+            <div class="row row-no-padding">
+              <div class="col-40">计划开始时间</div>
+              <div class="col-20"></div>
+              <div class="col-40" style="text-align: right;">计划结束时间</div>
+            </div>
+          </div>
+          <div class="item">
+            计划到货数量:<div class="item-text">{{arrivalPlan.planCount}}</div>
+          </div>
+        </ion-item>
+
+        <!--<div class="padding submit-footer row " ng-show="isShowOrderArrivalDetail">-->
+          <!--<button class="button button-eambule-block"   ng-click="orderArrivalSave()"><b>保存</b></button>-->
+        <!--</div>-->
+      </div>
+      <div class="div-buttons-items-action">
+        <div class="item text-center " style="padding: 15% 5% 15% 5%;border: none;">
+          <div style="background: #d4dae2;margin: 0;padding: 0">
+            <div class="row row-no-padding text-center ">
+              <div class="col col-center order-arrival" style="margin: 0 1px 0px 0">
+                <a href="#/tab/workorder/empTimeSheet/list/{{taskId}}/1">
+                  <img src="img/img-buttons-normal/work-time-normal.png" height="40px" width="40px">
+
+                  <p style="margin: 0 0 7% 0;">人员报工</p>
+                </a>
+              </div>
+              <div class="col col-center order-arrival" style="margin: 0 ">
+                <a href="#/tab/workorder/reviceOrderInfos/{{taskId}}">
+                  <img src="img/img-buttons-normal/receive-info.png" height="40px" width="40px">
+                  <p style="margin: 0 0 7% 0;">收货信息</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div ng-show="!isShowOrderArrivalDetail">
+          <button  class="button button-eambule-block click-submit-action-class" ng-controller="WorkOrderCtrl" ng-click="submitOrder(work)" ng-if="isOrderCanEdit(taskId)"><b>{{buttonText.text}}</b></button>
+        </div>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>
+
+<style>
+  .order-arrival {
+    background: #fff;
+    padding: 5% 0 0 0;;
+  }
+</style>

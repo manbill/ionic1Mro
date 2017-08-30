@@ -1,0 +1,44 @@
+<ion-view view-title="描述信息" >
+  <ion-content>
+    <div ng-controller="ManualWorkDetailCtrl"></div>
+    <ion-list>
+      <ion-item>
+        <div style="float: left;">NRC号</div>
+        <input type="text" ng-model="work.ncr" style="float: right;height: 100%; text-align: right;" placeholder="请输入"/>
+      </ion-item>
+      <ion-item class="item-input item-select">
+        <div class="input-label">
+          其他因素分类
+        </div>
+        <select ng-model="work.otherCauseCategory">
+          <option value="现场" ng-selected="work.otherCauseCategory=='0'">现场</option>
+          <option value="业主" ng-selected="work.otherCauseCategory=='1'">业主</option>
+          <option value="天气" ng-selected="work.otherCauseCategory=='2'">天气</option>
+        </select>
+      </ion-item>
+      <ion-item>
+        <div style="float: left;">其他因素停机时间</div>
+        <input type="text" ng-model="work.otherCauseStopTime" style="float: right;height: 100%; text-align: right;" placeholder="请输入"/>
+      </ion-item>
+      <ion-item>
+        <div style="float: left;">现场因素描述</div>
+        <input type="text" ng-model="work.currentCauseDes" style="float: right;height: 100%; text-align: right;" placeholder="请输入"/>
+      </ion-item>
+      <ion-item>
+        <div style="float: left;">故障现象详尽描述</div>
+        <input type="text" ng-model="work.faultDetailDes" style="float: right;height: 100%; text-align: right;" placeholder="请输入"/>
+      </ion-item>
+      <ion-item>
+        <div style="float: left;">故障原因</div>
+        <input type="text" ng-model="work.faultCause" style="float: right;height: 100%; text-align: right;" placeholder="请输入"/>
+      </ion-item>
+      <ion-item>
+        <div style="float: left;">故障原因描述</div>
+        <input type="text" ng-model="work.faultCauseDes" style="float: right;height: 100%; text-align: right;" placeholder="请输入"/>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar>
+    <button  class=" button button-eambule-block" ng-click="manualWorkSave()"><b>保存</b></button>
+  </ion-footer-bar>
+</ion-view>

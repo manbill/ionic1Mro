@@ -1,0 +1,49 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-eamblue">
+        <a class="button button-clear ion-chevron-left" ng-click="closeFilter();"></a>
+        <div class="title">筛选</div>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label">调拨单号：</span>
+                <input ng-model="search.transferOrderNo" type="text" placeholder="请输入调拨单号"/>
+            </label>
+            <label class="item item-input item-select">
+                <span class="input-label">调拨类型：</span>
+                <select ng-model="search.transferTypeId" ng-options="transferOrderType.detailId as transferOrderType.detailName for transferOrderType in transferOrderTypes"></select>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">物料号：</span>
+                <input ng-model="search.materialNo" type="text" placeholder="请输入物料号"/>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">物料描述：</span>
+                <input ng-model="search.materialComment" type="text" placeholder="请输入物料描述"/>
+            </label>
+            <label class="item item-input item-select">
+                <span class="input-label">状态：</span>
+                <select  ng-model="search.statusId" ng-options="transferStatus.detailId as transferStatus.detailName for transferStatus in transferStatuses"></select>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">工单号：</span>
+                <input ng-model="search.workorderCode" type="text" placeholder="请输入工单号"/>
+            </label>
+            <label class="item item-input item-select">
+                <span class="input-label">调拨原因：</span>
+                <select ng-model="search.transferReasonId" ng-options="transferReason.detailId as transferReason.detailName for transferReason in transferReasons"></select>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">创建时间：</span>
+                <input ng-model="search.createOnBegin" type="date" placeholder="选择日期"/>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">至：</span>
+                <input ng-model="search.createOnEnd" type="date" placeholder="选择日期"/>
+            </label>
+            <div class="item">
+                <button class="button button-full button-eambule" ng-click="searchFilter()">提交</button>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>

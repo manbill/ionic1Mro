@@ -1,0 +1,59 @@
+<ion-view class="content" title="故障工单">
+    <ion-nav-buttons side="right">
+        <!-- 筛选权限 就是查看权限 ng-if="auth['auth_110101']" -->
+        <div class="query" ng-if="auth['auth_110101']" ng-click="openFilter();">
+            <i class="ion-funnel"></i>筛选
+        </div>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="left">
+        <!-- 新建权限  ng-if="auth['auth_110105']" 没有新建权限不显示新建按钮-->
+        <a ng-if="auth['auth_110105']" ng-click="faultOrderCreate()" class="icon ion-ios-plus-outline"></a>
+    </ion-nav-buttons>
+    <ion-content overflow-scroll='false'>
+        <ion-refresher pulling-text="下拉同步故障工单数据" on-refresh="syncSchdlemaintail()">
+        </ion-refresher>
+        <!-- 没有查看权限 不渲染list  ng-if="auth['auth_110101']" -->
+        <ion-list class="data-list" ng-if="auth['auth_110101']">
+            <ion-item class="item item-icon-right icon-father"  ng-repeat="work in workList track by $index" ng-switch on="work.orderType">
+                <div class="row">
+                    <div class="col col-70">
+                        <!-- 工单号 -->
+                        <div class="title" style="padding-top: 0.4em">{{work.workorderCode}}<span ng-if="work.uploadStatus==2" style="color: red;font-size: 14px">(同步失败)</span></div>
+                    </div>
+                    <div class="col col-20">
+                       <span class="flagDW" >
+                          {{work.workorderStatusName}}</span>
+                    </div>
+                </div>
+                <!-- <div>
+          <span class="name">项目名称：<span class="content item-text-wrap">{{work.projectName}}</span></span>
+        </div> -->
+                <div class="row" style="padding:10px 0 8px 0">
+                  <div><span class="label-name">主题：</span></div>
+                    <div class="text-ellipsis">
+                        <span class="label-value">{{work.workorderTitle}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span class="label-name">风机：</span>
+                        <span class="label-value text-left"> {{work.positionCode?work.positionCode+"#":work.positionCode}} </span>
+                    </div>
+                    <div class="col">
+                        <span class="label-name">故障激活时间：</span>
+                        <span class="label-value text-rigth">{{work.faultBegindate|WorkHoursInfydate}}</span>
+                    </div>
+                </div>
+
+                <i class="icon ion-ios-arrow-right" ng-click="goDetail(work)"></i>
+
+                <ion-option-button class="button button-assertive" ng-if="!(work.workorderStatus=='43')" ng-click="delete(work,$index,$event)">
+                    <!--ng-if="auth['auth_110103']"-->
+                    删除
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+        <ion-infinite-scroll on-infinite="loadMoreWork()" distance="1%" immediate-check="false" ng-if="hasMoreData">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>

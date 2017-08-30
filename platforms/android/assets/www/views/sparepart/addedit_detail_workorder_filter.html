@@ -1,0 +1,38 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-eamblue">
+    <a class="button button-clear ion-chevron-left" ng-click="closeFilter();"></a>
+
+    <div class="title">筛选</div>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list">
+      <!--<label class="item item-input">-->
+        <!--<span class="input-label">项目名称：</span>-->
+        <!--<input type="text" ng-model="search.projectName" placeholder="请输入项目名称"/>-->
+      <!--</label>-->
+      <label class="item item-input">
+        <span class="input-label">工单号：</span>
+        <input ng-model="search.workorderCode" type="text" placeholder="请输入工单号"/>
+      </label>
+      <label class="item item-input item-select">
+        <span class="input-label">工单类型：</span>
+        <select ng-model="search.workorderTypeId"
+                ng-options="workorderType.detailId as workorderType.detailName for workorderType in workorderTypes">
+          <option value="">--请选择--</option>
+        </select>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">创建时间：</span>
+        <input ng-model="search.createOnBegin" type="datetime-local"
+               placeholder="选择日期"/>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">至：</span>
+        <input ng-model="search.createOnEnd" type="datetime-local"  placeholder="选择日期"/>
+      </label>
+      <div class="item">
+        <button class="button button-full button-eambule" ng-click="searchFilter()">查询</button>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

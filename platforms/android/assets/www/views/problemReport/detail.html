@@ -1,0 +1,160 @@
+<ion-view title="问题报告详情">
+    <ion-content overflow-scroll="false">
+        <div class="detail-data-list">
+            <div class="orderElement">
+                <!--<span class="label-name">问题编号:</span>-->
+                <span class="title">{{pr.problemNo}}</span>
+                <span class="label-value-right status-name">{{pr.problemStatusDesc}}</span>
+            </div>
+
+            <!--<div class="orderElement">-->
+            <!--<span class="label-name">所属区域:</span>-->
+            <!--<span class="label-value-right">{{pr.areaDesc}}</span>-->
+            <!--</div>-->
+
+            <!--<div class="orderElement">-->
+            <!--<span class="label-name">项目名称:</span>-->
+            <!--<span class="label-value-right">{{pr.projectName}}</span>-->
+            <!--</div>-->
+
+            <div class="orderElement">
+                <div class="row">
+                    <div class="col">
+                        <span class="label-name">问题类型:</span>
+                        <span class="label-value">{{pr.problemTypeDesc}}</span>
+                    </div>
+                    <div class="col">
+                        <span class="label-name">关联工单:</span>
+                        <span class="label-value">{{pr.workorderCode}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="orderElement">
+                <span class="label-name">主题:</span>
+                <span class="label-value">{{pr.problemSubject}}</span>
+            </div>
+
+            <div class="orderElement">
+                <span class="label-name">问题描述:</span>
+                <textarea class="item-text-wrap" ng-disabled="true">{{pr.problemSubject}}</textarea>
+            </div>
+
+
+            <div class="item row"
+                 ng-if=" (userType==3) && (pr.problemStatus == problemStatus.PROBLEM_STATUS_REPLY)">
+                <!--<div class="col-20"></div>-->
+                <!--<div class="col-20"></div>-->
+                <div class="col-50">
+                </div>
+                <button class="button button-eambule-small col " style="margin: 3px" ng-click="feedBack(pr)">问题反馈
+                </button>
+                <button class="button button-eambule-small col  " style="margin: 3px" ng-click="close(pr)">问题关闭</button>
+            </div>
+        </div>
+
+        <!--<ion-list>-->
+        <!--<ion-item class="item-input">-->
+        <!--<div class="input-label">所属区域：<span class="color-blue1">{{pr.areaDesc}}</span></div>-->
+        <!--</ion-item>-->
+        <!--<ion-item class="item-input">-->
+        <!--<div class="input-label">项目名称：<span class="color-blue1">{{pr.projectName}}</span></div>-->
+        <!--</ion-item>-->
+        <!--<ion-item class="item-input">-->
+        <!--<div class="input-label">问题类型：<span class="color-blue1">{{pr.problemTypeDesc}}</span></div>-->
+        <!--</ion-item>-->
+        <!--<ion-item class="item item-input">-->
+        <!--<span class="input-label">问题主题：<span class="color-blue1">{{pr.problemSubject}}</span></span>-->
+        <!--</ion-item>-->
+        <!--</ion-list>-->
+        <!--<ion-list class="data-list">-->
+        <!--&lt;!&ndash;状态为回复状态 可以继续反馈 或者关闭&ndash;&gt;-->
+        <!--<div class="item row row-wrap"-->
+        <!--ng-if=" (userType==3) && (pr.problemStatus == problemStatus.PROBLEM_STATUS_REPLY)">-->
+        <!--<button class="button button-eambule col" ng-click="feedBack(pr)">问题反馈</button>-->
+        <!--<button class="button button-eambule col" ng-click="close(pr)">问题关闭</button>-->
+        <!--</div>-->
+
+
+        <!--</ion-list>-->
+        <!--<div style="height: 1px; color: gray"></div>-->
+        <ion-list class="detail-data-list">
+            <ion-item class="item-divider"> 处理记录</ion-item>
+            <ion-item class="item" ng-repeat="rec in pr.processRecord">
+                <!--<pre>{{rec|json}}</pre>-->
+                <div class="row">
+                    <div class="col">
+                        <span class="label-name">处理人:</span>
+                        <span class="label-value">{{rec.realName}}</span>
+                    </div>
+
+                    <div class="col">
+                        <span class="label-name">处理方式:</span>
+                        <span class="label-value">{{rec.pdTypeDesc}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span class="label-name">处理时间:</span>
+                        <span class="label-value">{{rec.pdDate}}</span>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <dov class="col">
+                        <span class="label-name">问题描述及回复</span>
+                        <span class="label-value item-text-wrap">{{rec.pdReplydesc}}</span>
+                    </dov>
+                </div>
+
+                <!--<div class="row row-wrap">-->
+                    <!--<div class="col-25">-->
+                        <!--<i ng-repeat="image in rec.dtos track by $index">-->
+                            <!--<img style="height: 100px;width: 100px;position: relative" id="{{image.fileId}}"-->
+                                 <!--ng-src="{{image.filePath.indexOf('file://')>=0?image.filePath:'img/uploadimg.png'}}"-->
+                                 <!--ng-click="downloadImage(image,$index)"/>-->
+                        <!--</i>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <div class="row row-wrap">
+              <div class="col-25">
+                <i ng-repeat="image in rec.dtos track by $index">
+                    <my-img attache-file="image" index="$index" attache-file-list="rec.dtos" is-can-edit-img="isCanEdit()"></my-img>
+                    <!--<img style="height: 100px;width: 100px;position: relative" id="{{image.fileId}}"-->
+                       <!--ng-src="{{image.filePath.indexOf('file://')>=0?image.filePath:'img/uploadimg.png'}}"-->
+                       <!--ng-click="downloadImage(image,$index)"/>-->
+                </i>
+              </div>
+            </div>
+
+                <!--<div class="row">-->
+                <!--<div class="col name">处理人：<span class="color-blue1">{{rec.pdPeople}}</span></div>-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                <!--<div class="col name">处理方式：<span class="color-blue1">{{rec.pdTypeDesc}}</span></div>-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                <!--<div class="col name">处理时间：<span class="color-blue1">{{rec.pdDate}}</span></div>-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                <!--<div class="col name">问题描述及回复：<span class="color-blue1">{{rec.pdReplydesc}}</span></div>-->
+                <!--</div>-->
+                <!--<div class="row row-wrap">-->
+                <!--<div class="col-25">-->
+                <!--<i ng-repeat="image in rec.dtos track by $index">-->
+                <!--<img style="height: 100px;width: 100px;position: relative" id="{{image.fileId}}"-->
+                <!--ng-src="{{image.filePath.indexOf('file://')>=0?image.filePath:'img/uploadimg.png'}}"-->
+                <!--ng-click="downloadImage(image,$index)"/>-->
+                <!--</i>-->
+                <!--</div>-->
+                <!--</div>-->
+            </ion-item>
+        </ion-list>
+        <!--<div class="item row"-->
+        <!--ng-click="goBack()">-->
+        <!--<button class="button button-eambule button-block" style="color: #fff">-->
+        <!--返回-->
+        <!--</button>-->
+        <!--</div>-->
+    </ion-content>
+</ion-view>

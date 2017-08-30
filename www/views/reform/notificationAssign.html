@@ -1,0 +1,24 @@
+<ion-view title="分派">
+  <ion-header-bar class="bar-eamblue">
+    <a class="button button-clear ion-chevron-left" ng-click="backButtonAction();"></a>
+  </ion-header-bar>
+	<ion-content  class="data-list">
+    <ion-item class="item-input item-select">
+      <span class="input-label">人员：</span>
+      <select ng-model="task.tempOwner" ng-options="people.userId as people.userName for people in peoples">
+        <option value="">-- 选择人员 --</option>
+      </select>
+    </ion-item>
+
+    <ion-item class="item-input item-select">
+      <span class="input-label">机位号：</span>
+      <select ng-model="task.tempMachineId" ng-options="machineId.positionId as machineId.positionName for machineId in machineIds">
+        <option value="">-- 选择机位号 --</option>
+      </select>
+    </ion-item>
+    </div>
+	</ion-content>
+  <ion-footer-bar>
+    <button class=" button button-eambule-block" ng-click="submitAssign(task)">确定</button>
+  </ion-footer-bar>
+</ion-view>

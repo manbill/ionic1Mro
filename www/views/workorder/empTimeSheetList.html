@@ -1,0 +1,35 @@
+<ion-view title="{{title}}">
+  <ion-nav-buttons side="right">
+    <!--<i ng-click="newStaff(taskId)" ng-if="isOrderCanEdit(taskId)" style=" font-size:xx-large;"-->
+    <i ng-click="newStaff(taskId)" style=" font-size:xx-large;"
+       class="icon ion-android-add-circle "></i>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-list class="data-list">
+      <!--<div >-->
+        <ion-item class="item-icon-right" ng-click="isOrderCanEdit(taskId)?edit(staff):''"
+                  ng-repeat="staff in staffs">
+          <div class="title">作业人：{{staff.empName}}</div>
+          <div>
+						<span class="name">是否供应商：<span class="content">{{staff.type|userTypeFilter}}</span></span>
+						<span class="divide">|</span>
+						<span class="name">工时数：<span class="content">{{staff.workTime}}</span></span>
+					</div>
+          <div>
+            <span class="name">开始时间：<span class="content">{{staff.beginTime|Infydate}}</span></span>
+          </div>
+          <div>
+            <span class="name">结束时间：<span class="content">{{staff.endTime|Infydate}}</span></span>
+          </div>
+          <div>
+            <span class="name">描述：<span class="content textarea">{{staff.description}}</span></span>
+          </div>
+          <i class="icon ion-ios-arrow-right" ng-if="isOrderCanEdit(taskId)"></i>
+      <!--</div>-->
+      <ion-option-button class="button" style="background-color: red; color: white;" ng-click="delete(staff)">
+        删除
+      </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

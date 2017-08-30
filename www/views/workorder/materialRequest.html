@@ -1,0 +1,49 @@
+<style>
+	.list .item{
+		padding: 0px;
+	}
+	.item-complex .item-content{
+		padding: 0px;
+	}
+	.data-list .item .flag {
+		right: 29px;
+	}
+	.item-icon-right .icon{
+		right:4px;
+	}
+</style>
+<ion-view title="物料请求">
+	<ion-nav-buttons side="right">
+		<div>
+			<i ng-click="addMaterielRequest() " ng-if="isOrderCanEdit(taskId)" style="font-size:xx-large;color:#9cc6f8;" class="icon ion-ios-plus-outline"></i>
+		</div>
+	</ion-nav-buttons>
+	<ion-content>
+		<ion-list class="data-list">
+			<ion-item  style="margin:20px 10px;" ng-repeat="materielRequest in materielRequestList"> <!--ng-click="isOrderCanEdit(taskId)?edit(materielRequest):''">-->
+				<div class="name" style="background-color:#FBFCFD; padding: 5px 10px; border-bottom:1px solid #ddd">
+					物料描述：<span class="content">{{materielRequest.materielName}}</span>
+				</div>
+				<div class="item-icon-right " style="background-color:#FBFCFD; position: relative;">
+					<div class="row row-no-padding " style="padding: 5px 10px; ">
+						<div class="col-60 title">{{materielRequest.materielNo}}</div>
+						<div class="col-20 title" ng-click="updateCount(materielRequest)">{{materielRequest.count}}</div>
+						<div class="col-20 title">{{materielRequest.unit}}</div>
+					</div>
+					<div class="row row-no-padding " style="padding: 5px 10px; ">
+						<div class="col-60 name">物料号</div>
+						<div class="col-20 name">数量</div>
+						<div class="col-20 name">单位</div>
+					</div>
+					<div class="flag">{{materielRequest.status}}</div>
+					<!--<i class="icon ion-ios-arrow-right" ng-if="isOrderCanEdit(taskId)"></i>-->
+				</div>
+				<span  ng-if="isOrderCanEdit(taskId)" >
+						<ion-option-button class="button " style="background-color: red; color: white; " ng-click="delete(materielRequest) ">
+							删除
+						</ion-option-button>
+				</span>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>

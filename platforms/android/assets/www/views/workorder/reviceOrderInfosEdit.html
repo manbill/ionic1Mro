@@ -1,0 +1,41 @@
+<style>
+	div a {
+		font-size: 16px;
+		color: #444;
+	}
+
+	div input {
+		font-size: 13px;
+		width: 50px;
+		text-align: center;
+	}
+</style>
+<ion-view title="编辑收货信息">
+	<ion-content class="content ">
+		<ion-list class="list-line">
+			<ion-item class="item-input item-date">
+				<span class="input-label">到货时间</span>
+				<input type="date" ng-disabled="!isOrderCanEdit(taskId)" ng-model="reviceDate" formatDate/>
+			</ion-item>
+      <ion-item ng-repeat="item in receivingInfoItems">
+        <span>{{item.goodsName}}</span>
+        <div class="inline" style="float: right;">
+        <a class="button-bar-inline ion-minus-round" ng-click="subCount(item);"></a>
+        <input ng-model="item.goodsCount">
+        <a class="button-icon-inline ion-plus-round" ng-click="addCount(item);"></a>
+        </div>
+      </ion-item>
+			<ul>
+				<li class="border-full" ng-repeat="image in images" ng-controller="ShowImageCtrl">
+					<img src="{{image.imageUrl}}" width="80" height="80" ng-click="showImage(image)" />
+				</li>
+				<li class="border-full">
+					<img src="img/selectImage.png" ng-click="selectImage()" width="80" height="80" />
+				</li>
+			</ul>
+		</ion-list>
+	</ion-content>
+	<ion-footer-bar>
+		<button class=" button button-eambule-block" ng-click="save()"><b>保存</b></button>
+	</ion-footer-bar>
+</ion-view>

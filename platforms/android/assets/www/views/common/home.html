@@ -1,0 +1,102 @@
+<ion-view hide-nav-bar="true">
+  <ion-content>
+    <div class="index_header">
+      <!--<span style="display: block; width: 2em; height: 2em" >-->
+        <img ng-src="img/menu-icon.png"
+             style="position: absolute;left:15px;top:24px; width: 2em; height: 1.5em;" ng-click="logout()">
+      <!--</span>-->
+      <img style="width: 200px; height: 60px; padding-top: 0px;" src="img/logo.png">
+
+      <h3>{{currentSelectedProjectName}}</h3>
+      <h3>欢迎您</h3>
+    </div>
+    <div class="list">
+      <div class="item text-center" id="div-buttons" style="text-align: -webkit-center;border-bottom: none">
+        <!--第一行 图标 -->
+        <div class="row row-no-padding" style="padding: 0;margin: 0;vertical-align: bottom">
+          <div class="col eam-nine-padding-grid" id="eam-1st-grid">
+            <a ng-if="auth['auth_40']||auth['auth_41']" href="#/tab/maintain/schdleMaintainList">
+              <div class="circle">
+                <i class="icon-maintain" style="font-size:3em;vertical-align: -webkit-baseline-middle;"></i>
+              </div>
+              <p style="padding-top:0.2em">定维任务</p>
+              <span ng-if="processCnt.repairCnt != null && processCnt.repairCnt!=0"
+                    class="badge badge-assertive count" ng-bind="processCnt.repairCnt">
+                </span>
+            </a>
+          </div>
+          <div class="col eam-nine-padding-grid" id="eam-2nd-grid">
+            <a ng-if="auth['auth_42']||auth['auth_43']" href="#/tab/install/installList">
+              <div class="circle">
+                <i class="icon-install"
+                   style="font-size:3em;vertical-align: -webkit-baseline-middle;font-size:2.5em;line-height:1.2"></i>
+              </div>
+              <p style="padding-top:0.2em">安装调试</p>
+              <span ng-if="processCnt.installCnt != null && processCnt.installCnt!=0"
+                    class="badge badge-assertive count" ng-bind="processCnt.installCnt">
+                </span>
+            </a>
+          </div>
+          <div class="col eam-nine-padding-grid" id="eam-3rd-grid">
+            <a ng-if="auth['auth_47']||auth['auth_46']" href="#/tab/reform/index">
+              <div class="circle">
+                <img ng-src="res/techchange.png" style="width: 3em;height: 3em;padding:0.4em 0 0 0.4em;">
+              </div>
+              <p style="padding-top:0.2em">技改任务</p>
+              <span ng-if="processCnt.technicalCnt != null && processCnt.technicalCnt!=0"
+                    class="badge badge-assertive count" ng-bind="processCnt.technicalCnt">
+                </span>
+            </a>
+          </div>
+        </div>
+
+        <!--第二行 图标 -->
+        <div class="row row-no-padding" style="padding: 0;margin: 0;vertical-align: bottom">
+          <div class="col eam-nine-padding-grid" id="eam-4th-grid">
+            <a ng-if="auth['auth_55']" href="#/tab/workHours/index">
+              <div class="circle">
+                <i class="icon-workhours" style="font-size:3em;vertical-align: -webkit-baseline-middle;"></i>
+              </div>
+              <p style="padding-top:0.2em">工时填报</p>
+            </a>
+          </div>
+          <div class="col eam-nine-padding-grid" id="eam-5th-grid">
+            <a ng-if="auth['auth_50']" href="#/tab/problemReport/index">
+              <div class="circle">
+                <i class="icon-reportproblem"
+                   style="font-size:3em;vertical-align: -webkit-baseline-middle;font-size:2.5em;line-height:1.2"></i>
+              </div>
+              <p style="padding-top:0.2em">问题报告</p>
+            </a>
+          </div>
+          <div class="col eam-nine-padding-grid" id="eam-6th-grid">
+            <a ng-if="auth['auth_10']" href="#/tab/workorder/workList">
+              <div class="circle">
+                <i class="icon-faultorder" style="font-size:3em;vertical-align: -webkit-baseline-middle;"></i>
+              </div>
+              <p style="padding-top:0.2em">故障处理</p>
+              <span ng-if="processCnt.faultOrderCnt != null && processCnt.faultOrderCnt!=0"
+                    style="top:120px" class="badge badge-assertive count" ng-bind="processCnt.faultOrderCnt">
+                </span>
+            </a>
+          </div>
+        </div>
+
+        <!--第三行 图标 -->
+        <div class="row row-no-padding" style="padding: 0;margin: 0;vertical-align: bottom">
+          <div class="col eam-nine-padding-grid" id="eam-7th-grid">
+            <a ng-if="auth['auth_31']" href="#/tab/sparepart/index">
+              <div class="circle">
+                <i class="icon-allocatetransfer" style="font-size:3em;vertical-align: -webkit-baseline-middle;"></i>
+              </div>
+              <p style="padding-top:0.2em">调拨单</p>
+            </a>
+          </div>
+          <div class="col eam-nine-padding-grid" id="eam-8th-grid"></div>
+          <div class="col eam-nine-padding-grid" id="eam-9th-grid" style="border: none;"></div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
+

@@ -1,0 +1,95 @@
+<ion-view title="调拨单创建">
+  <ion-content>
+    <ion-list class="detail-data-list">
+      <ion-item class="item-input item-icon-right" ng-click="selectInventory('request')">
+        <label class="input-label"><span class="label-name">收货仓库:</span></label>
+        <input type="text" ng-disabled="true" ng-model="transferOrder.grWhName">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item-input item-icon-right">
+        <label class="input-label"><span class="label-name">期望到货时间:</span></label>
+        <input type="date" ng-model="params.expectReceiveDateTime" placeholder="请输入">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item-select">
+        <label class="input-label"><span class="label-name">调拨类型:</span></label>
+        <select
+          ng-options="transferOrderType as transferOrderType.detailName for transferOrderType in  transferOrderTypes"
+          ng-model="params.transferOrderType"></select>
+      </ion-item>
+      <ion-item ng-if="transferOrder.transferTypeId==164" class="item-select">
+        <label class="input-label"><span class="label-name">调拨原因:</span></label>
+        <select ng-options="transferReason as transferReason.detailName for transferReason in transferReasons"
+                ng-model="params.transferReason"></select>
+      </ion-item>
+      <ion-item
+        ng-click="selectWorkOrder()"
+        ng-if="transferOrder.transferTypeId==165"
+        class="item-input item-icon-right">
+        <label class="input-label"><span class="label-name">工单号:</span></label>
+        <input type="text" ng-model="transferOrder.workorderCode" placeholder="请选择" ng-disabled="true">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item-input item-icon-right" ng-click="selectInventory('response')">
+        <label class="input-label"><span class="label-name">发货仓库:</span></label>
+        <input type="text" ng-disabled="true" ng-model="transferOrder.giWhName">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item-input item-icon-right" ng-click="gotoTransferMaterials()">
+        <label class="input-label"><span class="label-name">调拨物料:</span></label>
+        <input type="text" ng-disabled="true" value="{{transferMaterialsInfo}}">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item>
+        <div class="label-value"><span class="label-name">备注:</span></div>
+        <textarea ng-model="transferOrder.commentText" style="margin-bottom: 0.5em;"><span class="label-name">备注</span></textarea>
+      </ion-item>
+      <ion-item>
+        <div class="label-value"><span class="label-name">附件上传:</span></div>
+
+        <div class="row row-wrap">
+          <i class="col-25"
+             ng-repeat="image in transferOrder.tOFilemappingDtoList as imgFiles track by $index" >
+            <my-img attache-file="image" index="$index" attache-file-list="imgFiles" is-can-edit-img="isCanEditImg()"></my-img>
+          </i>
+          <i class="col-25" ng-click="addeditAttachment();" ng-if="isCanEditImg()">
+            <img ng-src="img/selectImage.png" style="position:relative;height: 50px;width:50px"/>
+            <!--<i class="icon ion-ios-close" ng-show="false"-->
+               <!--style="position: relative;color:red; font-size: 2em;right: 1em; top: -2em; z-index:100;">-->
+            <!--</i>-->
+          </i>
+        </div>
+
+        <!--<div class="row row-wrap">-->
+          <!--<i class="col-25"-->
+             <!--ng-repeat="image in transferOrder.tOFilemappingDtoList track by $index">-->
+            <!--<div style="position: relative">-->
+              <!--<my-img ></my-img>-->
+              <!--<img style="height: 70px;width: 70px;position: relative" id="{{image.fileId}}"-->
+                   <!--ng-src="{{image.filePath}}"-->
+                   <!--alt="{{image.fileOriginalName}}"/>-->
+              <!--<i class="icon ion-ios-close"-->
+                 <!--ng-click="removeAttachment(image,$index)"-->
+                 <!--style="position: absolute;color:red; font-size: 2em;left: 55px;top : -5px; z-index:100;">-->
+              <!--</i>-->
+            <!--</div>-->
+          <!--</i>-->
+          <!--<i class="col-25" ng-click="addeditAttachment();">-->
+            <!--<img ng-src="img/selectImage.png" style="position:relative;height: 50px;width:50px"/>-->
+            <!--<i class="icon ion-ios-close" ng-show="false"-->
+               <!--style="position: relative;color:red; font-size: 2em;right: 1em; top: -2em; z-index:100;">-->
+            <!--</i>-->
+          <!--</i>-->
+        <!--</div>-->
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col col-offset-67">
+            <button class="button-eambule button" ng-click="submitTransferOrder('submit')">提交</button>
+            <button class="button-eambule button" ng-click="submitTransferOrder('save')">暂存</button>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,52 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-eamblue">
+    <a class="button button-clear ion-chevron-left" ng-click="backButtonAction();"></a>
+    <div class="title">筛选</div>
+  </ion-header-bar>
+  <ion-scroll direction="y" style="right: 0;bottom: 0;left: 0;position: absolute;" class="has-header">
+    <ion-list class="list-line">
+      <!--<ion-item class="item-input item-select">-->
+        <!--<div class="input-label">所属区域：</div>-->
+        <!--<select ng-model="params.areaCode" class="form-control"-->
+                <!--ng-options="areaDesc['detailId'] as areaDesc['detailName'] for areaDesc in areas">-->
+          <!--<option value="">&#45;&#45;请选择&#45;&#45;</option>-->
+        <!--</select>-->
+      <!--</ion-item>-->
+      <!--<ion-item class="item item-select">-->
+        <!--<span class="input-label">项目名称：</span>-->
+        <!--<select ng-model="params.projectId" class="form-control"-->
+                <!--ng-options="project.projectId as project.projectName for project in projects">-->
+          <!--<option value="">&#45;&#45;请选择&#45;&#45;</option>-->
+        <!--</select>-->
+      <!--</ion-item>-->
+      <ion-item class="item-input item-select">
+        <div class="input-label">问题类型</div>
+        <select ng-model="params.problemType" class="form-control" ng-options="problemType['detailId'] as problemType['detailName'] for problemType in problemTypes">
+          <option value="">--请选择--</option>
+        </select>
+      </ion-item>
+      <ion-item class="item item-input">
+        <span class="input-label">问题主题：</span>
+        <input type="text" ng-model="params.problemSubject" placeholder="请输入">
+      </ion-item>
+      <ion-item class="item-input item-date">
+        <span class="input-label">提交日期(开始)：</span>
+        <input type="date" ng-model="params.submitStartDate">
+      </ion-item>
+      <ion-item class="item-input item-date">
+        <span class="input-label">提交日期(结束)：</span>
+        <input type="date" ng-model="params.submitEndDate">
+      </ion-item>
+      <ion-item class="item-input item-select">
+        <div class="input-label">问题状态：</div>
+        <select ng-model="params.problemStatus" class="form-control" ng-options="problemStatus['detailId'] as problemStatus['detailName'] for problemStatus in problemStatusList">
+          <option value="">--请选择--</option>
+        </select>
+      </ion-item>
+    </ion-list>
+    <div class="row">
+      <button class="col button button-eambule-block"  ng-click="query()" style="margin: 50px 1% 0 0;">提交</button>
+      <!--<button class="col button button-eambule-block" ng-click="reset()" style="margin: 50px 0 0 1%;">重置条件</button>-->
+    </div>
+  </ion-scroll>
+</ion-modal-view>

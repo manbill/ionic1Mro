@@ -1,0 +1,71 @@
+<ion-view>
+    <title>库存详情</title>
+    <ion-content>
+            <!--<div class="item">-->
+                <div class="list">
+                    <!--<div class="item" ng-repeat="materiel in detail.repertory">-->
+                    <div class="orderItem">
+                        <div class="orderTitle">
+                            {{storeDetail.repertoryName}} | {{storeDetail.repertoryNo}}
+                        </div>
+                    </div>
+                    <div class="dividerLine"></div>
+                    <div class="orderElement">
+                        <div class="row">
+                            <span class="col-20 label-name">区域:</span>
+                            <span class="col-80 label-value-right">{{storeDetail.belongAreaName}}</span>
+                        </div>
+                    </div>
+                    <div class="dividerLine"></div>
+
+                    <div class="orderElement">
+                        <div class="row">
+                            <div class="col-20  label-name">数量:</div>
+                            <div class="col-80 label-value-right">{{storeDetail.amount}}</div>
+                        </div>
+                    </div>
+                    <div class="dividerLine"></div>
+
+                    <div class="orderElement">
+                        <div class="row">
+                            <div class="col-20 label-name">年消耗:</div>
+                            <div class="col-80 label-value-right">{{storeDetail.ConsumeNum}}</div>
+                        </div>
+                    </div>
+                    <div class="dividerLine"></div>
+
+                    <div class="orderElement">
+                        <div class="row">
+                            <div class="col-20 label-name">联系人:</div>
+                            <div class="col-80 label-value-right">{{storeDetail.repertoryLinkman}}</div>
+                        </div>
+                    </div>
+                    <div class="dividerLine"></div>
+
+                    <div class="orderElement">
+                        <div class="row">
+                            <div class="col-20 label-name">电话:</div>
+                            <div class="col-80 label-value-right">{{storeDetail.repertoryContactNum}}</div>
+                        </div>
+                    </div>
+                    <div class="dividerLine"></div>
+
+                    <div class="orderElement">
+                        <div class="row">
+                            <div class="col-20 label-name">邮箱:</div>
+                            <div class="col-80 label-value-right">{{storeDetail.email}}</div>
+                        </div>
+                    </div>
+                    <div class="dividerLine"></div>
+
+                    <div class="orderElement">
+                        <div class="row">
+                            <div class="col-20 label-name">地址:</div>
+                            <div class="col-80 label-value-right">{{storeDetail.repertoryAddress}}</div>
+                        </div>
+                    </div>
+                    <div class="dividerLine"></div>
+                </div>
+
+    </ion-content>
+</ion-view>

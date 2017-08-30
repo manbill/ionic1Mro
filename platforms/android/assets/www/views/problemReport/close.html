@@ -1,0 +1,52 @@
+<ion-view title="关闭问题报告">
+    <ion-content>
+        <ion-list>
+            <label class="item item-input">
+                <textarea placeholder="关闭说明..." style="height: 5em;margin-right: 1em;" ng-model="pr.pdReplydesc"></textarea>
+            </label>
+            <!--<div class="item" style="padding: 5px">-->
+            <!--<div class="row">-->
+            <!--<label class="col col-90">上传附件</label>-->
+            <!--</div>-->
+            <!--<div class="row row-wrap">-->
+            <!--<div class="col col-25 " ng-repeat="attachment in fileList track by $index">-->
+            <!--<div class="card" ng-click="openFile(attachment)">-->
+            <!--<img ng-src="{{attachment.filePath}}" width="100%">-->
+            <!--</div>-->
+            <!--<span class="badge ion-close-circled" ng-click="removeAttachment(attachment,$index)"></span>-->
+            <!--</div>-->
+            <!--<div class="col col-25 ">-->
+            <!--<div class="card" ng-click="addeditAttachment()">-->
+            <!--<img src="img/uploadimg.png" width="100%">-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <div class="row">
+                <label class="col col-90">上传附件</label>
+            </div>
+            <div class="row row-wrap icon-father">
+
+                <div class="col col-25" ng-repeat="attachment in fileList track by $index">
+                    <div ng-click="openAttachmentFile(attachment)">
+                        <img style="height: 70px;width: 70px; margin: 0.4em"
+                             ng-src="{{attachment.filePath.indexOf('file://')>=0?attachment.filePath:'img/uploadimg.png'}}"
+                             alt="{{attachment.fileOriginalName}}"/>
+                    </div>
+                    <i class="icon ion-ios-close"
+                       ng-click="removeAttachment(attachment,$index)"
+                       style="position: absolute;color:red;    font-size: 2em;    right: 1em;   top: -2em; z-index:100;">
+                    </i>
+                </div>
+                <div class="col col-25">
+                    <div ng-click="addeditAttachment()">
+                        <img ng-src="img/selectImage.png" style="position:relative;height: 70px;width:70px;"/>
+                    </div>
+                </div>
+            </div>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar>
+        <button class="button button-eambule-block" ng-click="close(pr)">确定</button>
+    </ion-footer-bar>
+</ion-view>

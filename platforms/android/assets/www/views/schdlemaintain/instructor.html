@@ -1,0 +1,30 @@
+<ion-view title="作业指导书">
+	<ion-content>
+		<ion-list class="data-list" >
+			<ion-item ng-repeat="instructor in instructors"
+                ng-click="openDirectory(instructor)" >
+				<div style="padding: 0.5em 0.5em 0.5em 0.5em">
+					<div class="title" style="width:80%;">{{instructor.manualInfoDTO.manualName}}</div>
+					<span class="flag" style="right: 5%;color: #FFF;" >
+						<i class="button-eambule button-clear button button-icon ion-chevron-right" style="right: 5%;" ></i>
+					</span>
+				</div>
+			</ion-item>
+      <ion-item ng-repeat="instructor in instructors"
+                ng-if="instructor.manualInfoDTO.fileId">
+				<div style="padding: 0.5em 0.5em 0.5em 0.5em">
+					<div class="title" style="width:80%;">{{instructor.manualInfoDTO.manualName}}</div>
+          <div class="label-name"
+               style="padding: 0.5em 0;"
+               ng-click="openFile(instructor.manualInfoDTO)"
+               ng-if="instructor.manualInfoDTO.fileId">
+                {{instructor.manualInfoDTO.fileName}}.{{instructor.manualInfoDTO.fileType}}
+          </div>
+					<span class="flag" style="right: 5%;color: #FFF;" ng-click="openDirectory(instructor)">
+						<i class="button-eambule button-clear button button-icon ion-chevron-right" style="right: 5%;" ></i>
+					</span>
+				</div>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+</ion-view>

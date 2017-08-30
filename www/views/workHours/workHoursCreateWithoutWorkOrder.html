@@ -1,0 +1,64 @@
+<ion-view title="{{title}}">
+  <ion-content>
+    <ion-list class="detail-data-list">
+      <ion-item class="item-toggle" style="padding: .5em 0.5em .5em 1em">
+        <span class="input-label">是否现场值守人员</span>
+        <label class="toggle toggle-balance" ng-click="isVendor()">
+          <input type="checkbox"  ng-model="webParams.confirm">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </ion-item>
+      <!--<ion-item class="item-input item-select" ng-if="!wh.workorderCode">-->
+        <!--<div class="input-label">所属项目</div>-->
+        <!--<select ng-model="webParams.project" class="form-control"-->
+                <!--ng-options="project as project.projectName for project in projectList">-->
+          <!--<option value="">&#45;&#45;请选择&#45;&#45;</option>-->
+        <!--</select>-->
+      <!--</ion-item>-->
+      <ion-item class="item item-input" ng-if="!webParams.confirm" >
+        <span class="input-label">作业人</span>
+        <input type="text"  ng-model="wh.worker" placeholder="请输入" >
+      </ion-item>
+      <ion-item class="item item-input item-icon-right" ng-if="webParams.confirm" ng-click="workerSelect();">
+        <span class="input-label">作业人</span>
+        <input type="text"  ng-model="wh.worker" placeholder="请选择" ng-disabled="true" >
+        <i class="icon ion-ios-arrow-right"  ng-model="wh.worker" ></i>
+      </ion-item>
+      <ion-item class="item-input item-select">
+        <div class="input-label">
+          作业类型
+        </div>
+        <!-- `select` **`as`** `label` **`for`** `value` **`in`** `array`-->
+        <select ng-model="selectedIdName.workTypeIdName" class="form-control" ng-options="workAnchor as workAnchor.detailName for workAnchor in workAnchors">
+          <option value="">--请选择--</option>
+        </select>
+      </ion-item>
+      <ion-item class="item item-input" ng-if="213==wh.workType&&canSelectWorkOrder">
+        <span class="input-label">工单编号</span>
+        <input type="text" ng-model="wh.workOrderNo"   placeholder="请选择" ng-click="workOrderSelect()">
+      </ion-item>
+      <ion-item class="item item-input" ng-if="214==wh.workType">
+        <span class="input-label">请输入原因</span>
+        <input type="text" ng-model="wh.elseReason"   placeholder="输入原因" >
+      </ion-item>
+      <ion-item class="item-input item-date">
+        <span class="input-label">开始时间</span>
+        <input type="datetime-local" placeholder="请选择" ng-model="webParams.startDate">
+      </ion-item>
+      <ion-item class="item-input item-date">
+        <span class="input-label">结束时间</span>
+        <input type="datetime-local" placeholder="请选择" ng-model="webParams.endDate">
+      </ion-item>
+      <ion-item>
+        <label class="label-value">备注描述： </label>
+        <textarea class="label-value"  ng-model="wh.content"></textarea>
+      </ion-item>
+
+      <div class="item">
+        <button class="button button-eambule-block" ng-click="save(wh)">保存</button>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>

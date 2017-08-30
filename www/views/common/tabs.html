@@ -1,0 +1,68 @@
+<!--
+Create tabs with an icon and label, using the tabs-positive style.
+Each tab's child <ion-nav-view> directive will have its own
+navigation history that also transitions its views in and out.
+-->
+<ion-tabs class="tabs-icon-top tabs-color-active-positive">
+	<!-- 首页 Tab -->
+	<ion-tab ng-click="tabClick(0)" title="首页"  icon="icon-home"  ui-sref="tab.home" ui-sref-opts="{reload:true}">
+		<ion-nav-view name="tab-home"></ion-nav-view>
+	</ion-tab>
+
+	<!-- 我的任务 Tab -->
+	<ion-tab ng-click="tabClick(1)" title="消息提醒"   icon="icon-mytask" href="#/tab/mailMessage/index">
+		<ion-nav-view name="tab-mailMessage"></ion-nav-view>
+	</ion-tab>
+
+	<!-- 工单查询 Tab (隐藏) -->
+	<ion-tab ng-click="tabClick(2)" title="故障工单"  icon-off="ion-ios-compose" hidden="true" icon-on="ion-ios-compose" href="#/tab/workorder/workList">
+		<ion-nav-view name="tab-order"></ion-nav-view>
+	</ion-tab>
+
+  <!--安装调试 tab 隐藏 -->
+  <ion-tab ng-click="tabClick(3)" title="安装调试" icon-off="ion-ios-navigate" hidden="true" icon-on="ion-ios-navigate" href="#/tab/install/installList">
+    <ion-nav-view name="tab-order"></ion-nav-view>
+  </ion-tab>
+
+	<!-- 风机设备 Tab -->
+	<ion-tab ng-click="tabClick(4)" title="风机设备"  icon="icon-fanequipment" href="#/tab/fanEquipments">
+		<ion-nav-view name="tab-devicetree"></ion-nav-view>
+	</ion-tab>
+
+  <!-- 备件查询 Tab -->
+  <ion-tab ng-click="tabClick(5)" title="备件查询" icon="icon-inventory" ng-hide="auth['auth_30']"  href="#/tab/repertory/index">
+    <ion-nav-view name="tab-repertory"></ion-nav-view>
+  </ion-tab>
+
+  <!-- 设备树 Tab -->
+	<ion-tab  title="风机设备" icon-off="ion-machine" icon-on="ion-machine-blue" hidden="true"  href="#/tab/deviceTree/selectedEquipment">
+		<ion-nav-view name="tab-devicetree-selectedEquipment"></ion-nav-view>
+	</ion-tab>
+
+
+
+	 <!--备件请求 Tab -->
+	<ion-tab ng-click="tabClick(6)" title="备件调拔" icon-off="ion-ios-navigate" hidden="true" icon-on="ion-ios-navigate" href="#/tab/sparepart/index">
+		<ion-nav-view name="tab-sparepart"></ion-nav-view>
+	</ion-tab>
+    <ion-tab ng-click="tabClick(7)" title="技改任务" icon-off="ion-ios-navigate" hidden="true" icon-on="ion-ios-navigate" href="#/tab/reform/index">
+      <ion-nav-view name="tab-order"></ion-nav-view>
+    </ion-tab>
+
+    <ion-tab ng-click="tabClick(8)" title="工单报工" icon-off="ion-ios-navigate" hidden="true" icon-on="ion-ios-navigate" href="#/tab/workHours/index">
+        <ion-nav-view name="tab-order"></ion-nav-view>
+    </ion-tab>
+
+    <ion-tab ng-click="tabClick(9)" title="问题报告" icon-off="ion-ios-navigate" hidden="true" icon-on="ion-ios-navigate" href="#/tab/problemReport/index">
+        <ion-nav-view name="tab-order"></ion-nav-view>
+    </ion-tab>
+
+	<ion-tab ng-click="tabClick(10)" title="选择项目" icon-off="ion-ios-navigate" hidden="true" icon-on="ion-ios-navigate">
+        <ion-nav-view name="tab-project"></ion-nav-view>
+    </ion-tab>
+
+	<ion-tab ng-click="tabClick(11)" title="个人信息" icon-off="ion-ios-navigate" hidden="true" icon-on="ion-ios-navigate" >
+		<ion-nav-view name="tab-my"></ion-nav-view>
+	</ion-tab>
+
+</ion-tabs>

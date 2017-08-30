@@ -1,0 +1,113 @@
+<ion-view title="{{title}}">
+    <ion-content overflow-scroll="false">
+        <!--<p>{{isCanEditRepairDetail()}}</p>-->
+        <div class="detail-data-list">
+            <!-- 如果有权限 选择部件 否则 点击无效-->
+            <ion-item class="item-input" ng-click="isCanEditRepairDetail()?selectFanEquipment(work):''">
+                <span class="label-value">部件名称:</span>
+                <input ng-model="recordRepair.deviceName" ng-disabled="true" type="text" style="width: 17em;" class="item-text-wrap" />
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <ion-item class="item-toggle" style="padding: 1em 0 1em 1em;" ng-click="switchFixType()">
+                <label class="label-value">设备更换:</label>
+                <label class="toggle toggle-balanced">
+                    <input type="checkbox"
+                           ng-disabled="!isCanEditRepairDetail()"
+                           ng-model="params.isChange">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </ion-item>
+            <ion-item ng-if="params.isChange" class="item-input" ng-click="isCanEditRepairDetail()?goToChangedEquipmentDetail():''">
+                <label class="label-value">更换后设备信息:</label>
+                <input type="text" ng-model="recordRepair.serialNum2" ng-disabled="true">
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+            <!--<ion-item style="background-color: #ccc; ">-->
+                <!--<div class="item-divider">-->
+                    <!--<div class="row">-->
+                        <!--<div class="col">-->
+                            <!--<label class="label-value">消耗物料:</label>-->
+                        <!--</div>-->
+                        <!--<div class="col" style="text-align: right">-->
+                            <!--<button class="button-eambule-small" ng-if="isCanEditRepairDetail()" ng-click="addConsume()">新增</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</ion-item>-->
+        </div>
+
+        <!--<label class="item item-input">-->
+        <!--<textarea placeholder="描述..." style="height: 5em;" ng-model="recordRepair.remark"></textarea>-->
+        <!--</label>-->
+        <!--<div class="item item-input">-->
+        <!--<span class="input-label">部件序列号</span>-->
+        <!--<input type="text" ng-model="recordRepair.serialNum1" ng-disabled="true" placeholder="请输入">-->
+        <!--</div>-->
+        <!--<div class="item item-input">-->
+        <!--<span class="input-label">物料号</span>-->
+        <!--<input type="text" ng-model="recordRepair.originalMaterialSno" ng-disabled="true" placeholder="请选择"-->
+        <!--ng-click="selectMateriel()"/>-->
+        <!--</div>-->
+        <!--<div class="item item-input">-->
+        <!--<span class="input-label">供应商</span>-->
+        <!--<input type="text" ng-model="recordRepair.provider1" ng-disabled="true" placeholder="请输入">-->
+        <!--</div>-->
+        <!--<ion-item class="item-input item-date">-->
+        <!--<span class="input-label">质保开始日期</span>-->
+        <!--<span >{{params.fixBeginDate1|Infydate}}</span>-->
+        <!--</ion-item>-->
+        <!--<ion-item class="item-input">-->
+        <!--<span class="input-label">质保期</span>-->
+        <!--<div ng-bind="recordRepair.guaranteePeriod1|formatGuaranteePeriod"></div>-->
+        <!--</ion-item>-->
+
+        <!--<ion-list class="data-list">-->
+            <!--<ion-item ng-repeat="consume in recordRepair.repairMaterialDtoList track by $index"-->
+                      <!--ng-if="consume['activeFlag']==0||consume['repairMaterialId']">-->
+                <!--<div class="row ">-->
+                    <!--<div class="col col-10 label-value">物料:</div>-->
+                    <!--<div class="col col-90 text-ellipsis label-value" style="padding: 0 0 0 0.2em;">{{consume.materialSno}}-{{consume.materialName}}</div>-->
+                <!--</div>-->
+                <!--<div class="row orderItem">-->
+                    <!--<div class="col">-->
+                        <!--<span class="label-value">单位:</span>-->
+                        <!--<span class="label-value">{{consume.unitDes}}</span>-->
+                    <!--</div>-->
+                    <!--<div class="col">-->
+                        <!--<span class="label-value">数量:</span>-->
+                        <!--<span class="label-value">{{consume.amount}}</span>-->
+                    <!--</div>-->
+                    <!--<div class="col">-->
+                        <!--<span class="label-value">账内:</span>-->
+                        <!--<span class="label-value">{{consume.sapInventoryFlag==0?"是":"否"}}</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row" style="text-align: center;">-->
+                <!--<div class="col" style="margin: 0 0 0 -3%;    text-align: left;">-->
+                <!--<span>{{consume.materialSno}}</span>-->
+                <!--</div>-->
+                <!--<div class="col" style=" margin: 0 6.3% 0 11%; text-align: left;">-->
+                <!--<span ng-bind="consume.amount"></span>-->
+                <!--</div>-->
+                <!--<div class="col">-->
+                <!--<span>{{consume.unitDes}}</span>-->
+                <!--</div>-->
+                <!--<div class="col">-->
+                <!--<span>{{consume.sapInventoryFlag==0?"是":"否"}}</span>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<ion-option-button class="button"-->
+                                   <!--style="background-color: red; color: white;"-->
+                                   <!--ng-disabled="!isCanEditRepairDetail()"-->
+                                   <!--ng-click="delete(consume,$index)">-->
+                    <!--删除-->
+                <!--</ion-option-button>-->
+            <!--</ion-item>-->
+        <!--</ion-list>-->
+    </ion-content>
+    <ion-footer-bar>
+        <button class=" button button-eambule-block" ng-if="isCanEditRepairDetail()" ng-click="save()">保存</button>
+    </ion-footer-bar>
+</ion-view>

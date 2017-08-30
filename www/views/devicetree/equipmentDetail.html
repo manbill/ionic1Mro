@@ -1,0 +1,145 @@
+<ion-view title="{{!isMachineInfo?'设备信息':'风机信息'}}">
+  <ion-content>
+    <ion-list class="detail-data-list" ng-if="equipmentDetail&&!isMachineInfo">
+      <ion-item style="padding: 1em 0.5em 0 1em;">
+        <div class="row">
+          <div class="col col-25 label-name">设备名称:</div>
+          <pre class="col col-75 label-value">{{equipmentDetail.equipmentName}}</pre>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col col-25 label-name">供应商:</div>
+          <div class="col col-75 label-value text-right">{{equipmentDetail['qiVendorShortname']}}</div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col col-25 label-name">序列号:</div>
+          <div class="col col-75 label-value text-right">{{equipmentDetail.seriesNo}}</div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col col-25 label-name">物料:</div>
+          <div class="col col-75 label-value text-right">{{equipmentDetail.materialNo}}</div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col col-25 label-name">版本/型号:</div>
+          <div class="col col-75 label-value text-right">{{equipmentDetail.softwareVersion}}</div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col col-25 label-name">质保开始日期:</div>
+          <div class="col col-75 label-value text-right">{{equipmentDetail.warrantySupplierBegindate|Infydate}}</div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col col-25 label-name">质保期(年):</div>
+          <div class="col col-75 label-value text-right">{{equipmentDetail.guaranteePeriod}}</div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col col-25 label-name">到货验收日期:</div>
+          <div class="col col-75 label-value text-right">{{equipmentDetail.aogAcceptanceDate|Infydate}}</div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col col-25 label-name">出厂日期:</div>
+          <div class="col col-75 label-value text-right">{{equipmentDetail.productionDate|Infydate}}</div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col col-25 label-name">设备说明:</div>
+          <pre class="col col-75 label-value text-right">{{equipmentDetail['equipmentMemo']}}</pre>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col label-name">附件:</div>
+        </div>
+        <div class="row row-wrap">
+          <div class="col col-25" ng-repeat="image in equipmentDetail.files">
+            <div style="position: relative">
+              <img style="height: 70px;width: 70px;position: relative" id="{{image.fileId}}"
+                   ng-src="{{image.filePath.indexOf('file://')>=0?image.filePath:'img/uploadimg.png'}}"
+                   ng-click="openFile(image,$index)" alt="{{image.fileOriginalName}}"/>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+
+
+    <!--下面将显示风机信息-->
+    <ion-list class="detail-data-list" ng-if="machineInfo&&isMachineInfo">
+      <ion-item style="padding: 1em 0.5em 0 1em;">
+        <div class="row">
+          <div class="col col-25">
+            <span class="label-name">机型:</span>
+          </div>
+          <div class="col col-75 text-right">
+            <span class="label-value">{{machineInfo['machineModelName']}}	</span>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col col-25">
+            <span class="label-name">风机类型:</span>
+          </div>
+          <div class="col col-75 text-right">
+            <span class="label-value">{{machineInfo.machineTypeName}}</span>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col col-25">
+            <span class="label-name">机位编号:</span>
+          </div>
+          <div class="col col-75 text-right">
+            <span class="item-text">{{machineInfo['positionCode']}}#</span>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col col-13">
+            <span class="label-name">风机ID:</span>
+          </div>
+          <div class="col  text-right">
+            <span class="label-value">{{machineInfo.machineId}}</span>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col col-25">
+            <span class="label-name">安装日期:</span>
+          </div>
+          <div class="col col-75 text-right">
+            <span class="label-value">{{machineInfo.createOn}}</span>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="row">
+          <div class="col col-25">
+            <span class="label-name">提交日期:</span>
+          </div>
+          <div class="col col-75 text-right">
+            <span class="label-value">{{machineInfo.submitDate}}</span>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

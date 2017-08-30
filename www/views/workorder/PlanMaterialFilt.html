@@ -1,0 +1,19 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-eamblue">
+    <a class="button button-clear ion-chevron-left" ng-click="backButtonAction();"></a>
+    <div class="title">物料筛选</div>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list>
+      <label class="item item-input">
+        <span class="input-label">物料号</span>
+        <input type="text" ng-model="params.materielNo" placeholder="请输入">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">物料名称</span>
+        <input type="text" ng-model="params.name" placeholder="请输入">
+      </label>
+    </ion-list>
+    <button class=" button button-eambule-block" ng-click="closeFilter()"><b>提交</b></button>
+  </ion-content>
+</ion-modal-view>

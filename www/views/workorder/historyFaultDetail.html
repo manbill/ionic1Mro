@@ -1,0 +1,48 @@
+<ion-view title="历史故障详情">
+	<ion-content>
+		<ion-list class="list-detail">
+			<div class="item">
+				工单编号
+				<span class="item-text">
+                        {{faultDetail.workorderCode}}
+                      </span>
+			</div>
+			<div class="item">
+				故障建议
+				<span class="item-text textarea">
+                        {{faultDetail.faultAdvice}}
+                      </span>
+			</div>
+			<div class="item">
+				故障现象详细描述
+				<span class="item-text textarea">
+                        {{faultDetail.faultDetailComment}}
+                      </span>
+			</div>
+			<div class="item">
+				故障原因
+				<span class="item-text textarea">
+                        {{faultDetail.faultReasonName}}
+                      </span>
+			</div>
+			<div class="item">
+				故障原因描述
+				<span class="item-text textarea">
+                        {{faultDetail.faultReasonComment}}
+                      </span>
+			</div>
+			<div class="item datetime" style="font-size: 12px;">
+				<div class="row row-no-padding">
+					<div class="col-40 item-text">{{isNaN(faultDetail.faultBeginTime)?faultDetail.faultBeginTime:(faultDetail.faultBeginTime |Infydate)}}</div>
+					<div class="col-20"  style="font-size: 24px;text-align:center;" ><i class="ion-arrow-right-c"></i></div>
+					<div class="col-40 item-text" style="text-align: right;">{{isNaN(faultDetail.faultEndTime)?faultDetail.faultEndTime:(faultDetail.faultEndTime|Infydate)}}</div>
+				</div>
+				<div class="row row-no-padding">
+					<div class="col-40">故障开始时间</div>
+					<div class="col-20"></div>
+					<div class="col-40" style="text-align: right;">故障消除时间</div>
+				</div>
+			</div>
+		</ion-list>
+	</ion-content>
+</ion-view>

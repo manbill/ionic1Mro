@@ -1,0 +1,227 @@
+<ion-view title="定期维护">
+  <ion-nav-buttons side="right">
+    <div class="query" ng-click="openFilterOfMaintain();">
+      <i class="ion-funnel" ></i>筛选
+    </div>
+  </ion-nav-buttons>
+  <!--<div ng-if="isManage" class="tabs tabs-top bar-subheader tabs-color-light eamblue-bg">-->
+    <!--<a ng-if="auth['auth_40']" class="tab-item {{status[0].ele}}" ng-click="selectTitleTab(0)">-->
+      <!--<span class="tab-text {{status[0].ele}}">分派任务</span>-->
+    <!--</a>-->
+    <!--<a ng-if="auth['auth_41']" class="tab-item {{status[1].ele}}" ng-click="selectTitleTab(1)">-->
+      <!--<span class="tab-text {{status[1].ele}}">定维任务</span>-->
+    <!--</a>-->
+  <!--</div>-->
+  <div class="tabs tabs-top bar-subheader tabs-color-light eamblue-bg">
+    <a ng-if="auth['auth_40']" class="tab-item {{status[0].ele}}" ng-click="selectTitleTab(0)">
+      <span class="tabs-text {{status[0].ele}}">分派任务</span>
+    </a>
+    <a ng-if="auth['auth_41']" class="tab-item {{status[1].ele}}" ng-click="selectTitleTab(1)">
+      <span class="tabs-text {{status[1].ele}}">定维任务</span>
+    </a>
+  </div>
+  <ion-content class='has-tabs has-tabs-top' ng-switch on="selectStatus" overflow-scroll="false">
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()">
+    </ion-refresher>
+    <ion-list ng-switch-when="0" class="data-list">
+      <div ng-if="isManage&&auth['auth_40']" class="item item-icon-right" ng-repeat="notification in workNotificationList" ng-switch on="notification.orderType">
+        <!--<div class="row" style="clear:both">-->
+          <!--<div class="title col-90" style="float:left"> 编号:{{notification.notiseNo}}</div>-->
+          <!--&lt;!&ndash;分派任务&ndash;&gt;-->
+          <!--<div class="col-10" ng-if="notification.assignStatus == 136&&auth['auth_400101']&&!auth['auth_400102']" style="float:right;position: relative;z-index: 100" ng-click="taskAssign(notification)">-->
+            <!--<a class="button-eambule-small">{{notification.assignStatus | formatOperateAssignStatus}}</a>-->
+          <!--</div>-->
+          <!--&lt;!&ndash;修改分派任务&ndash;&gt;-->
+          <!--<div class="col-10" ng-if="!auth['auth_400101']&&auth['auth_400102']&& notification.assignStatus == 137" style="float:right;position: relative;z-index: 100" ng-click="taskAssign(notification)">-->
+            <!--<a class="button-eambule-small">{{notification.assignStatus | formatOperateAssignStatus}}</a>-->
+          <!--</div>-->
+          <!--&lt;!&ndash;两者兼有&ndash;&gt;-->
+          <!--<div class="col-10" ng-if="(notification.assignStatus == 136 ||notification.assignStatus == 137)&&auth['auth_400101']&&auth['auth_400102']" style="float:right;position: relative;z-index: 100"-->
+               <!--ng-click="taskAssign(notification)">-->
+            <!--<a class="button-eambule-small">{{notification.assignStatus | formatOperateAssignStatus}}</a>-->
+          <!--</div>-->
+        <!--</div>-->
+
+        <div class="orderItem icon-father">
+          <div class="orderTitle">
+            <div class="row">
+              <div class="title col col-70">
+                {{notification.notiseNo}}
+              </div>
+              <div class="col col-20">
+                <span class="flagDW">
+                {{notification.statusName}}
+                </span>
+                <!--<span class="">-->
+                  <!--<i class="icon ion-ios-arrow-right" ng-if="(auth['auth_400101']||auth['auth_400102'])&&((notification.assignStatus==136)||(notification.assignStatus==137))" ng-click="assignOrChange(notification)"></i>-->
+                <!--</span>-->
+              </div>
+              <!--<div class="col col-10 icon-father">-->
+                <!--<i class="icon ion-ios-arrow-right" ng-if="(auth['auth_400101']||auth['auth_400102'])&&((notification.assignStatus==136)||(notification.assignStatus==137))" ng-click="assignOrChange(notification)"></i>-->
+              <!--</div>-->
+            </div>
+          </div>
+        <!--<div style="clear:both">-->
+          <!--<span class="name">项目:<span class="content">{{notification.projectName}}</span></span>-->
+          <!--&lt;!&ndash;<span class="divide">|</span>&ndash;&gt;-->
+        <!--</div>-->
+          <div class="orderElement">
+            <div class="row">
+              <div class="col">
+                <span class="label-name">作业节点:</span>
+                <span class="label-value">{{notification.anchorName}}</span>
+              </div>
+              <div class="col">
+                <span class="label-name">计划时间:</span>
+                <span class="label-value">{{notification.planStartTime|Infydate}}</span>
+              </div>
+            </div>
+          </div>
+
+        <!--<div>-->
+        <!--</div>-->
+        <!--<div ng-if="notification.assignStatus != 136">-->
+          <!--<span class="name">分派时间:<span class="content">{{notification.assignTime}}</span></span>-->
+        <!--</div>-->
+          <div class="orderElement" ng-if="notification.assignStatus != 136">
+            <div class="row">
+              <div class="col">
+                <span class="label-name">机位号:</span>
+                <span class="label-value">{{notification.assignDevieNo}}#</span>
+              </div>
+              <div class="col">
+                <span class="label-name">负责人:</span>
+                <span class="label-value">{{notification.assignOwner}}</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <span ng-if="false" class="label-name">任务号:<span class="label-value">{{notification.assignTaskID}}</span></span>
+          </div>
+
+          <i class="icon ion-ios-arrow-right" ng-if="((auth['auth_400101']&& notification.assignStatus==136 )) || ((auth['auth_400102']) && (notification.assignStatus==137))" ng-click="assignOrChange(notification)"></i>
+
+        </div>
+      </div>
+
+    </ion-list>
+    <ion-list ng-switch-when="1" ng-if="auth['auth_41']" class="data-list">
+      <div class="item item-icon-right" ng-repeat="task in taskList track by $index">
+        <div class="icon-father">
+          <!-- 调试 查看 被分派人 只有被分派人是当前登录用户，才能接受、 开始任务 进入详情编辑信息 -->
+          <!--<p>{{task.assignPerson}}</p>-->
+          <div class="orderItem">
+            <div class="orderTitle">
+              <div class="row">
+                <div class="title col-70">
+                  {{task.workorderCode}}<span ng-if="task.uploadStatus==2" style="color: red;font-size: 14px">(同步失败)</span>
+                </div>
+                <div class="col-20">
+                  <span class="flagDW">
+                  {{task.workorderStatusName}}
+                  </span>
+                  <!--<span class="flagDWIcon">{{task.workorderStatusName}}</span>-->
+                </div>
+                <!--<div class="col-10 icon-father">-->
+                  <!--&lt;!&ndash;未接收且有权限 显示图标 绑定事件 点击接受&ndash;&gt;-->
+                  <!--<i class="icon ion-ios-arrow-right" style="height:45%" ng-if="task.workorderStatus==139 && auth['auth_410101'] && currentUserId==task.assignPerson "-->
+                     <!--ng-click="processTask(task)"></i>-->
+                  <!--&lt;!&ndash;未接收且有权限 显示图标 绑定事件 点击开始&ndash;&gt;-->
+                  <!--<i class="icon ion-ios-arrow-right" style="height:45%" ng-if="task.workorderStatus==140 && auth['auth_410102'] && currentUserId==task.assignPerson "-->
+                     <!--ng-click="processTask(task)"></i>-->
+
+                  <!--&lt;!&ndash;其他状态的任务单 可以点击进入详情&ndash;&gt;-->
+                  <!--<i class="icon ion-ios-arrow-right" style="height:45%" ng-if="!(task.workorderStatus == 139 || task.workorderStatus==140)"-->
+                     <!--ng-click="goDetail(task)"></i>-->
+                <!--</div>-->
+
+              </div>
+              <!--<p> {{task.workorderStatus}}</p>-->
+            </div>
+            <div class="orderElement">
+              <div class="row">
+                <div class="col">
+                  <span class="label-name">作业节点:</span>
+                  <span class="label-value">{{task.workTypeName|filterWorkAnchor}}</span>
+                </div>
+                <div class="col">
+                  <span class="label-name">机位编号:</span>
+                  <span class="label-value">{{task.positionCode}}#</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="orderElement">
+              <div class="row">
+                <div class="col">
+                  <span class="label-name">计划时间:</span>
+                  <span class="label-value">{{task.planBegindate|Infydate}}</span>
+                </div>
+                <div class="col">
+                  <span class="label-name">负责人:</span>
+                  <span class="label-value">{{task.assignPersonName}}</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!--<div class="row">-->
+            <!--<div class="title col-90" style="float:left">-->
+              <!--编号:{{task.workorderCode}}-->
+            <!--</div>-->
+            <!--&lt;!&ndash;|{{task.workorderId}}&ndash;&gt;-->
+            <!--<div class="col-10" ng-if="(currentUserId == task.assignPerson) && ((task.workorderStatus == 139 || task.workorderStatus == 140)&&auth['auth_410101']&&auth['auth_410102'])" style="float:right;position: relative;z-index: 100">-->
+              <!--&lt;!&ndash;&&(currentUserId == task.assignPerson)&ndash;&gt;-->
+              <!--<a class="button-eambule-small" ng-click="processTask(task)">-->
+                <!--{{task.workorderStatus|formatOperateTaskStatus}}-->
+              <!--</a>-->
+            <!--</div>-->
+            <!--<div class="col-10" ng-if="(currentUserId == task.assignPerson) && (task.workorderStatus == 139&&auth['auth_410101']&&!auth['auth_410102'])  " style="float:right;position: relative;z-index: 100">-->
+              <!--&lt;!&ndash;&&(currentUserId == task.assignPerson)&ndash;&gt;-->
+              <!--<a class="button-eambule-small" ng-click="processTask(task)">-->
+                <!--{{task.workorderStatus|formatOperateTaskStatus}}-->
+              <!--</a>-->
+            <!--</div>-->
+            <!--<div class="col-10" ng-if="(currentUserId == task.assignPerson) && (task.workorderStatus == 140&&!auth['auth_410101']&&auth['auth_410102'])" style="float:right;position: relative;z-index: 100">-->
+              <!--&lt;!&ndash;&&(currentUserId == task.assignPerson)&ndash;&gt;-->
+              <!--<a class="button-eambule-small" ng-click="processTask(task)">-->
+                <!--{{task.workorderStatus|formatOperateTaskStatus}}-->
+              <!--</a>-->
+            <!--</div>-->
+          <!--</div>-->
+
+          <!--<div style="clear:both"></div>-->
+          <!--<div class="name"> 项目:{{task.projectName}}</div>-->
+          <!--<div class="name"> 作业节点:{{task.workTypeName|filterWorkAnchor}}</div>-->
+          <!--<div>-->
+            <!--<span class="name">机位号:<span class="content">{{task.positionCode}}#</span></span>-->
+          <!--</div>-->
+          <!--<div>-->
+            <!--<span class="name">计划:<span class="content">{{task.planBegindate|Infydate}}</span></span>-->
+            <!--<span class="divide">~</span>-->
+            <!--<span class="name"><span class="content">{{task.planEnddate |Infydate }}</span></span>-->
+          <!--</div>-->
+
+          <!--未接收且有权限 显示图标 绑定事件 点击接受-->
+          <i class="icon ion-ios-arrow-right" ng-if="task.workorderStatus==139 && auth['auth_410101'] && currentUserId==task.assignPerson "
+             ng-click="processTask(task)"></i>
+          <!--未接收且有权限 显示图标 绑定事件 点击开始-->
+          <i class="icon ion-ios-arrow-right" ng-if="task.workorderStatus==140 && auth['auth_410102'] && currentUserId==task.assignPerson "
+             ng-click="processTask(task)"></i>
+
+          <!--其他状态的任务单 可以点击进入详情-->
+          <i class="icon ion-ios-arrow-right"  ng-if="task.workorderStatus !=139 && task.workorderStatus !=140"
+             ng-click="goDetail(task)"></i>
+
+
+
+          <!--<i class="icon ion-ios-arrow-right" style="height:45%" ng-hide="!auth['auth_410106']||((task.workorderStatus==139)||(task.workorderStatus==140))"></i>-->
+
+        </div>
+      </div>
+    </ion-list>
+    <ion-infinite-scroll on-infinite="doLoadMore()" ng-if="selectStatus==0?noMoreDataFlag:hasMoreTaskData" distance="1%" immediate-check="false">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

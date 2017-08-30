@@ -1,0 +1,30 @@
+<ion-view class="sparepart-list" view-title="{{detail.transferOrderNo}}-发货单">
+    <ion-nav-buttons side="right">
+        <div ng-click="create()" ng-if="isOnline&&isCanCreate&&auth['auth_440102']">
+            <i class="icon ion-ios-plus-outline" style="margin-left: 5px;font-size: 32px"></i>
+        </div>
+    </ion-nav-buttons>
+    <ion-content scrollbar-y="false">
+        <ion-list >
+            <ion-item class="item-icon-right" ng-repeat="delivery in deliverylist" ng-click="showDetail(delivery.json)">
+                <div class="row">
+                    <div class="col col-75 title">发货单号：{{delivery.json.shippingOrderNo}}</div>
+                </div>
+                <div class="row">
+                    <div class="col name">调拨单号：<span class="color-blue1">{{delivery.json.transferOrderNo}}</span></div>
+
+                </div>
+                <div class="row">
+                    <div class="col name">调入方：<span class="color-blue1">{{delivery.json.grWhName}}</span></div>
+                    <div class="col name">调出方：<span class="color-blue1">{{delivery.json.giWhName}}</span></div>
+                </div>
+                <div class="row">
+                    <div class="col name">创建时间：<span class="color-blue1">{{delivery.json.createOn|date:"yyyy-MM-dd"}}</span></div>
+                    <div class="col col-20 text-right color-green">{{delivery.json.shipingStatus}}</div>
+                </div>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+        </ion-list>
+        <ion-infinite-scroll on-infinite="loadMoreData()" ng-if="hasMoreData" distance="5%">
+    </ion-content>
+</ion-view>

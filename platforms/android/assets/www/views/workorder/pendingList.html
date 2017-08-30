@@ -1,0 +1,68 @@
+<style>
+	/*.list {
+		margin-top: 10px;
+	}
+	.list .item {
+		margin-left: 10px;
+		margin-right: 10px;
+		
+		background-color: white;
+		padding: 7px;
+		font-size: small;
+	}*/
+</style>
+<ion-view title="待办事项">
+	<ion-content class="stable-gb" style="background: color: #f2f2f2;">
+		<div class="stable-gb" style="background-color: white;padding: 10px;text-align:center;margin-top: 15px;margin-bottom: 10px;">
+			工单待执行
+		</div>
+		<ion-list ng-repeat="waitImpOrdrs in pendingList.waitImpOrdrs">
+			<div class="item">
+				<div>
+					<div style="float: left;"> <img src="img/list_07.png" style="height: 20px;" /></div>
+					<div style="float: left;"> 工单号：{{waitImpOrdrs.orderId}}</div>
+				</div>
+				<div style="float: right;color: #e54662;">{{waitImpOrdrs.status}}</div>
+			</div>
+			<div class="item">
+				<div>
+					<div style="float: left;">机位号：{{waitImpOrdrs.machineNo}}</div>
+					<div style="margin-left: 50%;">作业类型：{{waitImpOrdrs.workType|formatPlanWorkType}}</div>
+				</div>
+				<div>
+					<div>所属项目：{{waitImpOrdrs.projectName}}</div>
+				</div>
+			</div>
+			<div class="item" style="font-size:10px;">
+				<div style="float: left;">计划开始时间：{{waitImpOrdrs.planBeginDate}}</div>
+				<div style="margin-left: 50%;">计划结束时间：{{waitImpOrdrs.planEndDate}}</div>
+			</div>
+		</ion-list>
+		
+		<div class="stable-gb" style="background-color: white;padding: 10px;text-align:center;margin-top: 15px;margin-bottom: 10px;">
+			工单待确认
+		</div>
+		<ion-list ng-repeat="waitCofrmOrdrs in pendingList.waitCofrmOrdrs">
+			<div class="item">
+				<div>
+					<div style="float: left;"> <img src="img/list_07.png" style="height: 20px;" /></div>
+					<div style="float: left;"> 工单号：{{waitCofrmOrdrs.orderId}}</div>
+				</div>
+				<div style="float: right;color: #e54662;">{{waitCofrmOrdrs.status}}</div>
+			</div>
+			<div class="item">
+				<div>
+					<div style="float: left;">机位号：{{waitCofrmOrdrs.machineNo}}</div>
+					<div style="margin-left: 50%;">作业类型：{{waitCofrmOrdrs.workType|formatPlanWorkType}}</div>
+				</div>
+				<div>
+					<div>所属项目：{{waitImpOrdrs.projectName}}</div>
+				</div>
+			</div>
+			<div class="item" style="font-size:10px;">
+				<div style="float: left;">计划开始时间：{{waitCofrmOrdrs.planBeginDate}}</div>
+				<div style="margin-left: 50%;">计划结束时间：{{waitCofrmOrdrs.planEndDate}}</div>
+			</div>
+		</ion-list>
+	</ion-content>
+</ion-view>

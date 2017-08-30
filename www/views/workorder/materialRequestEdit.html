@@ -1,0 +1,38 @@
+
+<ion-view view-title="新增物料请求">
+	<ion-nav-buttons side="right">
+		<a class="button" style="font-size: 15px;" ng-click="openQuery()">筛选</a>
+	</ion-nav-buttons>
+	<ion-content class="content">
+		<ion-list class="data-list">
+			<ion-item class="item" ng-click="backFilt(materiel)" style="margin: 25px 15px;padding: inherit;background-color:#FBFCFD;" ng-repeat="materiel in materielList">
+				<div class="row" style="margin: auto;">
+					<span class=" col name">物料描述:<span class="content">{{materiel.name}}</span></span>
+				</div>
+				<div class="row " style="border-color: #DDDDDD;border-width: 1px;border-style: solid;border-left-style: none;border-right-style: none;">
+					<div class="col">
+						<div class="row title">{{materiel.materielNo}}</div>
+						<div class="row name" style="margin-top:2%;">物料号</div>
+					</div>
+					<div class="col">
+						<div class="row title">{{materiel.price}}</div>
+						<div class="row name" style="margin-top:2%;">价值</div>
+					</div>
+					<div class="col">
+						<div class="row title"><input  class="title selectedMaterial" type="number" ng-model="materiel.count" style="border-style: solid;width: 50px;height: 34px;border-color: #999999;border-width: 1px;" placeholder="请输入"></div>
+						<div class="row name" style="margin-top:2%;">数量</div>
+					</div>
+				</div>
+				<div class="row" style="margin: auto;">
+					<span class=" col name">分类:<span class="content">{{materiel.category}}</span></span>
+					<span class=" col name">单位:<span class="content">{{materiel.unit}}</span></span>
+				</div>
+			</ion-item>
+		</ion-list>
+		<ion-infinite-scroll on-infinite="loadMore()" ng-if="!noMoreData">
+		</ion-infinite-scroll>
+	</ion-content>
+	<ion-footer-bar>
+		<button class=" button button-eambule-block" ng-click="save()"><b>保存</b></button>
+	</ion-footer-bar>
+</ion-view>

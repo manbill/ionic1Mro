@@ -1,0 +1,59 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-eamblue">
+    <a class="button button-clear ion-chevron-left" ng-click="backButtonAction();"></a>
+    <div class="title">筛选</div>
+  </ion-header-bar>
+  <ion-scroll direction="y" style="right: 0;bottom: 0;left: 0;position: absolute;" class="has-header">
+    <ion-list class="list-line">
+      <!--<ion-item class="item-input item-select">
+        <div class="input-label">
+          所属区域
+        </div>
+        <select ng-model="paramsOfTaskFilter.workTypeId" class="form-control" ng-options="workAnchor.anchorId as workAnchor.value for workAnchor in workAnchors">
+          <option value="">&#45;&#45;请选择&#45;&#45;</option>
+        </select>
+      </ion-item>-->
+      <!--<ion-item class="item item-input">-->
+        <!--<span class="input-label">项目名称</span>-->
+        <!--<input type="text" ng-model="paramsOfTaskFilter.projectName" placeholder="请输入">-->
+      <!--</ion-item>-->
+
+      <ion-item class="item item-input">
+        <span class="input-label">任务编号</span>
+        <input type="text" ng-model="paramsOfTaskFilter.workorderCode" placeholder="请输入">
+      </ion-item>
+
+      <ion-item class="item item-input">
+        <span class="input-label">机位号</span>
+        <input type="text" ng-model="paramsOfTaskFilter.positionCode" placeholder="请输入">
+      </ion-item>
+
+      <ion-item class="item-input item-select">
+        <div class="input-label">
+          作业节点
+        </div>
+        <select ng-model="paramsOfTaskFilter.workTypeId" class="form-control" ng-options="workAnchor.workAnchorId as workAnchor.workAnchorName for workAnchor in workAnchors">
+          <option value="">--请选择--</option>
+        </select>
+      </ion-item>
+      <ion-item class="item-input item-select">
+        <div class="input-label">
+          状态
+        </div>
+        <select ng-model="paramsOfTaskFilter.workorderStatus" ng-options="act.statusId as act.statusName for act in installTaskStatus">
+          <option value="">--请选择--</option>
+        </select>
+      </ion-item>
+      <ion-item class="item-input item-date">
+        <span class="input-label">开始日期(开始)</span>
+        <input type="date" ng-model="paramsOfTaskFilter.planBeginDate">
+      </ion-item>
+      <ion-item class="item-input item-date">
+        <span class="input-label">开始日期(结束)</span>
+        <input type="date" ng-model="paramsOfTaskFilter.planEndDate">
+      </ion-item>
+      </ion-item>
+    </ion-list>
+    <button class="button button-eambule-block" ng-click="queryByCondition()" style="margin-top: 50px;">提交</button>
+  </ion-scroll>
+</ion-modal-view>

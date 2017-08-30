@@ -1,0 +1,163 @@
+.color-gray {
+  color: #999999;
+}
+.color-red {
+  color: #ff0000;
+}
+.color-green {
+  color: #00a63c;
+}
+.color-blue {
+  color: #387ef5;
+}
+.color-blue1 {
+  color: #6581a1;
+}
+.bar-footer-80 {
+  height: 80px;
+}
+.bar .buttons-right span {
+  display: inline-block;
+}
+.sync.a {
+  color: #ffffff;
+}
+.row .col input {
+  height: auto;
+  width: 100%;
+}
+.row .col select {
+  height: auto;
+  width: 100%;
+}
+.input-label {
+  font-size: 14px;
+}
+.sparepart-list .item {
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 14px;
+}
+.sparepart-list .item.item-icon-right {
+  padding-right: 30px;
+}
+.sparepart-list .item.item-icon-right .icon {
+  right: 5px;
+}
+.sparepart-list .item.title {
+  font-size: 16px;
+}
+.sparepart-list .item .title {
+  font-size: 16px;
+}
+.sparepart-list .item .name {
+  font-size: 14px;
+}
+.sparepart-list .item .name .content {
+  font-size: 14px;
+}
+.white-space-normal {
+  white-space: normal;
+}
+.sparepart-detail .item {
+  font-size: 14px;
+  padding: 5px 0px;
+}
+.sparepart-detail .item.title {
+  font-size: 16px;
+}
+.sparepart-detail .item .content {
+  white-space: normal;
+}
+.sparepart-detail .row .card {
+  margin: 5px;
+}
+.sparepart-detail .row .card .item {
+  min-height: 80px;
+}
+.sparepart-detail .flag {
+  color: #00a63c;
+}
+.sparepart-detail ion-scroll.height {
+  position: absolute;
+  bottom: 44px;
+}
+.sparepart-detail ion-scroll.height60 {
+  position: absolute;
+  bottom: 60px;
+}
+.sparepart-detail ion-scroll.height80 {
+  position: absolute;
+  bottom: 80px;
+}
+.sparepart-detail ion-scroll.height100 {
+  position: absolute;
+  bottom: 100px;
+}
+.sparepart-detail .remove-attachment {
+  position: relative;
+}
+.sparepart-detail .remove-attachment .badge {
+  display: block;
+  font-size: 24px;
+  right: 0px;
+  top: 0px;
+  padding: 0px;
+  position: absolute;
+}
+.sparepart-edit input[disabled] {
+  background-color: transparent;
+}
+.sparepart-edit .item {
+  font-size: 14px;
+}
+.sparepart-edit .item.padding {
+  padding: 0px 0px;
+}
+.sparepart-edit .item .item-content {
+  padding: 0px;
+}
+.sparepart-edit .item.title {
+  font-size: 16px;
+}
+.sparepart-edit .item .input-label {
+  font-size: 14px;
+}
+.sparepart-edit .row .card {
+  margin: 5px;
+}
+.sparepart-edit .row .card .item {
+  min-height: 80px;
+}
+.sparepart-edit ion-scroll .height-top {
+  position: absolute;
+  top: 44px;
+}
+.sparepart-edit ion-scroll.height {
+  position: absolute;
+  bottom: 44px;
+}
+.sparepart-edit ion-scroll.height60 {
+  position: absolute;
+  bottom: 60px;
+}
+.sparepart-edit ion-scroll.height80 {
+  position: absolute;
+  bottom: 80px;
+}
+.sparepart-edit ion-scroll.height100 {
+  position: absolute;
+  bottom: 100px;
+}
+.sparepart-edit .remove-attachment {
+  position: relative;
+}
+.sparepart-edit .remove-attachment .badge {
+  display: block;
+  font-size: 24px;
+  right: 0px;
+  top: 0px;
+  padding: 0px;
+  position: absolute;
+}

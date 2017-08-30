@@ -1,0 +1,179 @@
+<!--技改任务详情 view-->
+<ion-view view-title="技改任务详情">
+    <ion-content overflow-scroll="false">
+
+      <div class="item orderItem">
+        <div class="orderTitle">
+          {{taskDetail.projectName}}
+        </div>
+        <div class="orderElement">
+          <div class="row">
+            <div class="col col-60">
+              <span class="label-name">任务号:</span>
+              <span class="label-value">{{taskDetail.workorderCode}}</span>
+            </div>
+            <div class="col col-30" >
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <span style="color: #00a63c;"> {{taskDetail.workorderStatusName}} </span>
+              <!--{{taskDetail.workorderStatusName}}-->
+            </div>
+          </div>
+        </div>
+
+        <div class="orderElement">
+          <div class="row">
+            <div class="col">
+              <span  class="label-name">机位号:</span>
+              <span  class="label-value">{{taskDetail.positionCode}}#</span>
+            </div>
+            <div class="col">
+              <span  class="label-name">负责人:</span>
+              <span  class="label-value">{{baseTaskInfo.assignPersonName}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height: 1px;color: gray"></div>
+
+
+
+
+      <ion-list class="data-list">
+        <div class="div-buttons-items-action">
+          <div class="item text-center" style="padding: 5% 5% 5% 5%;border: none;" id="div-buttons">
+            <div style="padding:0;margin:0">
+              <div class="row row-no-padding" style="padding: 0;margin: 0;vertical-align: bottom">
+
+                <div class="col eam-nine-padding-grid" id="eam-1st-grid">
+                  <a ng-click="goToReformDetailShow()">
+                    <img src="img/img-buttons-normal/false-list.png" height="40px" width="40px">
+                    <p>工单详情</p>
+                  </a>
+                </div>
+
+                <div class="col eam-nine-padding-grid" id="eam-2nd-grid">
+                  <a ng-click="navigateToInstrucktor()">
+                    <img src="img/img-buttons-normal/work-instrucktor-normal.png" height="40px" width="40px">
+                    <p>作业指导</p>
+                  </a>
+                </div>
+
+                <div class="col eam-nine-padding-grid" id="eam-3rd-grid">
+                  <a ng-click="goToWorkorderCheckList()">
+                    <img src="img/img-buttons-normal/check-sheet-normal.png" height="40px" width="40px">
+                    <p>点检表</p>
+                  </a>
+                </div>
+              </div>
+
+
+                <!--第二行 按钮图标-->
+                <div class="row row-no-padding" style="padding: 0;margin: 0;vertical-align: bottom">
+                  <div class="col eam-nine-padding-grid" id="eam-4th-grid">
+                    <div ng-click="navigateToStdMaterial()">
+                      <img src="img/img-buttons-normal/required-material-normal.png" height="40px" width="40px">
+                      <p>用料标准</p>
+                    </div>
+                  </div>
+                  <div class="col eam-nine-padding-grid" id="eam-5th-grid" >
+                    <a ng-click="goToPeopleReport()">
+                      <img src="img/img-buttons-normal/work-time-normal.png" height="40px" width="40px">
+                      <p>人员报工</p>
+                    </a>
+                  </div>
+                  <div class="col eam-nine-padding-grid" id="eam-6th-grid" >
+                    <div ng-click="goToRepairRecords()">
+                      <img src="img/img-buttons-normal/false-list.png" height="40px" width="40px">
+                      <p>维修记录</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!--第三行 按钮图标-->
+                <div class="row row-no-padding" style="padding: 0;margin: 0;vertical-align: bottom">
+                  <div class="col eam-nine-padding-grid" id="eam-7th-grid">
+                    <div ng-click="goToPauseList()">
+                      <img src="img/img-buttons-normal/maintain-record.png" height="40px" width="40px">
+                      <p>暂停列表</p>
+                    </div>
+                  </div>
+                  <div class="col eam-nine-padding-grid" id="eam-8th-grid">
+                    <div ng-click="goToVerifyList()">
+                      <img src="img/img-buttons-normal/maintain-record.png" height="40px" width="40px">
+                      <p>审核列表</p>
+                    </div>
+                  </div>
+                  <div class="col eam-nine-padding-grid" id="eam-9th-grid">
+
+                  </div>
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-list>
+
+  <!--<p>{{taskDetail.workorderStatus}}  auth {{auth['auth_460103']}} currentUser {{currentUserId}}-->
+  <!--baseInfo.assignPerson {{baseTaskInfo.assignPerson }} taskDetail.assignPerson {{taskDetail.assignPerson}}-->
+  <!--</p>-->
+      <div class="row"  ng-if="taskDetail.workorderStatus == 141">
+        <div class="col">
+          <!--ng-disabled="!(taskDetail.workorderStatus==141 && auth['auth_460103']) && currentUserId == taskDetail.currentUserId "-->
+          <button class="button button-block button-eambule"
+                  ng-if= "(taskDetail.workorderStatus==141 && auth['auth_460103']) && currentUserId == baseTaskInfo.assignPerson "
+                  ng-click="pauseOrder(taskDetailInfo)" style="color: #fff;">
+            <span style="color:#fff;margin: 5px">暂停</span>
+          </button>
+        </div>
+        <div class="col">
+          <button class="button button-block button-eambule"
+                  ng-if="(auth['auth_460107'] && taskDetail.workorderStatus==141)  && currentUserId == baseTaskInfo.assignPerson "
+                  ng-click="taskCompleted()">
+            <span style="color: #fff;margin: 5px">完成</span>
+          </button>
+        </div>
+
+        <div class="col">
+          <button class="button button-block button-eambule"
+                  ng-if="(auth['auth_460105'] && taskDetail.workorderStatus == 141)  && currentUserId == baseTaskInfo.assignPerson "
+                  ng-click="saveScheduleTask()"><span
+                  style="color: #fff;margin: 5px">保存</span>
+          </button>
+        </div>
+      </div>
+
+
+      <div class="row" ng-if="taskDetail.workorderStatus == 144">
+        <div class="col-33">
+        </div>
+        <div class="col-33">
+          <button class="button button-block button-eambule"
+                  ng-if="(taskDetail.workorderStatus==144 && auth['auth_460104']) && currentUserId == baseTaskInfo.assignPerson "
+                  ng-click="recoveryOrder(taskDetailInfo)" style="color: #fff;">
+            <span style="color: #fff;">恢复</span>
+          </button>
+        </div>
+        <div class="col-33">
+        </div>
+      </div>
+
+
+      <div class="row" ng-if="taskDetail.workorderStatus == 142">
+        <div class="col-33">
+        </div>
+        <div class="col-33">
+          <button ng-if="(auth['auth_460107'])&&(taskDetail.workorderStatus==142)"
+                  class="button button-block button-eambule" style="color: #fff;margin: auto"
+                  ng-click="goToVerifyOrder()">审核
+          </button>
+        </div>
+        <div class="col-33">
+        </div>
+      </div>
+    </ion-content>
+
+</ion-view>

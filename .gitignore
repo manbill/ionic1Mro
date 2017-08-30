@@ -1,0 +1,19 @@
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+#EamApp
+/EamApp/node_modules/
+/EamApp/platforms/
+.idea/
+plugins/
+
+#eclipse env
+.project
+.classpath
+/.settings
+*/.settings
+.bowerrc
+EamApp.iml
+eamlog.txt
+.DS_Store
+.editorconfig

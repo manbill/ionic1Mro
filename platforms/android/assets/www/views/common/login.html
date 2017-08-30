@@ -1,0 +1,46 @@
+<ion-view cache-view="false" title="登陆">
+    <ion-content class="detail-data-list">
+        <div class="item-image">
+            <!--<img style="width: 200px;" src="img/login/EamLogo.png" />
+            <img style="width: 100px;" src="img/home-page_03-02.png" />-->
+        </div>
+        <div class="item-image" style="margin-top: 60px;margin-bottom: 40px;">
+            <img style="width: 224px; height: 68px" src="img/logo.png"/>
+            <!--<img style="width: 200px" src="img/login/ShangHaiDianQi.png" />-->
+        </div>
+        <div class="list list-inset">
+            <!--<label class="item item-input">-->
+                <!--<i class="icon ion-ios-person-outline placeholder-icon" style="color:#007AFF;"></i>-->
+                <!--<input type="search"-->
+                       <!--ng-model-options="{debounce:10}"-->
+                       <!--ng-model="user.userName"-->
+                       <!--ng-keyup="queryHistoryUserName()"-->
+                       <!--placeholder="用户名" style="text-align: left;">-->
+            <!--</label>-->
+            <!--<label class="item item-input"-->
+                   <!--ng-repeat="account in accountList"-->
+                   <!--style="background-color: transparent"-->
+                   <!--ng-click="selectAccount(account)"-->
+                   <!--ng-if="accountList.length>=1">-->
+                <!--<input type="text"-->
+                       <!--ng-disabled="true"-->
+                       <!--ng-model="account.account"-->
+                       <!--placeholder="用户名" style="text-align: left;">-->
+            <!--</label>-->
+            <label class="item item-input">
+                <i class="icon ion-ios-person-outline placeholder-icon" style="color:#007AFF;"></i>
+                <input type="text"
+                       ng-model="user.userName"
+                       placeholder="用户名" style="text-align: left;">
+            </label>
+
+            <label class="item item-input"><!--ng-if="accountList.length===0-->
+                <i class="icon ion-android-lock placeholder-icon" style="color:#007AFF;"></i>
+                <input type="password" ng-model="user.password" placeholder="密码" style="text-align: left;">
+            </label>
+        </div>
+        <button ng-click="login()" class="button button-eambule"
+                style="height: 20px;font-size: 15px;line-height: 15px;width: 80%;margin-left: 10%;">登陆
+        </button>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,76 @@
+<ion-view class="sparepart-edit" view-title="{{title}}">
+  <ion-content>
+    <!--<ion-scroll direction="y" class="height">-->
+    <div class="list">
+      <div class="item item-divider">
+        物料信息
+      </div>
+      <div class="item padding" ng-repeat="materiel in detail.sOrderItemDtoList">
+        <div class="row">
+          <div class="col">名称：{{materiel.materialName}}</div>
+        </div>
+        <div class="row">
+          <div class="col">物料号：{{materiel.materialSno}}</div>
+          <div class="col">单位：{{materiel.unitName}}</div>
+        </div>
+        <div class="row">
+          <div class="col">软件版本号：{{materiel.versionNo}}</div>
+        </div>
+        <div class="row">
+          <div class="col">需求总数：{{materiel.totalDemandAmount|number:2}}</div>
+        </div>
+        <div class="row">
+          <div class="col">已发货数量：{{materiel.totalIssueAmount|number:2}}</div>
+        </div>
+        <div class="row">
+          <div class="col">待处理数量：{{materiel.demandAmount|number:2}}</div>
+        </div>
+        <div class="row">
+          <div class="col col-33">本次发货数量：</div>
+          <div class="col col-67 item-input"><input ng-model="materiel.issueAmount" type="number"
+                                                    placeholder="请输入本次发货数量"></div>
+        </div>
+      </div>
+      <div class="item item-divider">
+        发货信息
+      </div>
+      <label class="item item-select">
+        <span class="item-label">发运方式：</span>
+        <select ng-model="detail.shippingMethodId"
+                ng-options="shippingMethod.detailId as shippingMethod.detailName for shippingMethod in shippingMethods"></select>
+      </label>
+      <label class="item item-input">
+        <span class="item-label">发运公司：</span>
+        <input ng-model="detail.shippingCompany" type="text" placeholder="请输入发运公司信息">
+      </label>
+      <label class="item item-input">
+        <span class="item-label">发运单号：</span>
+        <input ng-model="detail.shipmentTrackingNo" type="text" placeholder="请输入发运单号信息">
+      </label>
+      <label class="item item-input">
+        <span class="item-label">备注：</span>
+        <textarea ng-model="detail.commentText" rows="5" placeholder="请输入备注内容……"></textarea>
+      </label>
+      <div class="row row-wrap">
+        <div class="col col-25 remove-attachment" ng-repeat="attachment in detail.sOGIFilemappingList">
+          <div class="card">
+            <img src="{{attachment.filePath}}" width="100%">
+          </div>
+          <span class="badge ion-close-circled" ng-click="removeAttachment(attachment)"></span>
+        </div>
+        <div class="col col-25 remove-attachment">
+          <div class="card" ng-click="addeditAttachment()">
+            <img src="img/uploadimg.png" width="100%">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--</ion-scroll>-->
+    <div class="bar bar-footer">
+      <div class="button-bar">
+        <button class="button button-positive" ng-click="save()">确认发货</button>
+        <!--<button class="button button-dark">取消</button>-->
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

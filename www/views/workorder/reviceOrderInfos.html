@@ -1,0 +1,55 @@
+<style>
+  ul li {
+    float: left;
+    list-style: none;
+    padding: 5px;
+    width: 33%;
+  }
+
+  ul.image li {
+    float: left;
+    list-style: none;
+    padding: 5px;
+  }
+
+  .item-complex .item-content, .item-radio .item-content {
+    padding: 0px;
+  }
+</style>
+<ion-view title="收货信息">
+  <ion-nav-buttons side="right">
+    <i ng-click="newOrderReviceInfo()" ng-if="isOrderCanEdit(taskId)" style=" font-size:xx-large;"
+       class="icon ion-android-add-circle "></i>
+  </ion-nav-buttons>
+  <ion-content class="content padding">
+    <ion-list class="list" style=" margin-top: 8px;background-color: white;">
+      <ion-item style="font-size: small;margin-bottom: 10px;" ng-repeat="orderReviceInfo in orderReviceInfos">
+        <div ng-click="edit(orderReviceInfo)" class="border-bottom">
+          <div style="padding:8px 15px;background-color:rgb(251, 252, 253)">
+            收货时间：{{orderReviceInfo.reviceDate|Infydate}}
+          </div>
+        </div>
+        <div style="padding:10px;background-color:rgb(251, 252, 253)">
+          <ul ng-click="edit(orderReviceInfo)">
+            <li ng-repeat="receivingInfoItem in orderReviceInfo.receivingInfoItems">
+              {{receivingInfoItem.goodsName}}：{{receivingInfoItem.goodsCount}}
+            </li>
+            <div style="clear:both"></div>
+          </ul>
+
+          <ul class="image" ng-controller="ShowImageCtrl">
+            <li ng-repeat="image in images">
+            <!--<img src="{{image.url}}" width="60" height="60" ng-click="vm.detail(image)"/>-->
+            <img src="{{image.url}}" width="60" height="60" ng-click="showImage(images,image)"/>
+          </li>
+          </ul>
+        </div>
+        <span ng-if="isOrderCanEdit(taskId)">
+				<ion-option-button class="button" style="background-color: red; color: white;" ng-click="delete(orderReviceInfo)">
+          删除
+        </ion-option-button>
+        </span>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

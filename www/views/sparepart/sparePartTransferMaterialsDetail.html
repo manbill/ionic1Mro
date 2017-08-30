@@ -1,0 +1,46 @@
+<ion-view class="sparepart-edit" view-title="调拨单物料详细">
+  <ion-nav-buttons side="right">
+    <div ng-click="create();" ng-if="isCanEdit">
+      <i class="icon ion-ios-plus-outline" style="font-size: 2.4em; margin: 0.4em; bottom: 0em;"></i>
+    </div>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-list class="detail-data-list">
+      <ion-item ng-repeat="materiel in materielDetails track by $index"
+                ng-click="materialDetail(materiel)"
+                class="item-icon-right icon-father">
+        <div class="row ">
+          <div class="col text-ellipsis title">{{materiel.materialNo}}-{{materiel.materialComment}}</div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <span class="label-name">总需求:</span>
+            <span class="label-value">{{materiel.totalDemandAmount}}</span>
+          </div>
+          <div class="col">
+            <span class="label-name">待处理:</span>
+            <span class="label-value">{{materiel.demandAmount}}</span>
+          </div>
+          <!--已转办= 总需求-已发货-待处理-->
+          <div class="col">
+            <span class="label-name">已转办:</span>
+            <span class="label-value">{{materiel.totalDemandAmount-(materiel.totalIssueAmount?materiel.totalIssueAmount:0)-materiel.demandAmount}}</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <span class="label-name">已发货:</span>
+            <span class="label-value">{{materiel.totalIssueAmount}}</span>
+          </div>
+          <div class="col">
+            <span class="label-name">已收货:</span>
+            <span class="label-value">{{materiel.totalReceiveAmount}}</span>
+          </div>
+          <div class="col" >
+          </div>
+        </div>
+        <i class="icon ion-ios-arrow-right" ng-click="materialDetail(materiel)"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

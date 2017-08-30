@@ -1,0 +1,23 @@
+
+<ion-view title="选择项目">
+  <ion-header-bar class="bar-eamblue">
+    <a class="button button-clear ion-chevron-left" ng-click="backToLogin()" ng-show="true"></a>
+    <div class="title">选择项目</div>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-select">
+        <label class="input-label">公司:</label>
+        <select ng-model="webParams.selectedCompany" ng-options="company as company.companyName for company in companies"></select>
+      </ion-item>
+      <ion-item class="item-select">
+        <label class="input-label">项目:</label>
+        <select ng-model="webParams.selectedProject"  ng-options="project as project.projectName for project in projects">
+        </select>
+      </ion-item>
+      <ion-item>
+        <button class="button button-eambule button-block" ng-click="onConfirmSelect()">确定</button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

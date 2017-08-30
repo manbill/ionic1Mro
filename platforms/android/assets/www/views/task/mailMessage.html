@@ -1,0 +1,26 @@
+<ion-view title="{{mailTitle}}">
+  <ion-content class="my-task">
+    <div class="row">
+      <div class="col col-10">
+        <span class="label-name">标题:</span>
+      </div>
+      <p class="col mail-title">
+        {{mailInfo.title}}
+      </p>
+    </div><div class="row">
+      <div class="col col-10">
+        <span class="label-name">内容:</span>
+      </div>
+      <p class="col mail-title" eam-show-content="{{mailInfo.content}}">
+      </p>
+    </div>
+    <div class="row">
+      <div class="col col-10">
+        <span class="label-name">时间:</span>
+      </div>
+      <div class="col">
+        <span class="label-value">{{mailInfo.sendtime|WorkHoursInfydate}}</span>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

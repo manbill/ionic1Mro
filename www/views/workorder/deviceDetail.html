@@ -1,0 +1,73 @@
+<ion-view title="设备详情">
+	<ion-content>
+		<div class="button-eambule-small" style="width: 100px;margin:10px 10px;" ng-click="selectDevice(device)">选定该设备</div>
+		<div class="list list-line list-detail">
+			<div class="item">
+				ID
+				<span class="item-text">
+					{{device.deviceId}}
+				</span>
+			</div>
+			<div class="item">
+				设备名称
+				<span class="item-text">
+					{{device.deviceName}}
+				</span>
+			</div>
+			<div class="item">
+				序列号
+				<span class="item-text">
+					{{device.serialNumber}}
+				</span>
+			</div>
+			<div class="item">
+				供应商
+				<span class="item-text">
+					西门子
+				</span>
+			</div>
+			<div class="item">
+				安装日期
+				<span class="item-text">
+					{{device.installTime}}
+				</span>
+			</div>
+			<div class="item">
+				到货验收时间
+				<span class="item-text">
+					
+				</span>
+			</div>
+			<div class="item">
+				物料号
+				<span class="item-text">
+					{{device.materielNo}}
+				</span>
+			</div>
+			<div class="item time"> 
+				<div class="row row-no-padding">
+					<div class="col-40 item-text">{{device.spprWrrnyBgnTme|Infydate}}</div>
+					<div class="col-20"  style="font-size: 24px;text-align:center;" ><i class="ion-arrow-right-c"></i></div>
+					<div class="col-40 item-text" style="text-align: right;">{{device.spprWrrnyEndTme|Infydate}}</div>
+				</div>
+				<div class="row row-no-padding">  
+					<div class="col-40">质保开始时间(供应商)</div>
+					<div class="col-20"></div>
+					<div class="col-40" style="text-align: right;">质保结束时间(供应商)</div>
+				</div>
+			</div>
+			<div class="item time"> 
+				<div class="row row-no-padding">
+					<div class="col-40 item-text">{{device.ownerWrrnyBgnTme|Infydate}}</div>
+					<div class="col-20"  style="font-size: 24px;text-align:center;" ><i class="ion-arrow-right-c"></i></div>
+					<div class="col-40 item-text" style="text-align: right;">{{device.ownerWrrnyEndTme|Infydate}}</div>
+				</div>
+				<div class="row row-no-padding">  
+					<div class="col-40">质保开始时间(业主)</div>
+					<div class="col-20"></div>
+					<div class="col-40" style="text-align: right;">质保结束时间(业主)</div>
+				</div>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

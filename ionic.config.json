@@ -1,0 +1,22 @@
+{
+  "name": "EamApp",
+  "app_id": "",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://localhost:8080/EamApi/api"
+    },
+    {
+      "path": "/common",
+      "proxyUrl": "http://localhost:8080/EamApi/common"
+    }
+  ],
+  "type": "ionic1",
+  "watchPatterns": [
+    "scss/**/*"
+  ],
+  "integrations": {
+    "gulp": {},
+    "cordova": {}
+  }
+}

@@ -1,0 +1,68 @@
+<ion-view title="{{title}}">
+  <ion-content overflow-scroll="false">
+    <div class="detail-data-list">
+      <ion-item class="item-input" ng-click="selectFanEquipment(work)">
+        <span class="label-value">部件名称:</span>
+        <input ng-model="recordRepair.deviceName" ng-disabled="true" type="text">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item-toggle" style="padding: 1em 0 1em 1em;" ng-click="switchFixType()">
+        <label class="label-value">设备更换:</label>
+        <label class="toggle toggle-balanced">
+          <input type="checkbox"
+                 ng-model="params.isChange">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </ion-item>
+      <ion-item ng-if="params.isChange" class="item-input" ng-click="goToChangedEquipmentDetail()">
+        <label class="label-value">更换后设备信息:</label>
+        <input type="text" ng-model="recordRepair.serialNum2" ng-disabled="true">
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item style="background-color: #ccc; ">
+        <div class="item-divider">
+          <div class="row">
+            <div class="col">
+              <label class="label-value">消耗物料:</label>
+            </div>
+            <div class="col" style="text-align: right">
+              <button class="button-eambule-small" ng-click="addConsume()">新增</button>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </div>
+    <ion-list class="data-list">
+      <ion-item ng-repeat="consume in recordRepair.repairMaterialDtoList track by $index"
+                ng-if="consume['activeFlag']==0||consume['repairMaterialId']">
+        <div class="row ">
+          <div class="col col-10 label-value">物料:</div>
+          <div class="col col-90 text-ellipsis label-value" style="padding: 0 0 0 0.2em;">{{consume.materialSno}}-{{consume.materialName}}</div>
+        </div>
+        <div class="row orderItem">
+          <div class="col">
+            <span class="label-value">单位:</span>
+            <span class="label-value">{{consume.unitDes}}</span>
+          </div>
+          <div class="col">
+            <span class="label-value">数量:</span>
+            <span class="label-value">{{consume.amount}}</span>
+          </div>
+          <div class="col">
+            <span class="label-value">账内:</span>
+            <span class="label-value">{{consume.sapInventoryFlag==0?"是":"否"}}</span>
+          </div>
+        </div>
+        <ion-option-button class="button" style="background-color: red; color: white;"
+                           ng-click="deleteRepairMaterialDto(consume,$index)">
+          删除
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  <ion-footer-bar>
+    <button class=" button button-eambule-block" ng-click="saveRecordRepair()">创建维修记录</button>
+  </ion-footer-bar>
+</ion-view>
